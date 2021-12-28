@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="public/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+  <title><?php if (isset($title)) echo $title; else echo "Meeple Shop"; ?></title>
+</head>
+<body>
+  <div class="section__header">
+    <!-- Header -->
+    <header id="main-header">
+      <div class="header-inner wide">
+        <div class="header__logo">
+          <a href="index.php"><img src="public/img/meeple_logo.png" alt="Meeple Shop Logo"></a>
+          <h2><a href="index.php">Meeple Shop</a></h2>
+        </div>
+        <div class="header__search">
+          <input type="text" value="" placeholder="Tìm kiếm...">
+          <button class="btn btn-search"><i class="fas fa-search"></i></button>
+        </div>
+        <div class="header__info">
+          <div class="header__user">
+            <div class="header__user-1">
+              <p>Login / Signup</p>
+            </div> 
+            <div class="header__user-2">
+              <p>My Account <i class="fas fa-angle-down"></i></p>
+            </div>
+          </div>
+          <div class="header__cart">
+            <a href="cart.php">
+              <i class="fas fa-shopping-cart"></i>
+              <span>Cart</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- End header -->
+
+    <!-- Navigation bar -->
+    <nav id="main-nav" class="home__navbar">
+      <ul class="nav-list wide">
+        <li class="nav-item"><a href="#">Deal of the Day</a></li>
+        <li class="nav-item"><a href="#">Kid Games</a></li>
+        <li class="nav-item"><a href="#">Family Games</a></li>
+        <li class="nav-item"><a href="#">Board Games</a></li>
+        <li class="nav-item"><a href="#">Accessories</a></li>
+        <li class="nav-item"><a href="#">Gift Cards</a></li>
+      </ul> 
+    </nav>
+    <!-- End navigation bar -->
+  </div>
+
+  <div class="section__main">
+    <!-- Home slider -->
+    <div class="home__slider" id="mySwiper">
+      <div class="swiper-wrapper wide">
+        <div class="swiper-slide"><img src="public/img/sliders/home-slider-1.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="public/img/sliders/home-slider-2.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="public/img/sliders/home-slider-3.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="public/img/sliders/home-slider-4.jpg" alt=""></div>
+        <div class="swiper-slide"><img src="public/img/sliders/home-slider-5.jpg" alt=""></div>
+      </div>
+      <div class="swiper-pagination"></div>
+    </div>
+    <!-- End home slider -->
+
+    <!-- Main section -->
+    <div class="home__content">
+      <section class="home__new-release wide">
+        <div class="section_heading">
+          <h1 class="section_name">New Release</h1>
+        </div>
+
+        <div class="section_prod">
+          <div class="section_prod_inner">
+            <article class="prod_item">
+              <div class="prod_thumb">
+                <a href="#" class="prod_thumb-inner">
+                  <img src="public/img/products/home/last-friday.jpg" alt="Product Thumbnail">
+                </a>
+              </div>
+              <div class="prod_info">
+                <div class="prod_name"><a href="#">Last Friday Revised Edition</a></div>
+                <div class="prod_price"><span class="prod_price-red">$ 37.99</span></div>
+              </div>
+              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
+            </article>
+            <article class="prod_item">
+              <div class="prod_thumb">
+                <a href="#" class="prod_thumb-inner">
+                  <img src="public/img/products/home/diabolik.jpg" alt="Product Thumbnail">
+                </a>
+              </div>
+              <div class="prod_info">
+                <div class="prod_name">Diabolik - Heists & Investigation</div>
+                <div class="prod_price"><span class="prod_price-red">$ 32.68</span></div>
+              </div>
+              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
+            </article>
+            <article class="prod_item">
+              <div class="prod_thumb">
+                <a href="#" class="prod_thumb-inner">
+                  <img src="public/img/products/home/crime-zoom-2.jpg" alt="Product Thumbnail">
+                </a>
+              </div>
+              <div class="prod_info">
+                <div class="prod_name">Crime Zoom: Bird of Omen</div>
+                <div class="prod_price"><span class="prod_price-red">$ 9.24</span></div>
+              </div>
+              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
+            </article>
+            <article class="prod_item">
+              <div class="prod_thumb">
+                <a href="#" class="prod_thumb-inner">
+                  <img src="public/img/products/home/crime-zoom.jpg" alt="Product Thumbnail">
+                </a>
+              </div>
+              <div class="prod_info">
+                <div class="prod_name">Crime Zoom: His Last Card</div>
+                <div class="prod_price"><span class="prod_price-red">$ 9.24</span></div>
+              </div>
+              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
+            </article>
+            <a href="#" class="prod_more">
+              <div class="prod_more_inner">
+                <h4>View All</h4>
+                <h2>New Games</h2>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="home__content">
+      <section class="home__pre-order wide">
+        <div class="section_heading">
+          <h1 class="section_name">Pre-Orders</h1>
+        </div>
+
+        <div class="section_prod">
+          <div class="section_prod_inner">
+            <article class="prod_item">
+              <div class="prod_thumb">
+                <a href="#" class="prod_thumb-inner">
+                  <img src="public/img/products/home/phantom-ink.jpg" alt="Product Thumbnail">
+                </a>
+              </div>
+              <div class="prod_info">
+                <div class="prod_name"><a href="#">Phantom Ink (Pre-Order)</a></div>
+                <div class="prod_price"><span class="prod_price-red">$ 21.96</span></div>
+              </div>
+              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
+            </article>
+            <article class="prod_item">
+              <div class="prod_thumb">
+                <a href="#" class="prod_thumb-inner">
+                  <img src="public/img/products/home/echoes.jpg" alt="Product Thumbnail">
+                </a>
+              </div>
+              <div class="prod_info">
+                <div class="prod_name">Echoes - The Microchip (Pre-Order)</div>
+                <div class="prod_price"><span class="prod_price-red">$ 8.49</span></div>
+              </div>
+              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
+            </article>
+            <article class="prod_item">
+              <div class="prod_thumb">
+                <a href="#" class="prod_thumb-inner">
+                  <img src="public/img/products/home/star-trek.jpg" alt="Product Thumbnail">
+                </a>
+              </div>
+              <div class="prod_info">
+                <div class="prod_name">Star Trek - Mission - Fantasy Realms Game (Pre-Order)</div>
+                <div class="prod_price"><span class="prod_price-red">$ 16.99</span></div>
+              </div>
+              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
+            </article>
+            <article class="prod_item">
+              <div class="prod_thumb">
+                <a href="#" class="prod_thumb-inner">
+                  <img src="public/img/products/home/star-trek.jpg" alt="Product Thumbnail">
+                </a>
+              </div>
+              <div class="prod_info">
+                <div class="prod_name">Star Trek: Super-Skill Pinball (Pre-Order)</div>
+                <div class="prod_price"><span class="prod_price-red">$ 16.99</span></div>
+              </div>
+              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
+            </article>
+            <a href="#" class="prod_more">
+              <div class="prod_more_inner">
+                <h4>View All</h4>
+                <h2>New Games</h2>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="home__content">
+      <section class="home__tutorial wide">
+        <div class="section_heading">
+          <h1 class="section_name">Tutorials</h1>
+        </div>
+
+        <div class="section_tut">
+          <div class="section_tut_inner">
+            <div id="mainIframe">
+              <iframe src="https://www.youtube.com/embed/gn2qIOdPcd8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+            <div class="homeIframe">
+              <div class="iframe_item">
+                <div class="video_title">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit, officiis!</div> 
+                <div class="video_thumb">
+                  <img class="video_thumb_img" src="public/img/thumbs/home/video_thumb.jpg" alt="Video Thumbnail">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- End main section -->
+  </div>
+
+  <!-- Footer -->
+  <footer id="main-footer">
+    <div class="home__footer wide">
+      
+    </div>
+  </footer>
+  <!-- End footer -->
+
+  <!-- Script -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script src="https://unpkg.com/swiper@7/swiper-bundle.min.js"></script>
+  <script src="public/js/main.js"></script>
+  <script>
+    const swiper = new Swiper('#mySwiper', {
+      loop: true,
+      pagination: {
+        el: 'swiper-pagination',
+        clickable: true,
+      },
+      autoplay: {
+        delay:2500,
+        disableOnInteraction: false,
+      }
+    })
+  </script>
+  <!-- End script -->
+</body>
+</html>
