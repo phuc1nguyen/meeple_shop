@@ -1,6 +1,6 @@
 <?php 
+  $title = "Meeple Shop | Home";
   include('templates/header.php');
-  $title = "Trang chủ";
 ?>
   <div class="section__main">
     <!-- Home slider -->
