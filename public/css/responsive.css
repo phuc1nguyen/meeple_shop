@@ -1,0 +1,63 @@
+@media screen and (min-width: 1200px){
+  .header__menu-mobile{
+    display: none;
+  }
+}
+
+/* Tablet */
+@media (max-width: 1024px){
+
+}
+
+@media (max-width: 768px){
+
+}
+/* End tablet */
+
+/* Mobile */
+@media (max-width: 414px){
+  .wide{
+    width: 90%;
+  }
+
+  .header__logo img{
+    max-width: 2.5rem;
+  }
+
+  .header__logo h2{
+    display: none;
+  }
+
+  .header__info .header__user{
+    display: none;
+  }
+
+  .header__search{
+    display: none;
+  }
+
+  .header__search-mobile{
+    width: 100%;
+  }
+
+  .header__cart i{
+    font-size: 28px;
+  }
+
+  .header__search-icon-mobile{
+    display: block;
+  }
+
+  .header__account-mobile{
+    display: block;
+  }
+
+  #main-nav{
+    display: none;
+  }
+}
+
+@media (max-width: 375px){
+
+}
+/* End mobile */
