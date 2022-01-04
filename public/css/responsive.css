@@ -44,16 +44,26 @@
     font-size: 28px;
   }
 
-  .header__search-icon-mobile{
-    display: block;
-  }
-
   .header__account-mobile{
     display: block;
   }
 
   #main-nav{
     display: none;
+  }
+
+  .highlights-banners-inner,
+  .section_prod_inner,
+  .section_prod_inner{
+    overflow-x: scroll;
+  }
+
+  .section_sub_item input{
+    width: 15rem;
+  }
+
+  .section_sub_item button{
+    width: 5rem;
   }
 }
 

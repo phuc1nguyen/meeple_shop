@@ -23,7 +23,7 @@
           </a>
         </div>
         <div class="header__logo">
-          <a href="index.php"><img src="public/img/meeple_logo.png" alt="Meeple Shop Logo"></a>
+          <a href="/"><img src="public/img/meeple_logo.png" alt="Meeple Shop Logo"></a>
           <h2><a href="index.php">Meeple Shop</a></h2>
         </div>
         <div class="header__search">
@@ -35,11 +35,6 @@
             <div class="header__user-1">
               <p><a href="auth/login.php">Login</a> / <a href="auth/register.php">Signup</a></p>
             </div> 
-          </div>
-          <div class="header__search-icon-mobile">
-            <a href="#">
-              <i class="fas fa-search"></i>
-            </a>
           </div>
           <div class="header__account-mobile">
             <a href="#">
