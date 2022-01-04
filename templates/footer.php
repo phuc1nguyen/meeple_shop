@@ -46,7 +46,7 @@
             <li class="navmenu-item"><a href="#" class="navmenu-link">Contact Us</a></li>
             <li class="navmenu-item"><a href="#" class="navmenu-link">About Us</a></li>
             <li class="navmenu-item"><a href="#" class="navmenu-link">Terms of Service</a></li>
-            <li class="navmenu-item"><a href="#" class="navmenu-link">Privacy Policy</a></li>
+            <li class="navmenu-item"><a href="policy.php" class="navmenu-link">Privacy Policy</a></li>
             <li class="navmenu-item"><a href="#" class="navmenu-link">Shipping Policy</a></li>
             <li class="navmenu-item"><a href="#" class="navmenu-link">Return and Refund Policy</a></li>
           </ul>

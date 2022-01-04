@@ -2,6 +2,7 @@
   $title = "Home | Meeple Shop";
   include('templates/header.php');
 ?>
+<?php include('templates/nav_mobile.php'); ?>
   <div class="section__main">
     <!-- Home slider -->
     <div class="home__slider" id="mySwiper">
@@ -206,7 +207,7 @@
         <div class="section_tut">
           <div class="section_tut_inner">
             <div id="mainIframe">
-              <iframe src="https://www.youtube.com/embed/gn2qIOdPcd8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe src="https://www.youtube.com/embed/gn2qIOdPcd8" style="width: 100%; height: 100%;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
             <div class="homeIframe">
               <article class="iframe_item">
