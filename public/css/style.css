@@ -513,8 +513,13 @@ p {
   padding-left: 1rem;
   margin-right: .5rem;
   font-size: 14px;
-  outline-color: var(--color-primary);
-  border: none;
+  outline: none;
+  border: solid 1px white;
+}
+
+.section_sub_item input:focus{
+  border-color: var(--color-primary);
+  border-width: 2px;
 }
 
 .section_sub_item button{
@@ -601,6 +606,10 @@ p {
 .footer_nav,
 .footer_copyright{
   width: 100%;
+}
+
+.footer_copyright p{
+  margin-bottom: 2rem;
 }
 
 .footer_nav ul{
