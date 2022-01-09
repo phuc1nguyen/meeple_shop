@@ -1,32 +1,51 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Meeple Shop | Log in Page</title>
+<?php 
+  $title = "Log In | Meeple Shop";
+  include('templates/header.php');
+  include('../config/mysqli_connect.php');
+ ?>
 
-  <!-- Google Font: Source Sans Pro -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
-  <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
-</head>
 <body class="hold-transition login-page">
 <div class="login-box">
-  <!-- /.login-logo -->
   <div class="card card-outline card-primary">
     <div class="card-header text-center">
-      <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+      <a href="../index.php" class="h1" target="_blank"><b>Meeple Shop</b></a>
     </div>
     <div class="card-body">
+      <?php
+        if ($_SERVER['REQUEST_METHOD'] == 'POST'){
+          $errors = array();
+
+          if (isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+            $e = mysqli_real_escape_string($dbc, $_POST['email']);
+          } else {
+            $errors[] = 'email';
+          }
+
+          if (isset($_POST['password']) && preg_match('/^ [\w\'.-]{4,20} $/', $_POST['password'])){
+            $p = mysqli_real_escape_string($dbc, $_POST['password']);
+          } else {
+            $errors[] = 'password';
+          }
+
+          if (empty($errors)) {
+            $query = "SELECT * FROM users WHERE (email = {'$e'} AND password = SHA1('$p')) LIMIT 1";
+            $result = mysqli_query($dbc, $query) or die("Query ${query} failed: " . mysqli_error($dbc));
+
+            if (mysqli_num_rows($result) == 1){
+              $user = mysqli_fetch_array($result, MYSQLI_ASSOC);
+              $_SESSION['user'] = $user;
+              redirect();
+            } else {
+              $msg = "<p>Check your credentials again.</p>";
+            }
+          }
+        }
+      ?>
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="../../index3.html" method="post">
+      <form id="login-form" action="" method="POST">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" placeholder="Email">
+          <input type="email" class="form-control" name="email" value="<?php if (isset($_POST['email'])) echo $_POST['email']; ?>" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -34,7 +53,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" placeholder="Password">
+          <input type="password" class="form-control" name="password" value="<?php if (isset($_POST['password'])) echo $_POST['password']; ?>" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -42,16 +61,16 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-8">
+          <!-- <div class="col-8">
             <div class="icheck-primary">
               <input type="checkbox" id="remember">
               <label for="remember">
                 Remember Me
               </label>
             </div>
-          </div>
+          </div> -->
           <!-- /.col -->
-          <div class="col-4">
+          <div class="col-12">
             <button type="submit" class="btn btn-primary btn-block">Sign In</button>
           </div>
           <!-- /.col -->
@@ -62,17 +81,17 @@
         <a href="#" class="btn btn-block btn-primary">
           <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
         </a>
-        <a href="#" class="btn btn-block btn-danger">
+        <!-- <a href="#" class="btn btn-block btn-danger">
           <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a>
+        </a> -->
       </div>
       <!-- /.social-auth-links -->
 
       <p class="mb-1">
-        <a href="forgot-password.html">I forgot my password</a>
+        <a href="forgot.php">I forgot my password</a>
       </p>
       <p class="mb-0">
-        <a href="register.html" class="text-center">Register a new membership</a>
+        <a href="register.php" class="text-center">Register a new membership</a>
       </p>
     </div>
     <!-- /.card-body -->
@@ -81,11 +100,10 @@
 </div>
 <!-- /.login-box -->
 
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.min.js"></script>
+<?php include('templates/script.php'); ?>
+<script>
+  // toastr noti
+  
+</script>
 </body>
 </html>

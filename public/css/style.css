@@ -663,6 +663,8 @@ p {
 
 .policy-inner{
   margin: 1rem 0;
+  width: 50%;
+  color: #4d4d4d;
 }
 
 .policy-inner h1{
@@ -671,4 +673,5 @@ p {
 
 .policy-title{
   margin: 1rem 0;
+  text-transform: uppercase
 }

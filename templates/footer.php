@@ -43,12 +43,11 @@
       <div class="footer_lower">
         <nav class="footer_nav">
           <ul class="navmenu">
-            <li class="navmenu-item"><a href="#" class="navmenu-link">Contact Us</a></li>
-            <li class="navmenu-item"><a href="#" class="navmenu-link">About Us</a></li>
-            <li class="navmenu-item"><a href="#" class="navmenu-link">Terms of Service</a></li>
+            <li class="navmenu-item"><a href="about.php" class="navmenu-link">About Us</a></li>
+            <li class="navmenu-item"><a href="terms.php" class="navmenu-link">Terms of Service</a></li>
             <li class="navmenu-item"><a href="policy.php" class="navmenu-link">Privacy Policy</a></li>
-            <li class="navmenu-item"><a href="#" class="navmenu-link">Shipping Policy</a></li>
-            <li class="navmenu-item"><a href="#" class="navmenu-link">Return and Refund Policy</a></li>
+            <li class="navmenu-item"><a href="policy_shipping.php" class="navmenu-link">Shipping Policy</a></li>
+            <li class="navmenu-item"><a href="return.php" class="navmenu-link">Return and Refund Policy</a></li>
           </ul>
         </nav>
         <div class="footer_copyright">

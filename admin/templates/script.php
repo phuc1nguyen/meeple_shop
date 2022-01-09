@@ -33,4 +33,4 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="public/dist/js/pages/dashboard.js"></script>
 <!-- Custom js -->
-<script src="public/js/main.js"></script>
+<script src="public/js/custom.js"></script>

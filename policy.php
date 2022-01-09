@@ -1,12 +1,12 @@
 <?php
-  $title = 'Privacy policy | Meeple Shop';
+  $title = 'Privacy Policy | Meeple Shop';
   include('templates/header.php');
 ?>
   <div class="section__main">
     <div class="policy">
-      <div class="policy-inner" style="width: 60%; color: #4d4d4d;">
+      <div class="policy-inner">
         <h1>Privacy Policy</h1>
-        <p class="policy-title">PRIVACY STATEMENT</p>
+        <p class="policy-title">Privacy Statement</p>
         <p>----</p>
 
         <p class="policy-title">SECTION 1 - WHAT DO WE DO WITH YOUR INFORMATION?</p>

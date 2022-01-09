@@ -1,4 +1,4 @@
-<?php 
+<?php
   $title = "Home | Meeple Shop";
   include('templates/header.php');
 ?>
@@ -251,12 +251,12 @@
     <div class="home__content">
       <section class="home__sub wide">
         <div class="section_heading">
-          <h1 class="section_name">Meeple Newsletter</h1>
+          <h1 class="section_name">Contact Meeple</h1>
         </div>
 
         <div class="section_sub">
           <div class="section_sub_inner">
-            <p class="section_sub_description">Join our mailing list for notifications on sales!</p>
+            <p class="section_sub_description">Send us a message and get notifications on sales!</p>
             <div class="section_sub_item">
               <input type="text" name="home_email" placeholder="Your email address">
               <button type="button" name="btn-sub" class="btn btn-primary btn-sub" data-url="">Subscribe</button>
