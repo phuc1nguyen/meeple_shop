@@ -1,5 +1,5 @@
 <?php 
-  define('BASE_URL', 'meeple_shop.test/');
+  define('BASE_URL', 'http://meeple_shop.test/');
 
   function check_query(){
      

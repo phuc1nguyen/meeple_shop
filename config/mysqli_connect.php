@@ -1,5 +1,6 @@
 <?php 
   $dbc = mysqli_connect('localhost', 'root', 'abc123', 'meeple_db');
+  
   if ($dbc) {
     mysqli_set_charset($dbc, 'utfmb8');
   } else {

@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,7 +8,8 @@
   <link rel="stylesheet" href="public/css/style.css">
   <link rel="stylesheet" href="public/css/responsive.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
   <title><?php if (isset($title)) echo $title; else echo "Meeple Shop"; ?></title>
 </head>
 <body>
@@ -33,7 +35,17 @@
         <div class="header__info">
           <div class="header__user">
             <div class="header__user-1">
-              <p><a href="auth/login.php">Login</a> / <a href="auth/register.php">Signup</a></p>
+              <?php 
+                if (isset($_SESSION['user_name']) && isset($_SESSION['user_type'])){
+                  if ($_SESSION['user_type'] == 0) {
+                    echo "<p><a href='admin/index.php'>" . ucfirst($_SESSION['user_name']) . "</a> | <a href='auth/logout.php'>Log Out</a></p>";
+                  } else {
+                    echo "<p><a href='profile.php'>" . ucfirst($_SESSION['user_name']) . "</a> | <a href='auth/logout.php'>Log Out</a></p>";
+                  }
+                } else {
+                  echo "<p><a href='auth/login.php'>Login</a> / <a href='auth/register.php'>Signup</a></p>";
+                }
+              ?>
             </div> 
           </div>
           <div class="header__account-mobile">

@@ -1,8 +1,8 @@
 <?php
   $title = "Home | Meeple Shop";
   include('templates/header.php');
+  include('templates/nav_mobile.php');
 ?>
-<?php include('templates/nav_mobile.php'); ?>
   <div class="section__main">
     <!-- Home slider -->
     <div class="home__slider" id="mySwiper">

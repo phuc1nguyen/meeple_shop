@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,4 +14,31 @@
   <link rel="stylesheet" href="../../admin/public/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="../../admin/public/dist/css/adminlte.min.css">
+  <!-- Toastr -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
+  <style>
+    .noti{
+      padding: 1rem;
+      width: 100%;
+      color: #ffffff;
+      border-radius: .25rem;
+      text-align: center;
+    }
+
+    .noti-warning{
+      background-color: #f7a736;
+    }
+
+    .noti-success{
+      background-color: #72b372;
+    }
+
+    .noti-danger{
+      background-color: #c85c57;
+    }
+
+    .noti-info{
+      background-color: #57a9c1;
+    }
+  </style>
 </head>
