@@ -49,6 +49,12 @@
                   <p>Danh sách Sản phẩm</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="/admin/prod_create.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Thêm Sản phẩm</p>
+                </a>
+              </li>
               <!-- <li class="nav-item">
                 <a href="pages/charts/flot.html" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
@@ -72,8 +78,7 @@
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tree"></i>
-              <p>
-                Slider
+              <p>Slider
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -84,6 +89,32 @@
                   <p>Danh sách Slider</p>
                 </a>
               </li>
+              <li class="nav-item">
+                <a href="/admin/slider_create.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Thêm Slider</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon bx bxs-user"></i> 
+              <p>Người dùng
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/admin/user_index.php" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Danh sách noười dùng</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item" style="border-top: grey solid 1px; width: 100%; padding: .5rem; text-align: center;">
+            <a href="../../auth/logout.php">Đăng xuất</a>
           </li>
         </ul>
       </nav>

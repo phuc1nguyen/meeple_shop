@@ -10,4 +10,8 @@
     header("Location: " . $url);
     exit();
   }
+
+  function pagination(){
+    
+  }
 ?>

@@ -3,12 +3,4 @@ $(document).ready(function(){
     // open mobile menu
     $('.section__menu').slideDown(); 
   })
-
-  $(document).on('click', '.section__menu-inner', function(){
-    console.log(12345);
-  })
-
-  $('.section__menu').click(function(){
-
-  })
 })

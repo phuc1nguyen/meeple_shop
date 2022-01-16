@@ -15,6 +15,6 @@
     session_destroy();
     // xoa cookie cua trinh duyet 
     setcookie(session_name(), '', time() - 3600);
-    redirect();
+    redirect('auth/login.php');
   }
 ?>

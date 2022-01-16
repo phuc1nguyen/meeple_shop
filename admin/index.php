@@ -1,4 +1,15 @@
-<?php include('templates/header.php'); ?>
+<?php 
+  include('templates/header.php'); 
+  include('../inc/functions.php');  
+?>
+<?php 
+  $_SESSION['current_url'] = $_SERVER['PHP_SELF'];
+  if (!isset($_SESSION['user_type'])){
+    redirect('auth/login.php');
+  } elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] != 0) {
+    redirect();
+  }
+?>
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">
     <img class="animation__shake" src="public/dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
@@ -18,7 +29,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <!-- <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
+            <h1 class="m-0">Sample</h1>
           </div> -->
           <!-- <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -34,9 +45,7 @@
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-        <div class="row">
-
-        </div>
+        
       </div>
     </section>
     <!-- /.content -->

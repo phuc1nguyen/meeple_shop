@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,6 +26,8 @@
   <link rel="stylesheet" href="public/plugins/daterangepicker/daterangepicker.css">
   <!-- summernote -->
   <link rel="stylesheet" href="public/plugins/summernote/summernote-bs4.min.css">
+  <!-- Boxicons -->
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">

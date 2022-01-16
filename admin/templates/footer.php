@@ -17,6 +17,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- Bootstrap 4 -->
 <script src="public/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap Switch -->
+<script src="public/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
 <!-- ChartJS -->
 <script src="public/plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
@@ -41,5 +43,7 @@
 <script src="public/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="public/dist/js/pages/dashboard.js"></script>
+<!-- Custom JS -->
+<script src="public/js/custom.js"></script>
 </body>
 </html>
