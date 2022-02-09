@@ -71,30 +71,32 @@
                   ?> -->
 
                   <?php foreach($users as $key => $user) {?>
-                  <tr>
-                    <td><?php echo $key + 1; ?></td>
-                    <td><?php echo $user['name']; ?></td>
-                    <td><?php echo $user['email']; ?></td>
-                    <td><a href="<?php echo $user['avatar']; ?>"><img src="<?php echo $user['avatar'] ?>" alt="User"></a></td>
-                    <td><?php echo $user['registration_date']; ?></td>
-                    <td>
-                      <div class="bootstrap-switch" style="width: 86px;">
-                        <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
-                          <input type="checkbox" name="my-checkbox" checked="" data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
+                    <tr>
+                      <td><?php echo $key + 1; ?></td>
+                      <td><?php echo $user['name']; ?></td>
+                      <td><?php echo $user['email']; ?></td>
+                      <td><a href="<?php echo $user['avatar']; ?>"><img src="<?php echo $user['avatar'] ?>" alt="User"></a></td>
+                      <td><?php echo $user['registration_date']; ?></td>
+                      <td>
+                        <div class="bootstrap-switch" style="width: 86px;">
+                          <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
+                            <input type="checkbox" name="my-checkbox" checked="" data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
+                          </div>
                         </div>
-                      </div>
-                    </td>
-                    <td>
-                      <a class="btn btn-primary btn-sm" href="#">
-                        <i class="bx bxs-edit"></i>
-                      </a>
-                      <a class="btn btn-danger btn-sm" href="#">
-                        <i class="bx bxs-trash"></i>
-                      </a>
-                    </td>
-                  </tr>
+                      </td>
+                      <td>
+                        <a class="btn btn-primary btn-sm" href="#">
+                          <i class="bx bxs-edit"></i>
+                        </a>
+                        <a class="btn btn-danger btn-sm" href="#">
+                          <i class="bx bxs-trash"></i>
+                        </a>
+                      </td>
+                    </tr>
                   <?php } ?>
+                  
                   <div class="pagination"><?php pagination(); ?></div> 
+
                 </tbody>
               </table>
             </div>
