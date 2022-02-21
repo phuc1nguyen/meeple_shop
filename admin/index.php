@@ -1,6 +1,6 @@
 <?php 
   include('templates/header.php'); 
-  include('../inc/functions.php');  
+  include_once('../inc/functions.php');  
 ?>
 <?php 
   $_SESSION['current_url'] = $_SERVER['PHP_SELF'];
