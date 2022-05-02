@@ -1,8 +1,9 @@
 <?php 
-  include('../inc/functions.php');
-  include('templates/header.php');
-  include('templates/navbar.php');
-  include('templates/sidebar.php');
+  require_once("../database/dbconnection.php");
+  require_once("../inc/functions.inc.php");
+  include_once("templates/header.php");
+  include_once("templates/navbar.php");
+  include_once("templates/sidebar.php");
 ?>
 
 <div class="content-wrapper">
@@ -52,31 +53,41 @@
                   </tr>
                 </thead>
                 <tbody>
+                  <?php
+                    $query = "SELECT id, name, description, thumb, price, price_sale, active ";
+                    $query += "FROM products";
+                    $query += " ORDER BY id DESC";
+                    $query += " LIMIT 10"; 
+                    $products = $dbh->query($query, PDO::FETCH_ASSOC);
+                  ?>
+
+                  <?php foreach ($products as $key => $item) { ?>
                   <tr>
-                    <td>183</td>
-                    <td>John Doe</td>
-                    <td>Lorem ipsum dolor sit amet consectetur adipisicing elit. Id odit voluptatum quis doloribus similique aperiam.</td>
+                    <td><?= $key + 1; ?></td>
+                    <td><?= $item['name'] ?></td>
+                    <td><?= $item['description'] ?></td>
                     <td>
-                      <a href="#"><img src="" alt="Product Thumb"></a>
+                      <a href="#"><img src="<?= $item['thumb'] ?>" alt="Product Thumb"></a>
                     </td>
-                    <td>$ 9.99</td>
-                    <td>$ 8.49</td>
+                    <td>$<?= $item['price'] ?></td>
+                    <td>$<?= $item['price_sale'] ?></td>
                     <td>
                       <div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-on bootstrap-switch-focused" style="width: 86px;">
                         <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
-                          <input type="checkbox" name="my-checkbox" checked="" data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
+                          <input type="checkbox" id="active" name="active" <?= $item['active'] == 1 ? "checked" : ""; ?> data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
                         </div>
                       </div>
                     </td>
                     <td>
-                      <a class="btn btn-primary btn-sm" href="#">
+                      <a class="btn btn-primary btn-sm" href="prod_edit.php">
                         <i class="bx bxs-edit"></i>
                       </a>
-                      <a class="btn btn-danger btn-sm" href="#">
+                      <a class="btn btn-danger btn-sm" href="ajax/delete_prod.php">
                         <i class="bx bxs-trash"></i>
                       </a>
                     </td>
                   </tr>
+                  <?php } ?>
                   <div class="pagination"><?php pagination(); ?></div> 
                 </tbody>
               </table>
@@ -90,4 +101,4 @@
   </section>
 </div>
 
-<?php include('templates/footer.php'); ?>
+<?php include_once("templates/footer.php"); ?>

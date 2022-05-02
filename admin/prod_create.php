@@ -1,6 +1,6 @@
 <?php 
-  include('../config/mysqli_connect.php');
-  include('../inc/functions.php');
+  require('../database/dbconnection.php');
+  require('../inc/functions.inc.php');
   include('templates/header.php');
   include('templates/navbar.php');
   include('templates/sidebar.php');

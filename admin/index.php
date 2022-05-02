@@ -1,6 +1,6 @@
 <?php 
-  include('templates/header.php'); 
-  include_once('../inc/functions.php');  
+  include_once("templates/header.php"); 
+  require_once("../inc/functions.inc.php");  
 ?>
 <?php 
   $_SESSION['current_url'] = $_SERVER['PHP_SELF'];
@@ -16,11 +16,11 @@
   </div>
 
   <!-- Navbar -->
-  <?php include('templates/navbar.php'); ?>
+  <?php include_once("templates/navbar.php"); ?>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <?php include('templates/sidebar.php'); ?>
+  <?php include_once("templates/sidebar.php"); ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -52,4 +52,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include('templates/footer.php'); ?>
+<?php include_once("templates/footer.php"); ?>

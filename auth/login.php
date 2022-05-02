@@ -1,8 +1,8 @@
 <?php 
   $title = "Log In | Meeple Shop";
   include('templates/header.php');
-  include('../config/mysqli_connect.php');
-  include('../inc/functions.php');
+  require('../database/dbconnection.php');
+  include_once('../inc/functions.inc.php');
 
   // neu dang dang nhap thi ko cho vao trang dang nhap
   if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 0) {
@@ -24,28 +24,33 @@
           $errors = array();
 
           if (isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
-            $e = mysqli_real_escape_string($dbc, $_POST['email']);
+            $email = filteredInput($_POST['email']);
           } else {
             $errors[] = 'email';
           }
 
           if (isset($_POST['password'])){
-            $p = mysqli_real_escape_string($dbc, $_POST['password']);
+            $password = filteredInput($_POST['password']);
           } else {
             $errors[] = 'password';
           }
           
           if (empty($errors)) {
+            // $data = array($email, $password);
             // neu khong xay ra loi thi query csdl
-            $query = "SELECT id, name, type FROM users WHERE (email = '${e}' AND password = sha1('$p')) AND active = 1 LIMIT 1";
-            $result = mysqli_query($dbc, $query) or die("Query ${query} failed: " . mysqli_error($dbc));
+            $query = 'SELECT id, name, type FROM users WHERE (email = :email AND password = sha1(:pass)) AND active = 1 LIMIT 1';
+            // $sth stands for statement handle
+            $sth = $dbh->prepare($query);
+            $sth->bindParam(':email', $email);
+            $sth->bindParam(':pass', $password);
+            $sth->execute(); 
+            $user = $sth->fetch(PDO::FETCH_ASSOC);
 
-            if (mysqli_num_rows($result) == 1){
-              list($id, $name, $type) = mysqli_fetch_array($result, MYSQLI_NUM);
-              $_SESSION['user_id'] = $id;
-              $_SESSION['user_name'] = $name;
-              $_SESSION['user_type'] = $type;
-              if ($type == 0) {
+            if ($user) {
+              $_SESSION['user_id'] = $user['id'];
+              $_SESSION['user_name'] = $user['name'];
+              $_SESSION['user_type'] = $user['type'];
+              if ($user['type'] == 0) {
                 // chuyen huong trang admin neu dang nhap bang tai khoan admin
                 redirect('admin');
               } else {
@@ -53,20 +58,19 @@
                 redirect();
               }
             } else {
-              // sai thong tin dang nhap
-              $msg = "<p class='noti noti-warning'>Check your credentials again or activate your account.</p>";
+              $msg = '<p class="noti noti-warning">Please check your credentials again</p>';
             }
           } else {
-            $msg = "<p class='noti noti-warning'>Please fill in all required fields</p>";
+            $msg = '<p class="noti noti-warning">Please fill in all required fields</p>';
           }
         }
       ?>
       <p class="login-box-msg">Sign in to start your session</p>
       <?php if(!empty($msg)) echo $msg; ?>
 
-      <form id="login-form" action="" method="POST">
+      <form id="login-form" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" name="email" value="<?php if (isset($_POST['email'])) echo htmlentities($_POST['email']); ?>" placeholder="Email">
+          <input type="email" class="form-control" name="email" value="<?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>" placeholder="Email">
           <?php if (isset($errors) && in_array('email', $errors)) echo "<p class='noti noti-warning'>Please fill in your email</p>"; ?>
           <div class="input-group-append">
             <div class="input-group-text">
@@ -75,7 +79,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password" value="<?php if (isset($_POST['password'])) echo htmlentities($_POST['password']); ?>" placeholder="Password">
+          <input type="password" class="form-control" name="password" value="<?php if (isset($_POST['password'])) echo htmlspecialchars($_POST['password']); ?>" placeholder="Password">
           <?php if (isset($errors) && in_array('email', $errors)) echo "<p class='noti noti-warning'>Please fill in your password</p>"; ?>
           <div class="input-group-append">
             <div class="input-group-text">
@@ -99,16 +103,6 @@
           <!-- /.col -->
         </div>
       </form>
-
-      <div class="social-auth-links text-center mt-2 mb-3">
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i> Sign in using Facebook
-        </a>
-        <!-- <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i> Sign in using Google+
-        </a> -->
-      </div>
-      <!-- /.social-auth-links -->
 
       <p class="mb-1">
         <a href="forgot.php">I forgot my password</a>

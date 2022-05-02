@@ -1,9 +1,9 @@
 <?php 
-  include('../config/mysqli_connect.php');
-  include('../inc/functions.php');
-  include('templates/header.php');
-  include('templates/navbar.php');
-  include('templates/sidebar.php');
+  require_once("../database/dbconnection.php");
+  require_once("../inc/functions.inc.php");
+  include_once("templates/header.php");
+  include_once("templates/navbar.php");
+  include_once("templates/sidebar.php");
 ?>
 
 <div class="content-wrapper">
@@ -53,42 +53,29 @@
                 </thead>
                 <tbody>
                   <?php
-                    $query = "SELECT name, email, avatar, registration_date, active FROM users WHERE type <> 0 LIMIT 10";
-                    $result = mysqli_query($dbc, $query) or die("Query failed ${query}: " . mysqli_error($dbc));
-
-                    if (mysqli_num_rows($result) > 0) {
-                      // lay toan bo user tu db (tru admin)
-                      $users = mysqli_fetch_all($result, MYSQLI_ASSOC);
-                    } else {
-                      $msg = "<p class='noti noti-danger'>Can not query data due to server error</p>";
-                    }
+                    $query = "SELECT name, email, avatar, registration_date, active FROM users WHERE type <> 0 ORDER BY id DESC LIMIT 10";
+                    $users = $dbh->query($query);
                   ?>
 
-                  <!-- <?php
-                    echo "<pre>";
-                    print_r($users);
-                    echo "</pre>";
-                  ?> -->
-
-                  <?php foreach($users as $key => $user) {?>
+                  <?php foreach($users as $key => $item) {?>
                     <tr>
                       <td><?php echo $key + 1; ?></td>
-                      <td><?php echo $user['name']; ?></td>
-                      <td><?php echo $user['email']; ?></td>
-                      <td><a href="<?php echo $user['avatar']; ?>"><img src="<?php echo $user['avatar'] ?>" alt="User"></a></td>
-                      <td><?php echo $user['registration_date']; ?></td>
+                      <td><?php echo $item['name']; ?></td>
+                      <td><?php echo $item['email']; ?></td>
+                      <td><a href="<?php echo $item['avatar']; ?>"><img src="<?php echo $user['avatar'] ?>" alt="User"></a></td>
+                      <td><?php echo $item['registration_date']; ?></td>
                       <td>
                         <div class="bootstrap-switch" style="width: 86px;">
                           <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
-                            <input type="checkbox" name="my-checkbox" checked="" data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
+                            <input type="checkbox" id="active" name="active" <?= $item['active'] == 1 ? "checked" : ""; ?> data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
                           </div>
                         </div>
                       </td>
                       <td>
-                        <a class="btn btn-primary btn-sm" href="#">
+                        <a class="btn btn-primary btn-sm" href="ajax/user_edit.php">
                           <i class="bx bxs-edit"></i>
                         </a>
-                        <a class="btn btn-danger btn-sm" href="#">
+                        <a class="btn btn-danger btn-sm" href="ajax/delete_user.php">
                           <i class="bx bxs-trash"></i>
                         </a>
                       </td>

@@ -1,7 +1,7 @@
 <?php 
   session_start();
-  include('../config/mysqli_connect.php');
-  include('../inc/functions.php');
+  include('../database/dbconnection.php');
+  include('../inc/functions.inc.php');
 ?>
 
 <?php 

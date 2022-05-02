@@ -269,5 +269,5 @@
   </div>
 <?php
   include('templates/footer.php');
-  include('templates/script.php');
+  include_once('templates/script.php');
 ?>
