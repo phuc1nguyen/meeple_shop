@@ -10,8 +10,8 @@
   <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
-        <div class="col-sm-12" style="text-align: center;">
-          <h1 class="m-0">Người dùng</h1> 
+        <div class="col-sm-12">
+          <h1 class="ml-3">Người dùng</h1> 
         </div>
       </div>
     </div>

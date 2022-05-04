@@ -43,6 +43,8 @@
 <script src="public/dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="public/dist/js/pages/dashboard.js"></script>
+<!-- Toastr JS -->
+<script src="public/toastr/build/toastr.min.js"></script>
 <!-- Custom JS -->
 <script src="public/js/custom.js"></script>
 </body>

@@ -28,6 +28,8 @@
   <link rel="stylesheet" href="public/plugins/summernote/summernote-bs4.min.css">
   <!-- Boxicons -->
   <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+  <!-- Toastr JS -->
+  <link rel="stylesheet" href="public/toastr/build/toastr.min.css">
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">

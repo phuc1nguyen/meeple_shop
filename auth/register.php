@@ -1,8 +1,8 @@
 <?php
   $title = "Registration | Meeple Shop";
-  include('templates/header.php');
-  include('../config/mysqli_connect.php');
-  include('../inc/functions.php');
+  require_once('../database/dbconnection.php');
+  require_once('../inc/functions.inc.php');
+  include_once('templates/header.php');
 ?>
 
 <body class="hold-transition register-page">
@@ -119,23 +119,12 @@
             </div>
           </div> -->
           <!-- /.col -->
-          <div class="col-12">
+          <div class="col-12 mb-2">
             <button type="submit" id="btn-register" class="btn btn-primary btn-block">Register</button>
           </div>
           <!-- /.col -->
         </div>
       </form>
-
-      <div class="social-auth-links text-center">
-        <a href="#" class="btn btn-block btn-primary">
-          <i class="fab fa-facebook mr-2"></i>
-          Sign up using Facebook
-        </a>
-        <!-- <a href="#" class="btn btn-block btn-danger">
-          <i class="fab fa-google-plus mr-2"></i>
-          Sign up using Google+
-        </a> -->
-      </div>
 
       <a href="login.php" class="text-center">I already have a membership</a>
     </div>
@@ -145,22 +134,5 @@
 <!-- /.register-box -->
 
 <?php include('templates/script.php'); ?>
-<!-- <script>
-  toastr.options = {
-    "positionClass": "toast-bottom-left",
-    "timeOut": 3000,
-    "progressBar": true
-  }
-
-  $(document).ready(function(){
-    $('#btn-register').click(function(){
-      if ($('#agreeTerms').prop("checked", false)) {
-        toastr.error('You must agree with our terms');
-      } else {
-        $('#register-form').submit();
-      }
-    });
-  })
-</script> -->
 </body>
 </html>

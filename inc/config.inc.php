@@ -5,5 +5,5 @@
   define('DATABASE_PASSWORD', 'abc123');
   define('PASSWORD_ENCRYPTION_TYPE', '');       // md5
   define('PASSWORD_ENCRYPTION', false);         // true | false
-
+  
 ?>

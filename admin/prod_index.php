@@ -10,8 +10,8 @@
   <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
-        <div class="col-sm-12" style="text-align: center;">
-          <h1 class="m-0">Sản phẩm</h1>
+        <div class="col-sm-12">
+          <h1 class="ml-3">Sản phẩm</h1>
         </div>
       </div>
     </div>
@@ -55,9 +55,9 @@
                 <tbody>
                   <?php
                     $query = "SELECT id, name, description, thumb, price, price_sale, active ";
-                    $query += "FROM products";
-                    $query += " ORDER BY id DESC";
-                    $query += " LIMIT 10"; 
+                    $query .= "FROM products";
+                    $query .= " ORDER BY id DESC";
+                    $query .= " LIMIT 10"; 
                     $products = $dbh->query($query, PDO::FETCH_ASSOC);
                   ?>
 
@@ -79,7 +79,7 @@
                       </div>
                     </td>
                     <td>
-                      <a class="btn btn-primary btn-sm" href="prod_edit.php">
+                      <a class="btn btn-primary btn-sm" href="prod_edit.php?id=<?= $item['id']; ?>">
                         <i class="bx bxs-edit"></i>
                       </a>
                       <a class="btn btn-danger btn-sm" href="ajax/delete_prod.php">
