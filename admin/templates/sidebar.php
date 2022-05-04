@@ -103,7 +103,7 @@
           </li>
 
           <!-- Logout -->
-          <li class="nav-item" style="border-top: grey solid 1px; width: 100%; padding: .5rem; text-align: center;">
+          <li class="nav-item p-3 text-center border-top">
             <a href="../../auth/logout.php">Đăng xuất</a>
           </li>
         </ul>

@@ -62,9 +62,9 @@
     if (empty($errors)) {
       // neu ko co input trong thi query csdl
       $data = array("name" => $name, "description" => $description, "price" => $price, "sale" => $sale, "stock" => $stock, "id" => $prodId);
-      $query = "UPDATE products ";
-      $query .= "SET name = :name, description = :description, price = :price, price_sale = :sale, stock = :stock ";
-      $query .= "WHERE id = :id LIMIT 1";
+      $query = "UPDATE products";
+      $query .= " SET name = :name, description = :description, price = :price, price_sale = :sale, stock = :stock";
+      $query .= " WHERE id = :id LIMIT 1";
       $sth = $dbh->prepare($query);
       
       if ($sth->execute($data)) {

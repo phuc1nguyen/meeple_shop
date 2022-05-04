@@ -6,6 +6,11 @@
   include_once("templates/sidebar.php");
 ?>
 
+<?php
+  $query = "SELECT name, email, avatar, registration_date, active FROM users WHERE type <> 0 ORDER BY id DESC LIMIT 10";
+  $users = $dbh->query($query);
+?>
+
 <div class="content-wrapper">
   <div class="content-header">
     <div class="container-fluid">
@@ -52,22 +57,17 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php
-                    $query = "SELECT name, email, avatar, registration_date, active FROM users WHERE type <> 0 ORDER BY id DESC LIMIT 10";
-                    $users = $dbh->query($query);
-                  ?>
-
-                  <?php foreach($users as $key => $item) {?>
+                  <?php foreach ($users as $key => $item) {?>
                     <tr>
-                      <td><?php echo $key + 1; ?></td>
-                      <td><?php echo $item['name']; ?></td>
-                      <td><?php echo $item['email']; ?></td>
-                      <td><a href="<?php echo $item['avatar']; ?>"><img src="<?php echo $user['avatar'] ?>" alt="User"></a></td>
-                      <td><?php echo $item['registration_date']; ?></td>
+                      <td><?= $key + 1; ?></td>
+                      <td><?= $item['name']; ?></td>
+                      <td><?= $item['email']; ?></td>
+                      <td><a href="<?= $item['avatar']; ?>"><img src="<?= $user['avatar']; ?>" alt="User"></a></td>
+                      <td><?= $item['registration_date']; ?></td>
                       <td>
                         <div class="bootstrap-switch" style="width: 86px;">
                           <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
-                            <input type="checkbox" id="active" name="active" <?= $item['active'] == 1 ? "checked" : ""; ?> data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
+                            <input type="checkbox" class="active" name="active" <?php if ($item['active'] == 1) echo "checked"; ?> data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
                           </div>
                         </div>
                       </td>
@@ -83,7 +83,6 @@
                   <?php } ?>
                   
                   <div class="pagination"><?php pagination(); ?></div> 
-
                 </tbody>
               </table>
             </div>

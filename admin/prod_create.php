@@ -46,9 +46,9 @@
       // neu ko co input trong thi query csdl
       $slug = "";
       $data = array("name" => $name, "description" => $description, "price" => $price, "sale" => $sale, "slug" => $slug, "stock" => $stock, "date" => (new DateTime())->format("Y-m-d H:i:s"));
-      $query = "INSERT INTO products ";
-      $query .= "(name, cate_id, description, thumb, images, price, price_sale, slug, stock, add_date) ";
-      $query .= "VALUES (:name, 1, :description, 'test', 'test', :price, :sale, :slug, :stock, :date)";
+      $query = "INSERT INTO products";
+      $query .= " (name, cate_id, description, thumb, images, price, price_sale, slug, stock, add_date)";
+      $query .= " VALUES (:name, 1, :description, 'test', 'test', :price, :sale, :slug, :stock, :date)";
       $sth = $dbh->prepare($query);
       
       if ($sth->execute($data)) {
@@ -75,6 +75,7 @@
       <div class="row mb-2">
         <div class="col-sm-12">
           <h1 class="ml-2">Create Product</h1> 
+          <p class="noti noti-warning"><?= isset($msg) ? $msg : ""; ?></p>
         </div>
       </div>
     </div>

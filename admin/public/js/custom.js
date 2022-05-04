@@ -4,6 +4,8 @@ $(document).ready(function(){
   });
 });
 
+// UI Elements
+
 document.addEventListener('DOMContentLoaded', function() {
   toastr.info('Toastr worked');
 });

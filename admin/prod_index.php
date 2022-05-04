@@ -64,17 +64,17 @@
                   <?php foreach ($products as $key => $item) { ?>
                   <tr>
                     <td><?= $key + 1; ?></td>
-                    <td><?= $item['name'] ?></td>
-                    <td><?= $item['description'] ?></td>
+                    <td><?= $item['name'] ? $item['name'] : "--"; ?></td>
+                    <td><?= $item['description'] ? $item['description'] : "--"; ?></td>
                     <td>
                       <a href="#"><img src="<?= $item['thumb'] ?>" alt="Product Thumb"></a>
                     </td>
                     <td>$<?= $item['price'] ?></td>
-                    <td>$<?= $item['price_sale'] ?></td>
+                    <td>$<?= $item['price_sale'] ? $item['price_sale'] : "--"; ?></td>
                     <td>
                       <div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-on bootstrap-switch-focused" style="width: 86px;">
                         <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
-                          <input type="checkbox" id="active" name="active" <?= $item['active'] == 1 ? "checked" : ""; ?> data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
+                          <input type="checkbox" class="active" name="active" <?php if ($item['active'] == 1) echo "checked"; ?> data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
                         </div>
                       </div>
                     </td>
