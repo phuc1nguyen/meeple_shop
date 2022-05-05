@@ -17,6 +17,7 @@
       // filter user inputs
       $userInput = trim($userInput);
       $userInput = stripslashes($userInput);
+      $userInput = strip_tags($userInput);
       $userInput = htmlspecialchars($userInput);
       return $userInput;
     }

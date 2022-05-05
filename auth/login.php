@@ -23,7 +23,7 @@
         if ($_SERVER['REQUEST_METHOD'] == 'POST'){
           $errors = array();
 
-          if (isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)){
+          if (isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL, array('min_range' => 1))){
             $email = filteredInput($_POST['email']);
           } else {
             $errors[] = 'email';
@@ -31,13 +31,11 @@
 
           if (isset($_POST['password'])){
             $password = filteredInput($_POST['password']);
-          } else {
-            $errors[] = 'password';
-          }
-          
+          } // password requirement is processed by js         
+
           if (empty($errors)) {
-            // $data = array($email, $password);
             // neu khong xay ra loi thi query csdl
+            // $data = array($email, $password);
             $query = 'SELECT id, name, type FROM users WHERE (email = :email AND password = sha1(:pass)) AND active = 1 LIMIT 1';
             // $sth stands for statement handle
             $sth = $dbh->prepare($query);
@@ -51,27 +49,22 @@
               $_SESSION['user_name'] = $user['name'];
               $_SESSION['user_type'] = $user['type'];
               if ($user['type'] == 0) {
-                // chuyen huong trang admin neu dang nhap bang tai khoan admin
+                // redirect to admin dashboard if it's admin
                 redirect('admin');
               } else {
-                // chuyen huong sang trang chu
+                // redirect to home page
                 redirect();
               }
             } else {
-              $msg = '<p class="noti noti-warning">Please check your credentials again</p>';
+              $msg = "<script type='text/javascript'>toastr.error('Please check your credentials again');</script>";
             }
-          } else {
-            $msg = '<p class="noti noti-warning">Please fill in all required fields</p>';
           }
         }
       ?>
       <p class="login-box-msg">Sign in to start your session</p>
-      <?php if(!empty($msg)) echo $msg; ?>
-
       <form id="login-form" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
         <div class="input-group mb-3">
-          <input type="email" class="form-control" name="email" value="<?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>" placeholder="Email">
-          <?php if (isset($errors) && in_array('email', $errors)) echo "<p class='noti noti-warning'>Please fill in your email</p>"; ?>
+          <input type="email" class="form-control" id="emailLogin" name="email" value="<?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>" placeholder="Email" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
@@ -79,8 +72,7 @@
           </div>
         </div>
         <div class="input-group mb-3">
-          <input type="password" class="form-control" name="password" value="<?php if (isset($_POST['password'])) echo htmlspecialchars($_POST['password']); ?>" placeholder="Password">
-          <?php if (isset($errors) && in_array('email', $errors)) echo "<p class='noti noti-warning'>Please fill in your password</p>"; ?>
+          <input type="password" class="form-control" id="passwordLogin" name="password" value="<?php if (isset($_POST['password'])) echo htmlspecialchars($_POST['password']); ?>" placeholder="Password" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
@@ -98,7 +90,7 @@
           </div> -->
           <!-- /.col -->
           <div class="col-12 mb-2">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="button" id="btn-signin" class="btn btn-primary btn-block">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
@@ -117,10 +109,7 @@
 </div>
 <!-- /.login-box -->
 
-<?php include('templates/script.php'); ?>
-<script>
-  // toastr noti
-  
-</script>
+<?php include_once('templates/script.php'); ?>
+<?php if (isset($msg)) echo $msg; ?>
 </body>
 </html>

@@ -110,23 +110,23 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Product Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name" value="<?= isset($product['name']) ? $product['name'] : ''; ?>">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name" value="<?= $product['name'] ?? ''; ?>">
                   </div>
                   <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" name="description" id="description" cols="30" rows="5" placeholder="Enter product description"><?= isset($product['description']) ? $product['description'] : ''; ?></textarea>
+                    <textarea class="form-control" name="description" id="description" cols="30" rows="5" placeholder="Enter product description"><?= $product['description'] ?? '' ?></textarea>
                   </div>
                   <div class="form-group">
                     <label for="price">Price</label>
-                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price" value="<?= isset($product['price']) ? $product['price'] : ''; ?>">
+                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price" value="<?= $product['price'] ?? '' ?>">
                   </div>
                   <div class="form-group">
                     <label for="sale">Price Sale</label>
-                    <input type="number" class="form-control" id="sale" name="sale" placeholder="Enter product sale price" value="<?= isset($product['price_sale']) ? $product['price_sale'] : ''; ?>">
+                    <input type="number" class="form-control" id="sale" name="sale" placeholder="Enter product sale price" value="<?= $product['price_sale'] ?? '' ?>">
                   </div>
                   <div class="form-group">
                     <label for="stock">In Stock</label>
-                    <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter number of products in stock" value="<?= isset($product['stock']) ? $product['stock'] : ''; ?>">
+                    <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter number of products in stock" value="<?= $product['stock'] ?? '' ?>">
                   </div>
                   <!-- <div class="form-group">
                     <label for="">Thumbnail</label>
@@ -139,7 +139,7 @@
                         <span class="input-group-text">Upload</span>
                       </div>
                       <div id="thumb">
-
+                        
                       </div>
                     </div>
                   </div> -->

@@ -103,15 +103,15 @@
                   </div>
                   <div class="form-group">
                     <label for="price">Price</label>
-                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price" value="<?= isset($product['price']) ? $product['price'] : ''; ?>">
+                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price">
                   </div>
                   <div class="form-group">
                     <label for="sale">Price Sale</label>
-                    <input type="number" class="form-control" id="sale" name="sale" placeholder="Enter product sale price" value="<?= isset($product['price_sale']) ? $product['price_sale'] : ''; ?>">
+                    <input type="number" class="form-control" id="sale" name="sale" placeholder="Enter product sale price">
                   </div>
                   <div class="form-group">
                     <label for="stock">In Stock</label>
-                    <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter number of products in stock" value="<?= isset($product['stock']) ? $product['stock'] : ''; ?>">
+                    <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter number of products in stock">
                   </div>
                   <!-- <div class="form-group">
                     <label for="">Thumbnail</label>
