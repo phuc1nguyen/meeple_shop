@@ -43,13 +43,13 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Tên</th>
-                    <th>Mô tả</th>
-                    <th>Ảnh đại diện</th>
-                    <th>Giá</th>
-                    <th>Giá giảm</th>
-                    <th>Trạng thái</th>
-                    <th>&nbsp;</th>
+                    <th data-breakpoints="lg">Tên</th>
+                    <th data-breakpoints="lg">Mô tả</th>
+                    <th data-breakpoints="lg">Ảnh đại diện</th>
+                    <th data-breakpoints="lg">Giá</th>
+                    <th data-breakpoints="lg">Giá giảm</th>
+                    <th data-breakpoints="lg">Trạng thái</th>
+                    <th data-breakpoints="lg">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>

@@ -1,6 +1,5 @@
 <?php 
   require_once('../inc/config.inc.php');
-
   try {
     // connect to database with the PDO object, $dbh stands for database handle
     // close connection by setting $dbh = null;

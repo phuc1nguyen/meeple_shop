@@ -30,6 +30,24 @@
   <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
   <!-- Toastr JS -->
   <link rel="stylesheet" href="public/toastr/build/toastr.min.css">
+
+  <style>
+    ::-webkit-scrollbar {
+      height: 0.25rem;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+  </style>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">

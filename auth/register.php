@@ -84,39 +84,39 @@
       <form id="register-form" action="<?= htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="POST">
         <div class="input-group mb-3">
           <input type="text" class="form-control" id="nameRegis" name="name" value="<?php if (isset($_POST['name'])) echo htmlspecialchars($_POST['name']); ?>" placeholder="Name" required>
-          <?php if (!empty($errors) && in_array('name', $errors)) echo "<p class='noti noti-warning'>Fill in your name</p>"; ?>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
             </div>
           </div>
+          <?php if (!empty($errors) && in_array('name', $errors)) echo "<p class='noti noti-warning'>Fill in your name</p>"; ?>
         </div>
         <div class="input-group mb-3">
           <input type="email" class="form-control" id="emailRegis" name="email" <?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?> placeholder="Email" required>
-          <?php if (!empty($errors) && in_array('email', $errors)) echo "<p class='noti noti-warning'>Fill in your email</p>"; ?>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
+          <?php if (!empty($errors) && in_array('email', $errors)) echo "<p class='noti noti-warning'>Fill in your email</p>"; ?>
         </div>
         <div class="input-group mb-3">
           <input type="password" class="form-control" id="passRegis" name="password" placeholder="Password" required>
-          <?php if (!empty($errors) && in_array('password', $errors)) echo "<p class='noti noti-warning'>Fill in your password</p>"; ?>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
+          <?php if (!empty($errors) && in_array('password', $errors)) echo "<p class='noti noti-warning'>Fill in your password</p>"; ?>
         </div>
         <div class="input-group mb-3">
           <input type="password" class="form-control" id="passRegis2" name="password_2" placeholder="Retype password" required>
-          <?php if (!empty($errors) && in_array('passwords do not match', $errors)) echo "<p class='noti noti-warning'>Passwords do not match</p>"; ?>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
+          <?php if (!empty($errors) && in_array('passwords do not match', $errors)) echo "<p class='noti noti-warning'>Passwords do not match</p>"; ?>
         </div>
         <div class="row">
           <!-- <div class="col-8">

@@ -53,7 +53,7 @@
                     <th>Ảnh đại diện</th>
                     <th>Thời gian đăng ký</th>
                     <th>Trạng thái</th>
-                    <th>&nbsp;</th>
+                    <th>Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -75,7 +75,7 @@
                         <a class="btn btn-primary btn-sm" href="user_edit.php?id=<?= $item['id']; ?>">
                           <i class="bx bxs-edit"></i>
                         </a>
-                        <a class="btn btn-danger btn-sm" href="ajax/delete_user.php">
+                        <a class="btn btn-danger btn-sm" onclick="confirm_delete_user(<?php echo $item['id']; ?>)">
                           <i class="bx bxs-trash"></i>
                         </a>
                       </td>
