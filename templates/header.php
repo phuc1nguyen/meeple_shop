@@ -39,9 +39,9 @@
               <?php 
                 if (isset($_SESSION['user_name']) && isset($_SESSION['user_type'])){
                   if ($_SESSION['user_type'] == 0) {
-                    echo "<p><a href='admin/index.php'>" . ucwords($_SESSION['user_name']) . "</a> | <a href='auth/logout.php'>Log Out</a></p>";
+                    echo "<p><a href='backend/index.php'>" . ucwords($_SESSION['user_name']) . "</a> | <a href='auth/logout.php'>Log Out</a></p>";
                   } else {
-                    echo "<p><a href='profile.php'>" . ucwords($_SESSION['user_name']) . "</a> | <a href='auth/logout.php'>Log Out</a></p>";
+                    echo "<p><a href='user_profile.php'>" . ucwords($_SESSION['user_name']) . "</a> | <a href='auth/logout.php'>Log Out</a></p>";
                   }
                 } else {
                   echo "<p><a href='auth/login.php'>Login</a> / <a href='auth/register.php'>Signup</a></p>";

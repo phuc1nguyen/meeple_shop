@@ -5,7 +5,8 @@ $(document).ready(function(){
 });
 
 // UI Elements
-
-document.addEventListener('DOMContentLoaded', function() {
-  toastr.info('Toastr worked');
-});
+toastr.options = {
+  "positionClass": "toast-bottom-left",
+  "progressBar": true,
+  "timeOut": 3000
+};

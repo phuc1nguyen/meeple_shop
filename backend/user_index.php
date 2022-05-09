@@ -7,7 +7,7 @@
 ?>
 
 <?php
-  $query = "SELECT name, email, avatar, registration_date, active FROM users WHERE type <> 0 ORDER BY id DESC LIMIT 10";
+  $query = "SELECT id, name, email, avatar, registration_date, active FROM users WHERE type <> 0 ORDER BY id DESC LIMIT 10";
   $users = $dbh->query($query);
 ?>
 
@@ -67,12 +67,12 @@
                       <td>
                         <div class="bootstrap-switch" style="width: 86px;">
                           <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
-                            <input type="checkbox" class="active" name="active" <?php if ($item['active'] == 1) echo "checked"; ?> data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
+                            <input type="checkbox" class="active" name="active" <?php if ($item['active'] === 1) echo "checked"; ?> data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
                           </div>
                         </div>
                       </td>
                       <td>
-                        <a class="btn btn-primary btn-sm" href="ajax/user_edit.php">
+                        <a class="btn btn-primary btn-sm" href="user_edit.php?id=<?= $item['id']; ?>">
                           <i class="bx bxs-edit"></i>
                         </a>
                         <a class="btn btn-danger btn-sm" href="ajax/delete_user.php">

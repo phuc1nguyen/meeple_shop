@@ -1,20 +1,22 @@
 <?php
-  include('../config/mysqli_connect.php');
-  include('../inc/functions.php');
-  include('../templates/script.php');
+  require_once('../database/dbconnection.php');
+  require_once('../inc/functions.inc.php');
+  include_once('../templates/script.php');
 ?>
 
 <?php
-  if (isset($_GET['text'], $_GET['key']) && strlen($_GET['key']) == 32){
-    $text = mysqli_real_escape_string($dbc, $_GET['text']);
-    $key = mysqli_real_escape_string($dbc, $_GET['key']); 
+  if (isset($_GET['text'], $_GET['key']) && strlen($_GET['key']) === 32){
+    $text = filteredInput($_GET['text']);
+    $key = filteredInput($_GET['key']); 
 
-    $query = "UPDATE users SET active = 1 WHERE (email = '${text}' AND active = '${key}') LIMIT 1";
-    $result = mysqli_query($dbc, $query) or die("Query ${query} failed: " . mysqli_error($dbc));
-    if (mysqli_affected_rows($dbc) == 1) {
+    $query = "UPDATE users SET active = 1";
+    $query .= "WHERE (email = ? AND active = ?) LIMIT 1";
+    $sth = $dbh->prepare($query);
+
+    if ($sth->execute([$text, $key])) {
       redirect('auth/login.php');
     } else {
-      echo "<script>alert('User does not exist');</script>";
+      echo "<script type='text/javascript'> toastr.error('User does not exist'); </script>";
     }
   } else {
     redirect();

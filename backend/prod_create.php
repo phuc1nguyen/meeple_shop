@@ -2,24 +2,7 @@
   require_once("../database/dbconnection.php");
   require_once("../inc/functions.inc.php");
 
-  if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
-    $prodId = $_GET['id'];
-  } else {
-    redirect('admin/prod_index.php');
-  }
-  
-  // query san pham theo id tu csdl
-  $query = "SELECT * FROM products WHERE id = ? LIMIT 1"; 
-  $sth = $dbh->prepare($query);
-  $sth->bindParam(1, $prodId);
-
-  if ($sth->execute()) {
-    $product = $sth->fetch(PDO::FETCH_ASSOC);
-  } else {
-    redirect('admin/prod_index.php');
-  }
-
-  // update san pham trong csdl
+  // them san pham
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors = array();
     
@@ -61,14 +44,15 @@
 
     if (empty($errors)) {
       // neu ko co input trong thi query csdl
-      $data = array("name" => $name, "description" => $description, "price" => $price, "sale" => $sale, "stock" => $stock, "id" => $prodId);
-      $query = "UPDATE products";
-      $query .= " SET name = :name, description = :description, price = :price, price_sale = :sale, stock = :stock";
-      $query .= " WHERE id = :id LIMIT 1";
+      $slug = "";
+      $data = array("name" => $name, "description" => $description, "price" => $price, "sale" => $sale, "slug" => $slug, "stock" => $stock, "date" => (new DateTime())->format("Y-m-d H:i:s"));
+      $query = "INSERT INTO products";
+      $query .= " (name, cate_id, description, thumb, images, price, price_sale, slug, stock, add_date)";
+      $query .= " VALUES (:name, 1, :description, 'test', 'test', :price, :sale, :slug, :stock, :date)";
       $sth = $dbh->prepare($query);
       
       if ($sth->execute($data)) {
-        redirect('admin/prod_index.php');
+        redirect('backend/prod_index.php');
       } else {
         $msg = "<p class='noti noti-warning'>Failed to update due to server error</p>";
       }
@@ -78,7 +62,7 @@
     }
   }
 ?>
-
+  
 <?php
   include_once("templates/header.php");
   include_once("templates/navbar.php");
@@ -90,7 +74,8 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1 class="ml-2">Update Product</h1> 
+          <h1 class="ml-2">Create Product</h1> 
+          <p class="noti noti-warning"><?= isset($msg) ? $msg : ""; ?></p>
         </div>
       </div>
     </div>
@@ -106,47 +91,47 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form class="form-horizontal" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+              <form class="form-horizontal" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Product Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name" value="<?= $product['name'] ?? ''; ?>">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name">
                   </div>
                   <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" name="description" id="description" cols="30" rows="5" placeholder="Enter product description"><?= $product['description'] ?? '' ?></textarea>
+                    <textarea class="form-control" name="description" id="description" cols="30" rows="5" placeholder="Enter product description"></textarea>
                   </div>
                   <div class="form-group">
                     <label for="price">Price</label>
-                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price" value="<?= $product['price'] ?? '' ?>">
+                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price">
                   </div>
                   <div class="form-group">
                     <label for="sale">Price Sale</label>
-                    <input type="number" class="form-control" id="sale" name="sale" placeholder="Enter product sale price" value="<?= $product['price_sale'] ?? '' ?>">
+                    <input type="number" class="form-control" id="sale" name="sale" placeholder="Enter product sale price">
                   </div>
                   <div class="form-group">
                     <label for="stock">In Stock</label>
-                    <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter number of products in stock" value="<?= $product['stock'] ?? '' ?>">
+                    <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter number of products in stock">
                   </div>
                   <!-- <div class="form-group">
                     <label for="">Thumbnail</label>
                     <div class="input-group">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="thumbnail" name="thumbnail">
-                        <label class="custom-file-label" for="">Choose File</label>
+                        <input type="file" class="custom-file-input" value="" id="">
+                        <label class="custom-file-label" for="thumb">Choose File</label>
                       </div>
                       <div class="input-group-append">
                         <span class="input-group-text">Upload</span>
                       </div>
                       <div id="thumb">
-                        
+
                       </div>
                     </div>
                   </div> -->
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-info">Update</button>
+                  <button type="submit" class="btn btn-info">Create</button>
                   <button type="button" class="btn btn-default float-right">Cancel</button>
                 </div>
                 <!-- /.card-footer -->
