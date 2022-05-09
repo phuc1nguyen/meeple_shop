@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 04, 2022 at 12:18 AM
+-- Generation Time: May 09, 2022 at 10:30 AM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -50,7 +50,7 @@ CREATE TABLE `products` (
 INSERT INTO `products` (`id`, `name`, `cate_id`, `description`, `thumb`, `images`, `price`, `price_sale`, `slug`, `stock`, `active`, `add_date`, `backup`) VALUES
 (1, 'Echoes - The Microchip (Pre-Order)', 1, 'In the far future, civilization is lying in ruins, and the echoes of the past hide the tragic story of its downfall. See whether you can uncover the truth.', '', '', 9.99, 8.49, '', 20, 1, '2022-01-16 00:00:00', NULL),
 (2, 'Echoes - The Microchip (Pre-Order) 12345', 1, 'asdfasdf', 'test', 'test', 6, 5, '', 10, 1, '2022-05-03 16:16:56', NULL),
-(3, 'Echoes - The Microchip (Pre-Order) 12345', 1, 'asdfasdfasdf', 'test', 'test', 98, 52, '', 123, 1, '2022-05-03 16:17:32', NULL);
+(3, 'Echoes - The Microchip (Pre-Order) 12345', 1, '', 'test', 'test', 98, 52, '', 123, 1, '2022-05-03 16:17:32', NULL);
 
 -- --------------------------------------------------------
 
@@ -74,9 +74,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `type`, `avatar`, `active`, `registration_date`) VALUES
-(1, 'admin', 'admin@localhost.com', '6367c48dd193d56ea7b0baad25b19455e529f5ee', 0, NULL, '1', '2022-01-08 19:12:10'),
-(2, 'Phuc Nguyen', 'phuc.ng13988@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, NULL, '1', '2022-01-12 08:29:00'),
-(7, 'khanh nguyen', 'phucnguyen13988@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 1, NULL, '0', '2022-01-16 15:57:57');
+(1, 'admin', 'admin@localhost.com', '$2y$10$iTYGYIC703rU7hNa4N2ziOqKdI/4fc9ncEBhhv7S038QiATmx.D6W', 0, NULL, '1', '2022-05-09 07:49:14'),
+(2, 'phuc nguyen', 'phuc.ng13988@gmail.com', '$2y$10$4.dNNNFF92MOR18A7ZjQjOIQekcsaCQJOUI3uHnuOgG4zLbNL8QkO', 1, NULL, 'e682f2b8a000ceaa09f3d8e08073a457', '2022-05-09 07:51:08');
 
 --
 -- Indexes for dumped tables
@@ -109,7 +108,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
