@@ -9,12 +9,8 @@
   $sth->bindParam(':userId', $userId);
 
   if ($sth->execute()) {
-    echo array(
-      'status' => 'ok'
-    );
+    echo json_encode(array('status' => 'ok'));
   } else {
-    echo array(
-      'status' => 'error'
-    );
+    echo json_encode(array('status' => 'error'));
   }
 ?>

@@ -8,5 +8,4 @@
 </head>
 <body>
 </body>
-  <?php echo 12345; ?>
 </html>
