@@ -1,5 +1,6 @@
 <?php 
-  require_once('../database/dbconnection.php');
+  // requires __DIR__ otherwise cause error when calling ajax to other php files
+  require_once(__DIR__ . '/../database/dbconnection.php');
 
   define('BASE_URL', 'http://meeple_shop.test/');
 
