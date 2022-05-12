@@ -75,8 +75,7 @@
                         <a class="btn btn-primary btn-sm" href="user_edit.php?id=<?= $item['id']; ?>">
                           <i class="bx bxs-edit"></i>
                         </a>
-                        <!-- <a class="btn btn-danger btn-sm" onclick="confirm_delete_user(<?php echo $item['id']; ?>)"> -->
-                        <a class="btn btn-danger btn-sm" onclick="getTest()">
+                        <a class="btn btn-danger btn-sm" onclick="delete_user(<?= $item['id'] ?>)">
                           <i class="bx bxs-trash"></i>
                         </a>
                       </td>

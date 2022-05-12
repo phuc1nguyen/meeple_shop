@@ -103,11 +103,11 @@
                   </div>
                   <div class="form-group">
                     <label for="price">Price</label>
-                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price">
+                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price" step="0.01">
                   </div>
                   <div class="form-group">
                     <label for="sale">Price Sale</label>
-                    <input type="number" class="form-control" id="sale" name="sale" placeholder="Enter product sale price">
+                    <input type="number" class="form-control" id="sale" name="sale" placeholder="Enter product sale price" step="0.01">
                   </div>
                   <div class="form-group">
                     <label for="stock">In Stock</label>
