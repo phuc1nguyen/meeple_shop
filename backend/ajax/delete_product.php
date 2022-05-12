@@ -1,4 +1,5 @@
 <?php
+  ob_start();
   require_once('../../database/dbconnection.php');
   require_once('../../inc/functions.inc.php');
 
@@ -9,13 +10,15 @@
   $sth->bindParam(':productId', $productId);
 
   if ($sth->execute()) {
-    echo json_encode([
+    ob_end_clean();
+    echo json_encode(array(
       'status' => 'ok',
       'message' => 'Product deleted successfully'
-    ]);
+    ));
   } else {
-    echo json_encode([
+    ob_end_clean();
+    echo json_encode(array(
       'message' => 'Something went wrong'
-    ]);
+    ));
   }
 ?>

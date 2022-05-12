@@ -4,17 +4,17 @@
 
   $productId = $_POST['id'];
   $status = $_POST['status'];
-  echo json_encode(array($_POST));
 
-  // $data = array(
-  //   ':status' => $status,
-  //   ':prodId' => $productId
-  // );
-  // $query = "UPDATE products SET active = :status WHERE id = :prodId LIMIT 1";
-  // $sth = $dbh->prepare($query);
-  // if ($sth->execute($data)) {
-  //   echo 1;
-  // }
+  $data = array(
+    ':status' => $status,
+    ':prodId' => $productId
+  );
+  $query = "UPDATE products SET active = :status WHERE id = :prodId LIMIT 1";
+  $sth = $dbh->prepare($query);
+  if ($sth->execute($data)) {
+    echo '1';
+  } else {
+    echo '0';
+  }
 
-  // echo 0;
 ?>

@@ -55,38 +55,25 @@ function delete_user(id) {
 
 // Admin updates product's status
 function updateProductStatus(element) {
-  if (element.checked) {
-    const status = 1;
-  } else {
-    const status = 0;
-  }
-
   $.post('../../backend/ajax/status_product.php', {
     id: element.value,
-    status: status
+    status: element.checked ? 1 : 0
   }, response => {
-    console.log(response);
-    //  if (response === true) {
-    //   toastr.success('Product status updated successfully');
-    //  } else {
-      // toastr.error('Something went wrong')
-    //  }
+     if (response === '1') {
+      toastr.success('Product status updated successfully');
+     } else {
+      toastr.error('Something went wrong')
+     }
   });
 }
 
 // Admin updates user's status
 function updateUserStatus(element) {
-  if (element.checked) {
-    const status = 1;
-  } else {
-    const status = 0;
-  }
-
   $.post('../../backend/ajax/status_user.php', {
     id: element.value,
-    status: status
+    status: element.checked ? 1 : 0
   }, response => {
-    if (response === true) {
+    if (response === 1) {
       toastr.success('User status updated successfully');
     } else {
       toastr.error('Something went wrong');
