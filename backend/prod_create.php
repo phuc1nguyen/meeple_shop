@@ -128,6 +128,13 @@
                       </div>
                     </div>
                   </div> -->
+									<div class="form-group">
+										<label>Status</label>
+										<select class="form-control" id="active" name="active">
+											<option value="1">Active</option>
+											<option value="0">Disabled</option>
+										</select>
+									</div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

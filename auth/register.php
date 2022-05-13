@@ -45,7 +45,13 @@
         $activation = md5(uniqid(rand(), true));
         $now = new DateTime();
         $now = $now->format('Y-m-d H:i:s');
-        $data = array(':name' => $name, ':email' => $email, ':password' => $password, ':activation' => $activation, ':now' => $now);
+        $data = array(
+          ':name' => $name,
+          ':email' => $email, 
+          ':password' => $password, 
+          ':activation' => $activation, 
+          ':now' => $now
+        );
         $query = "INSERT INTO users (name, email, password, active, registration_date)";
         $query .= " VALUES (:name, :email, :password, :activation, :now)";
         $sth = $dbh->prepare($query);
@@ -56,6 +62,7 @@
           $body .= "Click <a href='auth/activation.php?text=" . urlencode($email) . "&key={$activation}'>here</a> to activate your account.";
           if (mail($email, 'Meeple Shop Registration', $body)) {
             $msg = "<script type='text/javascript'>toastr.success('An email has been sent to your email address.\nPlease activate your account before logging in');</script>";
+            redirect('auth/login.php');
           } else {
             $msg = "<script type='text/javascript'>toastr.error('Can not send email due to server error');</script>";
           }
@@ -92,7 +99,7 @@
           <?php if (!empty($errors) && in_array('name', $errors)) echo "<p class='noti noti-warning'>Fill in your name</p>"; ?>
         </div>
         <div class="input-group mb-3">
-          <input type="email" class="form-control" id="emailRegis" name="email" <?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?> placeholder="Email" required>
+          <input type="email" class="form-control" id="emailRegis" name="email" value="<?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>" placeholder="Email" required>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-envelope"></span>

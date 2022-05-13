@@ -19,6 +19,7 @@
   <style>
     .noti{
       padding: 1rem;
+      margin-top: 1rem;
       width: 100%;
       color: #ffffff;
       border-radius: .25rem;

@@ -13,15 +13,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	}
 
 	if (isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL, array(['min_range' => 1]))) {
-		$description = filteredInput($_POST['email']);
+		$email = filteredInput($_POST['email']);
 	} else {
 		$errors[] = 'email';
 	}
 
 	if (isset($_POST['password'])) {
-		if ($_POST['password'] === $_POST['passwordcf']) {
+		if ($_POST['password'] === $_POST['password_cf']) {
 			$password = filteredInput($_POST['password']);
 		} else {
+			$password = '';
 			$msg = "<script type='text/javascript'>toastr.error('Passwords do not matches');</script>";
 		}
 	} else {
@@ -34,14 +35,39 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 	//   $errors[] = 'thumbnail';
 	// }
 
+	if (isset($_POST['active'])) {
+		$active = $_POST['active'];
+	}
+
 	if (empty($errors)) {
-		// neu ko co input trong thi query csdl
+		// if there are no errors, first check if there is existing user with the same email
+		$query = "SELECT id FROM users WHERE email = ? LIMIT 1";
+		$sth = $dbh->prepare($query);
+		$sth->execute([$email]);
+		$user = $sth->fetch(PDO::FETCH_ASSOC);
 
-
-		if ($sth->execute($data)) {
-			redirect('backend/user_index.php');
+		if ($user) {
+			$msg = "<script type='text/javascript'>Email already exists</script>";
 		} else {
-			$msg = "<p class='noti noti-warning'>Failed to update due to server error</p>";
+			$password = password_hash($password, PASSWORD_BCRYPT);
+			$data = array(
+				':name' => $name,
+				':email' => $email,
+				':password' => $password,
+				':type' => 1,
+				':avatar' => 'test/test',
+				':active' => $active,
+				':now' => (new DateTime())->format('Y-m-d H:i:s')
+			);
+			$query = "INSERT INTO users (name, email, password, type, avatar, active, registration_date)";
+			$query .= " VALUES (:name, :email, :password, :type, :avatar, :active, :now)";
+			$sth = $dbh->prepare($query);
+
+			if ($sth->execute($data)) {
+				redirect('backend/user_index.php');
+			} else {
+				$msg = "<p class='noti noti-warning'>Failed to update due to server error</p>";
+			}
 		}
 	} else {
 		// neu co input trong thi thong bao loi
@@ -82,11 +108,11 @@ include_once("templates/sidebar.php");
 								<div class="card-body">
 									<div class="form-group">
 										<label for="name">Name</label>
-										<input type="text" class="form-control" id="name" name="name" placeholder="Enter username">
+										<input type="text" class="form-control" id="name" name="name" placeholder="Enter username" value="<?= $_POST['name'] ?? '' ?>">
 									</div>
 									<div class="form-group">
 										<label for="email">Email</label>
-										<input type="email" class="form-control" id="email" name="email" placeholder="Enter user email">
+										<input type="email" class="form-control" id="email" name="email" placeholder="Enter user email" value="<?= $_POST['email'] ?? '' ?>">
 									</div>
 									<div class="form-group">
 										<label for="password">Password</label>
@@ -100,7 +126,7 @@ include_once("templates/sidebar.php");
 										<label for="avatar">Profile picture</label>
 										<div class="input-group">
 											<div class="custom-file">
-												<input type="file" class="custom-file-input" value="" id="avatar">
+												<input type="file" name="avatar" class="custom-file-input" value="<?= $_POST['avatar'] ?? '' ?>" id="avatar">
 												<label class="custom-file-label" for="avatar">Choose File</label>
 											</div>
 											<div class="input-group-append">
@@ -112,10 +138,10 @@ include_once("templates/sidebar.php");
 										</div>
 									</div>
 									<div class="form-group">
-										<label>Status</label>
+										<label for="active">Status</label>
 										<select class="form-control" id="active" name="active">
-											<option value="1">Active</option>
-											<option value="0">Disabled</option>
+											<option value="1" <?php if (isset($_POST['active']) && $_POST['active'] === '1') echo "selected"; ?>>Active</option>
+											<option value="0" <?php if (isset($_POST['active']) && $_POST['active'] === '0') echo "selected"; ?>>Disabled</option>
 										</select>
 									</div>
 								</div>
@@ -133,4 +159,8 @@ include_once("templates/sidebar.php");
 		</section>
 	</div>
 
-<?php include_once('templates/footer.php'); ?>
+<?php
+	if (isset($msg)) echo $msg;
+
+	include_once('templates/footer.php'); 
+?>

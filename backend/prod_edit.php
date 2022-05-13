@@ -143,6 +143,13 @@
                       </div>
                     </div>
                   </div> -->
+									<div class="form-group">
+										<label for="active">Status</label>
+										<select class="form-control" id="active" name="active">
+											<option value="1" <?php if ($product['active'] === '1') echo "selected"; ?>>Active</option>
+											<option value="0" <?php if ($product['active'] === '0') echo "selected"; ?>>Disabled</option>
+										</select>
+									</div>
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">

@@ -48,16 +48,16 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>Tên</th>
-                    <th>Email</th>
-                    <th>Ảnh đại diện</th>
-                    <th>Thời gian đăng ký</th>
-                    <th>Trạng thái</th>
-                    <th>Thao tác</th>
+                    <th data-breakpoints="lg">Tên</th>
+                    <th data-breakpoints="lg">Email</th>
+                    <th data-breakpoints="lg">Ảnh đại diện</th>
+                    <th data-breakpoints="lg">Thời gian đăng ký</th>
+                    <th data-breakpoints="lg">Trạng thái</th>
+                    <th data-breakpoints="lg" class="text-right">Thao tác</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($users as $key => $item) {?>
+                  <?php foreach ($users as $key => $item) { ?>
                     <tr>
                       <td><?= $key + 1; ?></td>
                       <td><?= $item['name']; ?></td>
@@ -67,15 +67,20 @@
                       <td>
                         <div class="bootstrap-switch" style="width: 86px;">
                           <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
-                            <input type="checkbox" class="active" name="active" <?php if ($item['active'] === 1) echo "checked"; ?> data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
+                            <input type="checkbox" class="active" name="active" onchange="updateUserStatus(this)" value="<?= $item['id'] ?>" <?php if ($item['active'] === '1') echo "checked"; ?> data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
                           </div>
                         </div>
                       </td>
-                      <td>
-                        <a class="btn btn-primary btn-sm" href="user_edit.php?id=<?= $item['id']; ?>">
+                      <td class="text-right">
+                        <?php if (strlen($item['active']) === 32) { ?>
+                          <a class="btn btn-success btn-sm" onclick="verify_user(<?= $item['id'] ?>)" title="Verify">
+                            <i class='bx bx-check-square'></i>
+                          </a>
+                        <?php } ?>
+                        <a class="btn btn-primary btn-sm" href="user_edit.php?id=<?= $item['id']; ?>" title="Edit">
                           <i class="bx bxs-edit"></i>
                         </a>
-                        <a class="btn btn-danger btn-sm" onclick="delete_user(<?= $item['id'] ?>)">
+                        <a class="btn btn-danger btn-sm" onclick="deleteUser(<?= $item['id'] ?>)" title="Delete">
                           <i class="bx bxs-trash"></i>
                         </a>
                       </td>

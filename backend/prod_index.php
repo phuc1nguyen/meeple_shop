@@ -74,15 +74,15 @@
                     <td>
                       <div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-on bootstrap-switch-focused" style="width: 86px;">
                         <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
-                          <input type="checkbox" class="active" name="active" value="<?= $item['id'] ?>" <?php if ($item['active'] == 1) echo "checked"; ?> onchange="updateProductStatus(this)" data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
+                          <input type="checkbox" class="active" name="active" onchange="updateProductStatus(this)" value="<?= $item['id'] ?>" <?php if ($item['active'] === '1') echo "checked";?> data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
                         </div>
                       </div>
                     </td>
                     <td>
-                      <a class="btn btn-primary btn-sm" href="prod_edit.php?id=<?= $item['id']; ?>">
+                      <a class="btn btn-primary btn-sm" href="prod_edit.php?id=<?= $item['id']; ?>" title="Edit">
                         <i class="bx bxs-edit"></i>
                       </a>
-                      <a class="btn btn-danger btn-sm btn-this" onclick="delete_product(<?= $item['id']?>)">
+                      <a class="btn btn-danger btn-sm btn-this" onclick="deleteProduct(<?= $item['id']?>)" title="Delete">
                         <i class="bx bxs-trash"></i>
                       </a>
                     </td>

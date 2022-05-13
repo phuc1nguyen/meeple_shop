@@ -7,11 +7,13 @@ $(document).ready(function(){
 // Toastr settings
 toastr.options = {
   "positionClass": "toast-bottom-left",
-  "timeOut": 1000
+  "timeOut": 2500,
+  "progressBar": true,
+  "preventDuplicates": true
 };
 
 // Admin deletes products
-function delete_product(id) {
+function deleteProduct(id) {
   const data = {
     id: id
   };
@@ -20,10 +22,7 @@ function delete_product(id) {
     $.post('../../backend/ajax/delete_product.php', data, json => {
       const response = JSON.parse(json); 
       if (response.status === 'ok') {
-        toastr.options.onHidden = function() {
-          window.location.reload();
-        }
-        toastr.success(response.message);
+        window.location.reload();
       } else {
         toastr.error(response.message);
       }
@@ -31,8 +30,24 @@ function delete_product(id) {
   }
 }
 
+// Admin updates product's status
+function updateProductStatus(element) {
+  const data = {
+    id: parseInt(element.value),
+    status: element.checked ? 1 : 0
+  };
+
+  $.post('../../backend/ajax/status_product.php', data, function(response) {
+    if (response === 1) {
+      toastr.success('Product status updated successfully');
+    } else {
+      toastr.error('Something went wrong');
+    }
+  }, 'json');
+}
+
 // Admin deletes users
-function delete_user(id) {
+function deleteUser(id) {
   const data = {
     id: id
   };
@@ -40,45 +55,47 @@ function delete_user(id) {
   if (confirm('Are you sure want to delete this user?')) {
     $.post('../../backend/ajax/delete_user.php', data, response => {
       if (response.status === 'ok') {
-        toastr.options.onHidden = function() {
-          window.location.reload();
-        }
-        toastr.success(response.message);
+        window.location.reload();
       } else {
         toastr.error(response.message);
       }
-    }, "json");
+    }, 'json');
   // thêm tham số thứ 4 là tham số xác định kiểu trả về của ajax thì ko cần dữ liệu trả về
   // đc tự chuyển thành obj, ko cần dùng JSON.parse()
   }
 }
 
-// Admin updates product's status
-function updateProductStatus(element) {
-  $.post('../../backend/ajax/status_product.php', {
-    id: element.value,
-    status: element.checked ? 1 : 0
-  }, response => {
-     if (response === '1') {
-      toastr.success('Product status updated successfully');
-     } else {
-      toastr.error('Something went wrong')
-     }
-  });
-}
-
 // Admin updates user's status
 function updateUserStatus(element) {
-  $.post('../../backend/ajax/status_user.php', {
-    id: element.value,
+  const data = {
+    id: parseInt(element.value),
     status: element.checked ? 1 : 0
-  }, response => {
-    if (response === 1) {
-      toastr.success('User status updated successfully');
+  };
+
+  $.post('../../backend/ajax/status_user.php', data, function(response) {
+    if (response.status === 'ok') {
+      toastr.success('User updated successfully');
     } else {
-      toastr.error('Something went wrong');
+      toastr.error(response.message);
     }
-  })
+  }, 'json');
+}
+
+// Admin verifies users
+function verify_user(id) {
+  const data = {id: id};
+
+  if (confirm('Verify this user and can not undo?')) {
+    $.post('../../backend/ajax/verify_user.php', data, response => {
+      // chua chay dc
+      console.log(response);
+      if (response === 1) {
+        window.location.reload();
+      } else {
+        toastr.error('Something went wrong');
+      }
+    }, 'json');
+  }
 }
 
 

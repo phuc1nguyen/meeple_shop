@@ -11,10 +11,11 @@
   );
   $query = "UPDATE products SET active = :status WHERE id = :prodId LIMIT 1";
   $sth = $dbh->prepare($query);
+
   if ($sth->execute($data)) {
-    echo '1';
+    echo true;
   } else {
-    echo '0';
+    echo false;
   }
 
 ?>
