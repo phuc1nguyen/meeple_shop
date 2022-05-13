@@ -39,7 +39,7 @@ function updateProductStatus(element) {
 
   $.post('../../backend/ajax/status_product.php', data, function(response) {
     if (response === 1) {
-      toastr.success('Product status updated successfully');
+      toastr.success('Product updated successfully');
     } else {
       toastr.error('Something went wrong');
     }
@@ -60,8 +60,7 @@ function deleteUser(id) {
         toastr.error(response.message);
       }
     }, 'json');
-  // thêm tham số thứ 4 là tham số xác định kiểu trả về của ajax thì ko cần dữ liệu trả về
-  // đc tự chuyển thành obj, ko cần dùng JSON.parse()
+  // the fourth parameter is the return type of ajax (json, xml, script, text, html), omit JSON.parse(response) if add this parameter as 'json'
   }
 }
 
@@ -87,8 +86,6 @@ function verify_user(id) {
 
   if (confirm('Verify this user and can not undo?')) {
     $.post('../../backend/ajax/verify_user.php', data, response => {
-      // chua chay dc
-      console.log(response);
       if (response === 1) {
         window.location.reload();
       } else {
@@ -98,13 +95,30 @@ function verify_user(id) {
   }
 }
 
+function enterSearch(event) {
+  // get products by pressing enter after input instead of clicking on the search icon
+  // must use 'event' as function parameter
+  if (event.keyCode === 13) getProductSearch();
+}
+
+async function getProductSearch() {
+  // get products searched by name using ajax
+  const queryStr = document.querySelector('#table_search').value;
+
+  const response = await fetch(`../../backend/ajax/get_products.php?query=${queryStr}`);
+  const result = await response.json();
+
+  window.location.hash = 'query=' + queryStr;
+  window.location.reload();
+}
+
 
 
 
 
 
 // why deleting item with POST request using fetch() does not work???
-// can not log the id return using POST request
+// can not log the returned id in console using POST request
 
 // async function confirm_delete_user(id) {
 //   const data = {

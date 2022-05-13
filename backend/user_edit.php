@@ -125,10 +125,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 										</div>
 									</div>
 									<div class="form-group">
-										<label>Status</label>
+										<label for="active">Status</label>
 										<select class="form-control" id="active" name="active">
-											<option value="1" <?php if ($user['active'] === 1) echo "selected"; ?>>Active</option>
-											<option value="0" <?php if ($user['active'] !== 1) echo "selected"; ?>>Disabled</option>
+											<option value="1" <?php if ($user['active'] === '1') echo "selected"; ?>>Active</option>
+											<option value="0" <?php if ($user['active'] === '0') echo "selected"; ?>>Disabled</option>
 										</select>
 									</div>
 								</div>

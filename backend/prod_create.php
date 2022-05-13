@@ -30,6 +30,8 @@
       $errors[] = 'sale';
     }
 
+    if ($price < $sale) $errors[] = 'pricegtsale';
+
     if (isset($_POST['stock']) && filter_var($_POST['stock'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
       $stock = filteredInput($_POST['stock']);
     } else {
@@ -113,7 +115,7 @@
                     <label for="stock">In Stock</label>
                     <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter number of products in stock">
                   </div>
-                  <!-- <div class="form-group">
+                  <div class="form-group">
                     <label for="">Thumbnail</label>
                     <div class="input-group">
                       <div class="custom-file">
@@ -127,7 +129,7 @@
 
                       </div>
                     </div>
-                  </div> -->
+                  </div>
 									<div class="form-group">
 										<label>Status</label>
 										<select class="form-control" id="active" name="active">

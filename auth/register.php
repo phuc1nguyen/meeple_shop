@@ -59,7 +59,7 @@
         if ($sth->execute($data)) {
           // dang ky thanh cong thi gui mail cho kich hoat tai khoan
           $body = "Thank you for registering on Meeple Shop.\n";
-          $body .= "Click <a href='auth/activation.php?text=" . urlencode($email) . "&key={$activation}'>here</a> to activate your account.";
+          $body .= "Click <a href='auth/activation.php?text=" . urlencode($email) . "&key={$activation}' target='_blank'>here</a> to activate then log in to your account.";
           if (mail($email, 'Meeple Shop Registration', $body)) {
             $msg = "<script type='text/javascript'>toastr.success('An email has been sent to your email address.\nPlease activate your account before logging in');</script>";
             redirect('auth/login.php');

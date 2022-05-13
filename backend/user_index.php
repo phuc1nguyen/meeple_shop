@@ -76,10 +76,11 @@
                           <a class="btn btn-success btn-sm" onclick="verify_user(<?= $item['id'] ?>)" title="Verify">
                             <i class='bx bx-check-square'></i>
                           </a>
+                        <?php } else { ?>
+                          <a class="btn btn-primary btn-sm" href="user_edit.php?id=<?= $item['id']; ?>" title="Edit">
+                            <i class="bx bxs-edit"></i>
+                          </a>
                         <?php } ?>
-                        <a class="btn btn-primary btn-sm" href="user_edit.php?id=<?= $item['id']; ?>" title="Edit">
-                          <i class="bx bxs-edit"></i>
-                        </a>
                         <a class="btn btn-danger btn-sm" onclick="deleteUser(<?= $item['id'] ?>)" title="Delete">
                           <i class="bx bxs-trash"></i>
                         </a>

@@ -6,6 +6,14 @@
   include_once("templates/sidebar.php");
 ?>
 
+<?php
+  $query = "SELECT id, name, description, thumb, price, price_sale, active ";
+  $query .= "FROM products";
+  $query .= " ORDER BY id DESC";
+  $query .= " LIMIT 10"; 
+  $products = $dbh->query($query, PDO::FETCH_ASSOC);
+?>
+
 <div class="content-wrapper">
   <div class="content-header">
     <div class="container-fluid">
@@ -27,12 +35,12 @@
 
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                  <input type="text" name="table_search" class="form-control float-right" id="table_search" onkeypress="enterSearch(event)" placeholder="Search by name">
 
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-default">
+                    <a onclick="getProductSearch()" class="btn btn-default">
                       <i class="fas fa-search"></i>
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>
@@ -53,14 +61,6 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php
-                    $query = "SELECT id, name, description, thumb, price, price_sale, active ";
-                    $query .= "FROM products";
-                    $query .= " ORDER BY id DESC";
-                    $query .= " LIMIT 10"; 
-                    $products = $dbh->query($query, PDO::FETCH_ASSOC);
-                  ?>
-
                   <?php foreach ($products as $key => $item) { ?>
                   <tr>
                     <td><?= $key + 1; ?></td>
