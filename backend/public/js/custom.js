@@ -104,12 +104,11 @@ function enterSearch(event) {
 async function getProductSearch() {
   // get products searched by name using ajax
   const queryStr = document.querySelector('#table_search').value;
+  const url = window.location.href;
+  // must remove previous query string (if there is) before concatenating new query string then reload
 
-  const response = await fetch(`../../backend/ajax/get_products.php?query=${queryStr}`);
-  const result = await response.json();
-
-  window.location.hash = 'query=' + queryStr;
-  window.location.reload();
+  console.log(url);
+  // window.location.href += `?query=${queryStr}`;
 }
 
 

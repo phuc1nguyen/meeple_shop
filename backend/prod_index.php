@@ -7,11 +7,26 @@
 ?>
 
 <?php
-  $query = "SELECT id, name, description, thumb, price, price_sale, active ";
-  $query .= "FROM products";
-  $query .= " ORDER BY id DESC";
-  $query .= " LIMIT 10"; 
-  $products = $dbh->query($query, PDO::FETCH_ASSOC);
+  if (isset($_GET['query'])) {
+    $search = $_GET['query'];
+    $data = array(
+      ':name' => '%' . $search . '%'
+    );
+
+    $query = "SELECT id, name,description, thumb, price, price_sale, active";
+    $query .= " FROM products WHERE name LIKE :name";
+    $query .= " ORDER BY id DESC LIMIT 10";
+    $sth = $dbh->prepare($query);
+    $sth->execute($data);
+    $products = $sth->fetchAll(PDO::FETCH_ASSOC);
+  } else {
+    $query = "SELECT id, name, description, thumb, price, price_sale, active";
+    $query .= " FROM products";
+    $query .= " ORDER BY id DESC";
+    $query .= " LIMIT 10"; 
+    $products = $dbh->query($query, PDO::FETCH_ASSOC);
+  }
+  
 ?>
 
 <div class="content-wrapper">
