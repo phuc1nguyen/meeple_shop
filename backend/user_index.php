@@ -7,8 +7,22 @@
 ?>
 
 <?php
-  $query = "SELECT id, name, email, avatar, registration_date, active FROM users WHERE type <> 0 ORDER BY id DESC LIMIT 10";
-  $users = $dbh->query($query);
+  if (isset($_GET['query'])) {
+    $search = $_GET['query'];
+    $data = array(
+      ':name' => "%{$search}%",
+      ':email' => "%{$search}%"
+    );
+
+    $query = "SELECT id, name, email, avatar, registration_date, active FROM users WHERE type <> 0 AND (name LIKE :name OR email LIKE :email) ORDER BY id DESC LIMIT 10";
+    $sth = $dbh->prepare($query);
+    $sth->execute($data);
+    $users = $sth->fetchAll(PDO::FETCH_ASSOC);
+  } else {
+    $query = "SELECT id, name, email, avatar, registration_date, active FROM users WHERE type <> 0 ORDER BY id DESC LIMIT 10";
+    $users = $dbh->query($query);
+  }
+
 ?>
 
 <div class="content-wrapper">
@@ -31,13 +45,13 @@
               <h3 class="card-title">Danh sách người dùng</h3>
 
               <div class="card-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                <div class="input-group input-group-sm" style="width: 200px;">
+                  <input type="text" name="table_search" class="form-control float-right" id="table_search" onkeypress="enterSearch(event)" placeholder="Search by name or email" value="<?= $_GET['query'] ?? '' ?>">
 
                   <div class="input-group-append">
-                    <button type="submit" class="btn btn-default">
+                    <a onclick="getUserSearch()" class="btn btn-default">
                       <i class="fas fa-search"></i>
-                    </button>
+                    </a>
                   </div>
                 </div>
               </div>

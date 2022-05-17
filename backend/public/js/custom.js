@@ -12,7 +12,8 @@ toastr.options = {
   "preventDuplicates": true
 };
 
-// Admin deletes products
+
+// Admin Deletes 
 function deleteProduct(id) {
   const data = {
     id: id
@@ -30,23 +31,6 @@ function deleteProduct(id) {
   }
 }
 
-// Admin updates product's status
-function updateProductStatus(element) {
-  const data = {
-    id: parseInt(element.value),
-    status: element.checked ? 1 : 0
-  };
-
-  $.post('../../backend/ajax/status_product.php', data, function(response) {
-    if (response === 1) {
-      toastr.success('Product updated successfully');
-    } else {
-      toastr.error('Something went wrong');
-    }
-  }, 'json');
-}
-
-// Admin deletes users
 function deleteUser(id) {
   const data = {
     id: id
@@ -64,7 +48,23 @@ function deleteUser(id) {
   }
 }
 
-// Admin updates user's status
+
+// Admin Updates Status
+function updateProductStatus(element) {
+  const data = {
+    id: parseInt(element.value),
+    status: element.checked ? 1 : 0
+  };
+
+  $.post('../../backend/ajax/status_product.php', data, function(response) {
+    if (response === 1) {
+      toastr.success('Product updated successfully');
+    } else {
+      toastr.error('Something went wrong');
+    }
+  }, 'json');
+}
+
 function updateUserStatus(element) {
   const data = {
     id: parseInt(element.value),
@@ -80,6 +80,50 @@ function updateUserStatus(element) {
   }, 'json');
 }
 
+
+// Admin Searches
+function enterSearch(event) {
+  // get products by pressing enter after input instead of clicking on the search icon
+  // must use 'event' as function parameter
+  if (event.keyCode === 13) {
+    if (window.location.pathname === '/backend/prod_index.php') {
+      getProductSearch();
+    } else if (window.location.pathname === '/backend/user_index.php') {
+      getUserSearch();
+    }
+  }
+}
+
+async function getProductSearch() {
+  // get products searched by name using ajax
+  const queryStr = document.querySelector('#table_search').value;
+  // must remove previous query string (if there is) before concatenating new query string then reload
+  // in order to search continuously
+
+  // old way
+  // let url = window.location.href;
+  // url = url.substring(0, url.indexOf('?'));
+  // window.location.href = url + `?query=${queryStr}`
+
+  // better do this way
+  // window.location.search = `?query=${queryStr}`;  
+
+  // maybe the 2nd best way yet
+  const url = new URL(window.location.href);
+  url.searchParams.set('query', queryStr);
+  console.log(url);
+  window.location.assign(url.href);
+  // https://javascript.info/url
+  // https://stackoverflow.com/questions/10302905/location-href-property-vs-location-assign-method#14673342
+ }
+
+async function getUserSearch() {
+  // get users searched by name and email using ajax
+  const queryStr = document.querySelector('#table_search').value;
+  window.location.search = `?query=${queryStr}`;  
+}
+
+
 // Admin verifies users
 function verify_user(id) {
   const data = {id: id};
@@ -93,22 +137,6 @@ function verify_user(id) {
       }
     }, 'json');
   }
-}
-
-function enterSearch(event) {
-  // get products by pressing enter after input instead of clicking on the search icon
-  // must use 'event' as function parameter
-  if (event.keyCode === 13) getProductSearch();
-}
-
-async function getProductSearch() {
-  // get products searched by name using ajax
-  const queryStr = document.querySelector('#table_search').value;
-  const url = window.location.href;
-  // must remove previous query string (if there is) before concatenating new query string then reload
-
-  console.log(url);
-  // window.location.href += `?query=${queryStr}`;
 }
 
 

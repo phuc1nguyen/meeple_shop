@@ -43,7 +43,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 		// if there are no errors, first check if there is existing user with the same email
 		$query = "SELECT id FROM users WHERE email = ? LIMIT 1";
 		$sth = $dbh->prepare($query);
-		$sth->execute([$email]);
+		$sth->bindParam(1, $email);
+		$sth->execute();
 		$user = $sth->fetch(PDO::FETCH_ASSOC);
 
 		if ($user) {
