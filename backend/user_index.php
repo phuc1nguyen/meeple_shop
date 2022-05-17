@@ -46,7 +46,7 @@
 
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 200px;">
-                  <input type="text" name="table_search" class="form-control float-right" id="table_search" onkeypress="enterSearch(event)" placeholder="Search by name or email" value="<?= $_GET['query'] ?? '' ?>">
+                  <input type="text" name="table_search" class="form-control float-right" id="table_search" onkeypress="enterSearch(event)" placeholder="Search by name and email" value="<?= $_GET['query'] ?? '' ?>">
 
                   <div class="input-group-append">
                     <a onclick="getUserSearch()" class="btn btn-default">
