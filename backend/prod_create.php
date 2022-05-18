@@ -30,7 +30,7 @@
       $errors[] = 'sale';
     }
 
-    if ($price < $sale) $errors[] = 'pricegtsale';
+    // if ($price < $sale) $errors[] = 'pricegtsale';
 
     if (isset($_POST['stock']) && filter_var($_POST['stock'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
       $stock = filteredInput($_POST['stock']);
@@ -38,7 +38,7 @@
       $errors[] = 'sale';
     }
 
-    // if (isset($_POST['thumbnail'])) {
+    // if (isset($_FILES['thumbnail'])) {
     //   $thumb = '';
     // } else {
     //   $errors[] = 'thumbnail'; 
@@ -46,21 +46,24 @@
 
     if (empty($errors)) {
       // neu ko co input trong thi query csdl
-      $slug = "";
-      $data = array("name" => $name, "description" => $description, "price" => $price, "sale" => $sale, "slug" => $slug, "stock" => $stock, "date" => (new DateTime())->format("Y-m-d H:i:s"));
-      $query = "INSERT INTO products";
-      $query .= " (name, cate_id, description, thumb, images, price, price_sale, slug, stock, add_date)";
-      $query .= " VALUES (:name, 1, :description, 'test', 'test', :price, :sale, :slug, :stock, :date)";
-      $sth = $dbh->prepare($query);
       
-      if ($sth->execute($data)) {
-        redirect('backend/prod_index.php');
-      } else {
-        $msg = "<p class='noti noti-warning'>Failed to update due to server error</p>";
-      }
+      print_r($_FILES);
+      // $slug = "";
+      // $data = array("name" => $name, "description" => $description, "price" => $price, "sale" => $sale, "slug" => $slug, "stock" => $stock, "date" => (new DateTime())->format("Y-m-d H:i:s"));
+      // $query = "INSERT INTO products";
+      // $query .= " (name, cate_id, description, thumb, images, price, price_sale, slug, stock, add_date)";
+      // $query .= " VALUES (:name, 1, :description, 'test', 'test', :price, :sale, :slug, :stock, :date)";
+      // $sth = $dbh->prepare($query);
+      
+      // if ($sth->execute($data)) {
+      //   redirect('backend/prod_index.php');
+      // } else {
+      //   $msg = "<p class='noti noti-warning'>Failed to update due to server error</p>";
+      // }
     } else {
       // neu co input trong thi thong bao loi
-      $msg = "<p class='noti noti-warning'>Please fill in all fields</p>";
+      // $msg = "<p class='noti noti-warning'>Please fill in all fields</p>";
+      $msg = "<script type='text/javascript'> toastr.error('Please fill in all field'); </script>";
     }
   }
 ?>
@@ -77,7 +80,6 @@
       <div class="row mb-2">
         <div class="col-sm-12">
           <h1 class="ml-2">Create Product</h1> 
-          <p class="noti noti-warning"><?= isset($msg) ? $msg : ""; ?></p>
         </div>
       </div>
     </div>
@@ -93,7 +95,7 @@
               </div>
               <!-- /.card-header -->
               <!-- form start -->
-              <form class="form-horizontal" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+              <form class="form-horizontal" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Product Name</label>
@@ -117,17 +119,17 @@
                   </div>
                   <div class="form-group">
                     <label for="">Thumbnail</label>
-                    <div class="input-group">
+                    <div class="input-group" style="display: flex;">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" value="" id="">
+                        <input type="file" class="custom-file-input" id="thumb" name="thumb" value="">
                         <label class="custom-file-label" for="thumb">Choose File</label>
                       </div>
                       <div class="input-group-append">
                         <span class="input-group-text">Upload</span>
                       </div>
-                      <div id="thumb">
-
-                      </div>
+                    </div>
+                    <div id="thumb">
+                      <img src="/public/img/no_avatar.png" width="100px" alt="No Avatar">
                     </div>
                   </div>
 									<div class="form-group">
