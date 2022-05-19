@@ -128,8 +128,8 @@
                         <span class="input-group-text">Upload</span>
                       </div>
                     </div>
-                    <div id="thumb">
-                      <img src="/public/img/no_avatar.png" width="100px" alt="No Avatar">
+                    <div id="thumb" class="mt-3">
+                      <img src="/public/img/no_avatar.png" width="200px" alt="No Avatar">
                     </div>
                   </div>
 									<div class="form-group">
