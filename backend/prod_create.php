@@ -38,34 +38,46 @@
       $errors[] = 'sale';
     }
 
-    // if (isset($_FILES['thumbnail'])) {
-    //   $thumb = '';
-    // } else {
-    //   $errors[] = 'thumbnail'; 
-    // }
+    if (isset($_FILES['thumb'])) {
+      $allowed = array('image/jpg', 'image/jpeg', 'image/png');
+      print_r($_FILES['thumb']);
 
-    if (empty($errors)) {
-      // neu ko co input trong thi query csdl
-      
-      print_r($_FILES);
-      // $slug = "";
-      // $data = array("name" => $name, "description" => $description, "price" => $price, "sale" => $sale, "slug" => $slug, "stock" => $stock, "date" => (new DateTime())->format("Y-m-d H:i:s"));
-      // $query = "INSERT INTO products";
-      // $query .= " (name, cate_id, description, thumb, images, price, price_sale, slug, stock, add_date)";
-      // $query .= " VALUES (:name, 1, :description, 'test', 'test', :price, :sale, :slug, :stock, :date)";
-      // $sth = $dbh->prepare($query);
-      
-      // if ($sth->execute($data)) {
-      //   redirect('backend/prod_index.php');
-      // } else {
-      //   $msg = "<p class='noti noti-warning'>Failed to update due to server error</p>";
-      // }
+      if (in_array($_FILES['thumb']['type'], $allowed)) {
+        // uploaded file is valid
+        $tmp = explode('.', $_FILES['thumb']['name']);
+        $ext = end($tmp);
+        // separate into 2 lines because:
+        // https://stackoverflow.com/questions/4636166/only-variables-should-be-passed-by-reference#4636183
+        $remaned = time() . '_' . uniqid(rand(), false) . '.' . $ext;
+        move_uploaded_file($_FILES['thumb']['tmp_name'], 'public/img/' . $remaned);
+      } else {
+        $msg = "<script type='text/javascript'> toastr.error('Invalid file extension'); </script>";
+      }
     } else {
-      // neu co input trong thi thong bao loi
-      // $msg = "<p class='noti noti-warning'>Please fill in all fields</p>";
-      $msg = "<script type='text/javascript'> toastr.error('Please fill in all field'); </script>";
+      $errors[] = 'thumbnail'; 
     }
+
+    // if (empty($errors)) {
+      // neu ko co input trong thi query csdl
+    //   $slug = "";
+    //   $data = array("name" => $name, "description" => $description, "price" => $price, "sale" => $sale, "slug" => $slug, "stock" => $stock, "date" => (new DateTime())->format("Y-m-d H:i:s"));
+    //   $query = "INSERT INTO products";
+    //   $query .= " (name, cate_id, description, thumb, images, price, price_sale, slug, stock, add_date)";
+    //   $query .= " VALUES (:name, 1, :description, 'test', 'test', :price, :sale, :slug, :stock, :date)";
+    //   $sth = $dbh->prepare($query);
+      
+    //   if ($sth->execute($data)) {
+    //     redirect('backend/prod_index.php');
+    //   } else {
+    //     $msg = "<p class='noti noti-warning'>Failed to update due to server error</p>";
+    //   }
+    // } else {
+    //   // neu co input trong thi thong bao loi
+    //   // $msg = "<p class='noti noti-warning'>Please fill in all fields</p>";
+    //   $msg = "<script type='text/javascript'> toastr.error('Please fill in all field'); </script>";
+    // }
   }
+
 ?>
   
 <?php
@@ -121,6 +133,7 @@
                     <label for="">Thumbnail</label>
                     <div class="input-group" style="display: flex;">
                       <div class="custom-file">
+                        <!-- input file -->
                         <input type="file" class="custom-file-input" id="thumb" name="thumb" value="">
                         <label class="custom-file-label" for="thumb">Choose File</label>
                       </div>
