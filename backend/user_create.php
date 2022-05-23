@@ -4,37 +4,34 @@ require_once("../inc/functions.inc.php");
 
 // them nguoi dung
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-		echo "<pre>";
-		print_r($_FILES);
-		echo "</pre>";
-	// $errors = array();
+	$errors = array();
 
-	// if (isset($_POST['name']) ) {
-	// 	$name = filteredInput($_POST['name']);
-	// } else {
-	// 	$errors[] = 'name';
-	// }
+	if (isset($_POST['name']) ) {
+		$name = filteredInput($_POST['name']);
+	} else {
+		$errors[] = 'name';
+	}
 
-	// if (isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL, array(['min_range' => 1]))) {
-	// 	$email = filteredInput($_POST['email']);
-	// } else {
-	// 	$errors[] = 'email';
-	// }
+	if (isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL, array(['min_range' => 1]))) {
+		$email = filteredInput($_POST['email']);
+	} else {
+		$errors[] = 'email';
+	}
 
-	// if (isset($_POST['password'])) {
-	// 	if ($_POST['password'] === $_POST['password_cf']) {
-	// 		$password = filteredInput($_POST['password']);
-	// 	} else {
-	// 		$password = '';
-	// 		$msg = "<script type='text/javascript'>toastr.error('Passwords do not matches');</script>";
-	// 	}
-	// } else {
-	// 	$errors[] = 'password';
-	// }
+	if (isset($_POST['password'])) {
+		if ($_POST['password'] === $_POST['password_cf']) {
+			$password = filteredInput($_POST['password']);
+		} else {
+			$password = '';
+			$msg = "<script type='text/javascript'>toastr.error('Passwords do not matches');</script>";
+		}
+	} else {
+		$errors[] = 'password';
+	}
 
-	// if (isset($_POST['active'])) {
-	// 	$active = $_POST['active'];
-	// }
+	if (isset($_POST['active'])) {
+		$active = $_POST['active'];
+	}
 
 	if (empty($errors)) {
 		// if there are no errors, first check if there is existing user with the same email
