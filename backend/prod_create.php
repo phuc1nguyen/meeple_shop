@@ -2,19 +2,19 @@
   require_once("../database/dbconnection.php");
   require_once("../inc/functions.inc.php");
 
-  // them san pham
+  // create product
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    // product description and sale price are not required
     $errors = array();
-    if (isset($_POST['name']) ) {
+
+    if (!empty($_POST['name'])) {
       $name = filteredInput($_POST['name']);
     } else {
       $errors[] = 'name';
     }
 
-    if (isset($_POST['description'])) {
+    if (!empty($_POST['description'])) {
       $description = filteredInput($_POST['description']);
-    } else {
-      $errors[] = 'description';
     }
 
     if (isset($_POST['price']) && filter_var($_POST['price'], FILTER_VALIDATE_FLOAT, array('min_range' => 1))) {
@@ -26,7 +26,8 @@
     if (isset($_POST['sale']) && filter_var($_POST['sale'], FILTER_VALIDATE_FLOAT, array('min_range' => 1))) {
       $sale = filteredInput($_POST['sale']);
     } else {
-      $errors[] = 'sale';
+      // should be 0 instead of null because these prices might need to be computed
+      $sale = 0;
     }
 
     if (isset($_POST['stock']) && filter_var($_POST['stock'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
@@ -35,14 +36,20 @@
       $errors[] = 'stock';
     }
 
-    if (isset($_POST['thumbPath'])) {
+    if (!empty($_POST['thumbPath'])) {
       $path = filteredInput($_POST['thumbPath']);
     } else {
       $errors[] = 'thumb';
     }
 
+    if (isset($_POST['active'])) {
+      $active = $_POST['active'];
+    } else {
+      $active = 1;
+    }
+
     if (empty($errors)) {
-      // neu ko co input trong thi query csdl
+      // if all inputs are filled in
       $slug = "";
       $data = array(
         "name" => $name, 
@@ -52,10 +59,12 @@
         "slug" => $slug, 
         "stock" => $stock, 
         "thumb" => $path,
-        "date" => (new DateTime())->format("Y-m-d H:i:s"));
+        "active" => $active,
+        "date" => (new DateTime())->format("Y-m-d H:i:s")
+      );
       $query = "INSERT INTO products";
-      $query .= " (name, cate_id, description, thumb, price, price_sale, slug, stock, add_date)";
-      $query .= " VALUES (:name, 1, :description, :thumb, :price, :sale, :slug, :stock, :date);";
+      $query .= " (name, cate_id, description, thumb, price, price_sale, slug, stock, active, add_date)";
+      $query .= " VALUES (:name, 1, :description, :thumb, :price, :sale, :slug, :stock, :active, :date);";
       $sth = $dbh->prepare($query);
       
       if ($sth->execute($data)) {
@@ -65,7 +74,7 @@
       }
     } else {
       // neu co input trong thi thong bao loi
-      $msg = "<script type='text/javascript'> toastr.error('Please fill in all field'); </script>";
+      $msg = "<script type='text/javascript'> toastr.error('Please fill in all fields'); </script>";
     }
   }
 
@@ -96,46 +105,46 @@
               <div class="card-header">
                 <h3 class="card-title">Product Information</h3>
               </div>
-              <!-- /.card-header -->
-              <!-- form start -->
               <form class="form-horizontal" id="myForm" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="name">Product Name</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name">
-                    <?php if (isset($errors) && in_array('name', $errors)) echo "<div class='alert alert-danger'>Please fill in product name</div>"; ?>
+                    <label for="name">Product Name<sup>*</sup></label>
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name" value="<?= $_POST['name'] ?? ''; ?>">
+                    <?php if (isset($errors) && in_array('name', $errors)) echo "<p class='red-alert'>Please fill in product name</p>"; ?>
                   </div>
                   <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" name="description" id="description" cols="30" rows="5" placeholder="Enter product description"></textarea>
-                    <?php if (isset($errors) && in_array('description', $errors)) echo "<p class='alert alert-danger'>Please fill in product description</p>"; ?>
+                    <textarea class="form-control" name="description" id="description" cols="30" rows="5" placeholder="Enter product description"><?= $_POST['description'] ?? ''; ?></textarea>
                   </div>
                   <div class="form-group">
-                    <label for="price">Price</label>
-                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price" step="0.01">
+                    <label for="price">Price<sup>*</sup></label>
+                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price" step="0.01" value="<?= $_POST['price'] ?? ''; ?>">
+                    <?php if (isset($errors) && in_array('price', $errors)) echo "<p class='red-alert'>Please fill in product price</p>"; ?>
                   </div>
                   <div class="form-group">
                     <label for="sale">Price Sale</label>
-                    <input type="number" class="form-control" id="sale" name="sale" placeholder="Enter product sale price" step="0.01">
+                    <input type="number" class="form-control" id="sale" name="sale" placeholder="Enter product sale price" step="0.01" value="<?= $_POST['sale'] ?? ''; ?>">
                   </div>
                   <div class="form-group">
-                    <label for="stock">In Stock</label>
-                    <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter number of products in stock">
+                    <label for="stock">In Stock<sup>*</sup></label>
+                    <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter number of products in stock" value="<?= $_POST['stock'] ?? ''; ?>">
+                    <?php if (isset($errors) && in_array('stock', $errors)) echo "<p class='red-alert'>Please fill in product stock</p>"; ?>
                   </div>
                   <div class="form-group">
-                    <label for="">Thumbnail</label>
+                    <label for="">Thumbnail<sup>*</sup></label>
                     <div class="input-group" style="display: flex;">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" onchange="uploadThumb()" id="thumb" name="thumb">
-                        <input type="hidden" class="" id="thumbPath" name="thumbPath" value="">
+                        <input type="hidden" class="" id="thumbPath" name="thumbPath" value="<?= $_POST['thumbPath'] ?? ''; ?>">
                         <label class="custom-file-label" for="thumb">Choose File</label>
                       </div>
                       <div class="input-group-append">
                         <span class="input-group-text">Upload</span>
                       </div>
                     </div>
+                    <?php if (isset($errors) && in_array('thumb', $errors)) echo "<p class='red-alert'>Please upload a thumbnail for this product</p>"; ?>
                     <div id="thumbPreview" class="mt-3">
-                      <img src="public/img/no_avatar.png" width="100px" height="100px" alt="No Avatar">
+                      <img src="<?= (!empty($_POST['thumbPath'])) ? $_POST['thumbPath'] : "public/img/no_avatar.jpg" ?>" alt="No Thumbnail" width="100px" height="100px">
                     </div>
                   </div>
 									<div class="form-group">

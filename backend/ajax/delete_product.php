@@ -1,5 +1,4 @@
 <?php
-  ob_start();
   require_once('../../database/dbconnection.php');
   require_once('../../inc/functions.inc.php');
 
@@ -25,13 +24,11 @@
   $sth2->bindParam(':productId', $productId);
 
   if ($sth2->execute() && unlink($productThumb)) {
-    ob_end_clean();
     echo json_encode(array(
       'status' => 'ok',
       'message' => 'Product deleted successfully'
     ));
   } else {
-    ob_end_clean();
     echo json_encode(array(
       'message' => 'Something went wrong'
     ));

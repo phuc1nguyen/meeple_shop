@@ -8,7 +8,7 @@
     redirect('backend/prod_index.php');
   }
   
-  // query san pham theo id tu csdl
+  // get product by id from database
   $query = "SELECT * FROM products WHERE id = ? LIMIT 1"; 
   $sth = $dbh->prepare($query);
   $sth->bindParam(1, $prodId);
@@ -19,20 +19,18 @@
     redirect('backend/prod_index.php');
   }
 
-  // update san pham trong csdl
+  // update this product
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors = array();
     
-    if (isset($_POST['name']) ) {
+    if (!empty($_POST['name'])) {
       $name = filteredInput($_POST['name']);
     } else {
       $errors[] = 'name';
     }
 
-    if (isset($_POST['description'])) {
+    if (!empty($_POST['description'])) {
       $description = filteredInput($_POST['description']);
-    } else {
-      $errors[] = 'description';
     }
 
     if (isset($_POST['price']) && filter_var($_POST['price'], FILTER_VALIDATE_FLOAT, array('min_range' => 1))) {
@@ -44,37 +42,53 @@
     if (isset($_POST['sale']) && filter_var($_POST['sale'], FILTER_VALIDATE_FLOAT, array('min_range' => 1))) {
       $sale = filteredInput($_POST['sale']);
     } else {
-      $errors[] = 'sale';
+      // should be 0 instead of null because these prices might need to be computed
+      $sale = 0;
     }
 
     if (isset($_POST['stock']) && filter_var($_POST['stock'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
       $stock = filteredInput($_POST['stock']);
     } else {
-      $errors[] = 'sale';
+      $errors[] = 'stock';
     }
 
-    // if (isset($_POST['thumbnail'])) {
-    //   $thumb = '';
-    // } else {
-    //   $errors[] = 'thumbnail'; 
-    // }
+    if (!empty($_POST['thumbPath'])) {
+      $path = filteredInput($_POST['thumbPath']);
+    } else {
+      $errors[] = 'thumb';
+    }
+
+    if (isset($_POST['active'])) {
+      $active = $_POST['active'];
+    } else {
+      $active = 1;
+    }
 
     if (empty($errors)) {
-      // neu ko co input trong thi query csdl
-      $data = array("name" => $name, "description" => $description, "price" => $price, "sale" => $sale, "stock" => $stock, "id" => $prodId);
+      // if all inputs are filled in
+      $data = array(
+        "name" => $name,
+        "description" => $description,
+        "price" => $price,
+        "sale" => $sale,
+        "stock" => $stock,
+        "thumb" => $path,
+        "active" => $active,
+        "id" => $prodId
+      );
       $query = "UPDATE products";
-      $query .= " SET name = :name, description = :description, price = :price, price_sale = :sale, stock = :stock";
+      $query .= " SET name = :name, description = :description, price = :price, price_sale = :sale, stock = :stock, thumb = :thumb, active = :active";
       $query .= " WHERE id = :id LIMIT 1";
       $sth = $dbh->prepare($query);
       
       if ($sth->execute($data)) {
         redirect('backend/prod_index.php');
       } else {
-        $msg = "<p class='noti noti-warning'>Failed to update due to server error</p>";
+        $msg = "<script type='text/javascript'> toastr.error('Failed to update due to server error'); </script>";
       }
     } else {
-      // neu co input trong thi thong bao loi
-      $msg = "<p class='noti noti-warning'>Please fill in all fields</p>";
+      // some missing inputs alert
+      $msg = "<script type='text/javascript'> toastr.error('Please fill in all fields'); </script>";
     }
   }
 ?>
@@ -104,12 +118,10 @@
               <div class="card-header">
                 <h3 class="card-title">Product Information</h3>
               </div>
-              <!-- /.card-header -->
-              <!-- form start -->
               <form class="form-horizontal" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="name">Product Name</label>
+                    <label for="name">Product Name<sup>*</sup></label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name" value="<?= $product['name'] ?? ''; ?>">
                   </div>
                   <div class="form-group">
@@ -117,7 +129,7 @@
                     <textarea class="form-control" name="description" id="description" cols="30" rows="5" placeholder="Enter product description"><?= $product['description'] ?? '' ?></textarea>
                   </div>
                   <div class="form-group">
-                    <label for="price">Price</label>
+                    <label for="price">Price<sup>*</sup></label>
                     <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price" value="<?= $product['price'] ?? '' ?>" step="0.01">
                   </div>
                   <div class="form-group">
@@ -125,38 +137,36 @@
                     <input type="number" class="form-control" id="sale" name="sale" placeholder="Enter product sale price" value="<?= $product['price_sale'] ?? '' ?>" step="0.01">
                   </div>
                   <div class="form-group">
-                    <label for="stock">In Stock</label>
+                    <label for="stock">In Stock<sup>*</sup></label>
                     <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter number of products in stock" value="<?= $product['stock'] ?? '' ?>">
                   </div>
-                  <!-- <div class="form-group">
-                    <label for="">Thumbnail</label>
-                    <div class="input-group">
+                  <div class="form-group">
+                    <label for="">Thumbnail<sup>*</sup></label>
+                    <div class="input-group" style="display: flex;">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="thumbnail" name="thumbnail">
-                        <label class="custom-file-label" for="">Choose File</label>
+                        <input type="file" class="custom-file-input" onchange="uploadThumb()" id="thumb" name="thumb">
+                        <input type="hidden" class="" id="thumbPath" name="thumbPath" value="<?= (!empty($_POST['thumbPath'])) ? $_POST['thumbPath'] : $product['thumb'] ?>">
+                        <label class="custom-file-label" for="thumb">Choose File</label>
                       </div>
                       <div class="input-group-append">
                         <span class="input-group-text">Upload</span>
                       </div>
-                      <div id="thumb">
-                        
-                      </div>
                     </div>
-                  </div> -->
-									<div class="form-group">
-										<label for="active">Status</label>
-										<select class="form-control" id="active" name="active">
+                    <?php if (isset($errors) && in_array('thumb', $errors)) echo "<p class='red-alert'>Please upload a thumbnail for this product</p>"; ?>
+                    <div id="thumbPreview" class="mt-3">
+                      <img src="<?= (!empty($_POST['thumbPath'])) ? $_POST['thumbPath'] : $product['thumb'] ?>" alt="No Thumbnail" width="100px" height="100px">
+                    </div>
+                  </div>
+									<div class="form-group"> <label for="active">Status</label> <select class="form-control" id="active" name="active">
 											<option value="1" <?php if ($product['active'] === '1') echo "selected"; ?>>Active</option>
 											<option value="0" <?php if ($product['active'] === '0') echo "selected"; ?>>Disabled</option>
 										</select>
 									</div>
                 </div>
-                <!-- /.card-body -->
                 <div class="card-footer">
                   <button type="submit" class="btn btn-info">Update</button>
                   <button type="button" class="btn btn-default float-right">Cancel</button>
                 </div>
-                <!-- /.card-footer -->
               </form>
             </div>
         </div>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: May 09, 2022 at 10:30 AM
+-- Generation Time: Jun 01, 2022 at 07:42 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -33,12 +33,12 @@ CREATE TABLE `products` (
   `cate_id` tinyint(4) NOT NULL,
   `description` text NOT NULL,
   `thumb` varchar(155) NOT NULL,
-  `images` varchar(155) NOT NULL,
+  `images` varchar(155) DEFAULT NULL,
   `price` double NOT NULL,
   `price_sale` double NOT NULL,
   `slug` varchar(100) NOT NULL,
   `stock` int(11) NOT NULL,
-  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `active` tinyint(1) NOT NULL,
   `add_date` datetime NOT NULL,
   `backup` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -48,9 +48,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `cate_id`, `description`, `thumb`, `images`, `price`, `price_sale`, `slug`, `stock`, `active`, `add_date`, `backup`) VALUES
-(1, 'Echoes - The Microchip (Pre-Order)', 1, 'In the far future, civilization is lying in ruins, and the echoes of the past hide the tragic story of its downfall. See whether you can uncover the truth.', '', '', 9.99, 8.49, '', 20, 1, '2022-01-16 00:00:00', NULL),
-(2, 'Echoes - The Microchip (Pre-Order) 12345', 1, 'asdfasdf', 'test', 'test', 6, 5, '', 10, 1, '2022-05-03 16:16:56', NULL),
-(3, 'Echoes - The Microchip (Pre-Order) 12345', 1, '', 'test', 'test', 98, 52, '', 123, 1, '2022-05-03 16:17:32', NULL);
+(1, 'Echoes - The Microchip (Pre-Order)', 1, 'In the far future, civilization is lying in ruins, and the echoes of the past hide the tragic story of its downfall. See whether you can uncover the truth.', '', NULL, 9.99, 8.49, '', 20, 1, '2022-01-16 00:00:00', NULL),
+(5, 'test', 1, 'asdfasdf', '', NULL, 9.99, 8.88, '', 20, 0, '2022-05-14 18:37:17', NULL),
+(11, 'tourzy media', 1, 'asdfasdf', 'public/img/1654108411_7538133796297b0fb5ea90.jpg', NULL, 9.99, 8.88, '', 10, 1, '2022-06-01 18:33:33', NULL),
+(15, 'tourzy media', 1, 'asdfasdf', 'public/img/1654111500_10452952736297bd0ce010f.jpg', NULL, 9.99, 0, '', 10, 0, '2022-06-01 19:25:14', NULL);
 
 -- --------------------------------------------------------
 
@@ -74,8 +75,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `type`, `avatar`, `active`, `registration_date`) VALUES
-(1, 'admin', 'admin@localhost.com', '$2y$10$iTYGYIC703rU7hNa4N2ziOqKdI/4fc9ncEBhhv7S038QiATmx.D6W', 0, NULL, '1', '2022-05-09 07:49:14'),
-(2, 'phuc nguyen', 'phuc.ng13988@gmail.com', '$2y$10$4.dNNNFF92MOR18A7ZjQjOIQekcsaCQJOUI3uHnuOgG4zLbNL8QkO', 1, NULL, 'e682f2b8a000ceaa09f3d8e08073a457', '2022-05-09 07:51:08');
+(3, 'admin', 'admin@localhost.com', '$2y$10$N9YcfnGKZvCwo13decSfFuulawvObkDQXgBad1rH2TQ6YDNxCu1Ve', 0, NULL, '1', '2022-05-08 21:31:53'),
+(4, 'phuc nguyen', 'phuc.ng13988@gmail.com', '$2y$10$WFzd9D4Bhs31nqAA69zUq.ODnQpOpCTKelz4U4anjAF4eOCXgD2u.', 1, NULL, '1', '2022-05-08 22:09:11'),
+(5, 'khanh nguyen', 'phucnguyen13988@gmail.com', '$2y$10$QBR6hSovKAbLwIiQ34Qbb.WoKNWgG0v0F4iCmJaTjyW4MXhFRLhWK', 1, NULL, '1', '2022-05-13 16:31:36');
 
 --
 -- Indexes for dumped tables
@@ -102,13 +104,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

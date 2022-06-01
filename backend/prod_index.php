@@ -82,14 +82,16 @@
                     <td><?= $item['name'] ? $item['name'] : "--"; ?></td>
                     <td><?= $item['description'] ? $item['description'] : "--"; ?></td>
                     <td>
-                      <?php if (isset($item['thumb']) && $item['thumb'] !== 'test') { ?>
-                        <a href="#"><img src="<?= $item['thumb'] ?>" alt="Product Thumb" width="100px" height="100px"></a>
+                      <?php if (isset($item['thumb']) && $item['thumb'] !== '') { ?>
+                        <a href="<?= $item['thumb'] ?>" target="_blank">
+                          <img src="<?= $item['thumb'] ?>" alt="Thumbnail" width="80px" height="80px">
+                        </a>
                       <?php } else { ?>
-                        <img src="public/img/no_avatar.png" alt="No Product Thumb" width="100px" height="100px">
+                        <img src="" alt="No Thumbnail" width="80px" height="80px">
                       <?php } ?>
                     </td>
                     <td>$<?= $item['price'] ?></td>
-                    <td>$<?= $item['price_sale'] ? $item['price_sale'] : "--"; ?></td>
+                    <td><?= $item['price_sale'] ? "$" . $item['price_sale'] : "--"; ?></td>
                     <td>
                       <div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-on bootstrap-switch-focused" style="width: 86px;">
                         <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">

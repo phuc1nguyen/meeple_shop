@@ -17,7 +17,7 @@
   <!-- Toastr -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
   <style>
-    .noti{
+    .noti {
       padding: 1rem;
       margin-top: 1rem;
       width: 100%;
@@ -26,19 +26,19 @@
       text-align: center;
     }
 
-    .noti-warning{
+    .noti-warning {
       background-color: #f7a736;
     }
 
-    .noti-success{
+    .noti-success {
       background-color: #72b372;
     }
 
-    .noti-danger{
+    .noti-danger {
       background-color: #c85c57;
     }
 
-    .noti-info{
+    .noti-info {
       background-color: #57a9c1;
     }
   </style>
