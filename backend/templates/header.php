@@ -30,6 +30,8 @@
   <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
   <!-- Toastr JS -->
   <link rel="stylesheet" href="public/toastr/build/toastr.min.css">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="public/css/custom.css">
 
   <style>
     ::-webkit-scrollbar {

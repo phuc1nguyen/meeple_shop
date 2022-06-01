@@ -31,7 +31,7 @@
     if (empty($errors)) {
       // neu khong xay ra loi (dien day du cac truong) thi query csdl
       // $data = array($email, $password);
-      $query = 'SELECT id, name, type, password FROM users WHERE (email = :email AND active = 1) LIMIT 1';
+      $query = "SELECT id, name, type, password FROM users WHERE (email = :email AND active = 1) LIMIT 1;";
       // $sth stands for statement handle
 			$sth = $dbh->prepare($query);
       $sth->bindParam(':email', $email);

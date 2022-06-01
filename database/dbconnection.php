@@ -1,6 +1,7 @@
 <?php 
   // requires __DIR__ otherwise cause error when calling ajax to other php files
   require_once(__DIR__ . '/../inc/config.inc.php');
+
   try {
     // connect to database with the PDO object, $dbh stands for database handle
     // close connection by setting $dbh = null;
@@ -8,7 +9,8 @@
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   } catch (PDOException $err) {
     // if connection failed, show PDO error
-    echo "Connected failed: " . $err->getMessage() . "<br/>";
+    throw new PDOException($err->getMessage(), (int) $err->getCode());
+    // echo "Connected failed: " . $err->getMessage() . "<br/>";
     die();
   }
 ?>

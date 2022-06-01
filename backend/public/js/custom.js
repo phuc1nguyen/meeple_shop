@@ -94,7 +94,7 @@ function enterSearch(event) {
   }
 }
 
-async function getProductSearch() {
+function getProductSearch() {
   // get products searched by name using ajax
   const queryStr = document.querySelector('#table_search').value;
   // must remove previous query string (if there is) before concatenating new query string then reload
@@ -115,9 +115,9 @@ async function getProductSearch() {
   window.location.assign(url.href);
   // https://javascript.info/url
   // https://stackoverflow.com/questions/10302905/location-href-property-vs-location-assign-method#14673342
- }
+}
 
-async function getUserSearch() {
+function getUserSearch() {
   // get users searched by name and email using ajax
   const queryStr = document.querySelector('#table_search').value;
   window.location.search = `?query=${queryStr}`;  
@@ -138,6 +138,23 @@ function verify_user(id) {
     }, 'json');
   }
 }
+
+
+// Admin files upload
+async function uploadThumb() {
+  const previewImg = document.querySelector('#thumbPreview img');
+  const myForm = document.getElementById('myForm');
+  const fileUpload = document.getElementById('thumbPath');
+
+  const response = await fetch('../../backend/ajax/upload_productImg.php', {
+    method: "POST",
+    body: new FormData(myForm)
+  });
+  const result = await response.json();
+  previewImg.setAttribute('src', result.image);
+  fileUpload.setAttribute('value', result.image);
+}
+
 
 
 

@@ -82,7 +82,11 @@
                     <td><?= $item['name'] ? $item['name'] : "--"; ?></td>
                     <td><?= $item['description'] ? $item['description'] : "--"; ?></td>
                     <td>
-                      <a href="#"><img src="<?= $item['thumb'] ?>" alt="Product Thumb"></a>
+                      <?php if (isset($item['thumb']) && $item['thumb'] !== 'test') { ?>
+                        <a href="#"><img src="<?= $item['thumb'] ?>" alt="Product Thumb" width="100px" height="100px"></a>
+                      <?php } else { ?>
+                        <img src="public/img/no_avatar.png" alt="No Product Thumb" width="100px" height="100px">
+                      <?php } ?>
                     </td>
                     <td>$<?= $item['price'] ?></td>
                     <td>$<?= $item['price_sale'] ? $item['price_sale'] : "--"; ?></td>
