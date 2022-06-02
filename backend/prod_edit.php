@@ -31,6 +31,8 @@
 
     if (!empty($_POST['description'])) {
       $description = filteredInput($_POST['description']);
+    } else {
+      $description = "";
     }
 
     if (isset($_POST['price']) && filter_var($_POST['price'], FILTER_VALIDATE_FLOAT, array('min_range' => 1))) {
@@ -56,6 +58,11 @@
       $path = filteredInput($_POST['thumbPath']);
     } else {
       $errors[] = 'thumb';
+    }
+
+    if (!empty($_POST['oldThumb'])) {
+      $oldPath = filteredInput($_POST['oldThumb']);
+      unlink($oldPath);
     }
 
     if (isset($_POST['active'])) {
@@ -118,7 +125,7 @@
               <div class="card-header">
                 <h3 class="card-title">Product Information</h3>
               </div>
-              <form class="form-horizontal" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST">
+              <form class="form-horizontal" id="myForm" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Product Name<sup>*</sup></label>
@@ -144,8 +151,9 @@
                     <label for="">Thumbnail<sup>*</sup></label>
                     <div class="input-group" style="display: flex;">
                       <div class="custom-file">
-                        <input type="file" class="custom-file-input" onchange="uploadThumb()" id="thumb" name="thumb">
+                        <input type="file" class="custom-file-input" onchange="updateThumb()" id="thumb" name="thumb">
                         <input type="hidden" class="" id="thumbPath" name="thumbPath" value="<?= (!empty($_POST['thumbPath'])) ? $_POST['thumbPath'] : $product['thumb'] ?>">
+                        <input type="hidden" class="" id="oldThumb" name="oldThumb">
                         <label class="custom-file-label" for="thumb">Choose File</label>
                       </div>
                       <div class="input-group-append">
@@ -157,7 +165,9 @@
                       <img src="<?= (!empty($_POST['thumbPath'])) ? $_POST['thumbPath'] : $product['thumb'] ?>" alt="No Thumbnail" width="100px" height="100px">
                     </div>
                   </div>
-									<div class="form-group"> <label for="active">Status</label> <select class="form-control" id="active" name="active">
+									<div class="form-group"> 
+                    <label for="active">Status</label> 
+                    <select class="form-control" id="active" name="active">
 											<option value="1" <?php if ($product['active'] === '1') echo "selected"; ?>>Active</option>
 											<option value="0" <?php if ($product['active'] === '0') echo "selected"; ?>>Disabled</option>
 										</select>

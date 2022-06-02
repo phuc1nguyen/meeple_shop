@@ -8,7 +8,7 @@
     redirect('backend/prod_index.php');
   }
 
-  // get product thumbnail
+  // get product to delete thumbnail file
   $query1 = "SELECT thumb FROM products WHERE id = :id LIMIT 1;";
   $sth1 = $dbh->prepare($query1);
   $sth1->bindParam('id', $productId);

@@ -12,12 +12,13 @@
       move_uploaded_file($_FILES['thumb']['tmp_name'], '../public/img/' . $renamed);
 
       echo json_encode(array(
-        'status' => 'success',
+        'status' => 'ok',
         'image' => 'public/img/' . $renamed
       ));
     } else {
+      // uploaded file is invalid
       echo json_encode(array(
-        'status' => 'error'
+        'message' => 'Invalid file type, please choose another file'
       ));
     }
   }

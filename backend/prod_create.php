@@ -15,6 +15,8 @@
 
     if (!empty($_POST['description'])) {
       $description = filteredInput($_POST['description']);
+    } else {
+      $description = "";
     }
 
     if (isset($_POST['price']) && filter_var($_POST['price'], FILTER_VALIDATE_FLOAT, array('min_range' => 1))) {
@@ -148,7 +150,7 @@
                     </div>
                   </div>
 									<div class="form-group">
-										<label>Status</label>
+										<label for="active">Status</label>
 										<select class="form-control" id="active" name="active">
 											<option value="1">Active</option>
 											<option value="0">Disabled</option>

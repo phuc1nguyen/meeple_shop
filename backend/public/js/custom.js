@@ -140,7 +140,7 @@ function verify_user(id) {
 }
 
 
-// Admin files upload
+// Admin product thumb management
 async function uploadThumb() {
   const previewImg = document.querySelector('#thumbPreview img');
   const myForm = document.getElementById('myForm');
@@ -151,8 +151,36 @@ async function uploadThumb() {
     body: new FormData(myForm)
   });
   const result = await response.json();
-  previewImg.setAttribute('src', result.image);
-  fileUpload.setAttribute('value', result.image);
+
+  if (result.status === 'ok') {
+    previewImg.setAttribute('src', result.image);
+    fileUpload.setAttribute('value', result.image);
+  } else {
+    toastr.error(result.message);
+  }
+}
+
+async function updateThumb() {
+  const previewImg = document.querySelector('#thumbPreview img');
+  const myForm = document.getElementById('myForm');
+  const fileUpdate = document.getElementById('thumbPath');
+  // get product current image path
+  const currentFilePath = fileUpdate.value;
+  document.querySelector('#oldThumb').value = currentFilePath;
+  console.log(document.querySelector('#oldThumb').value);
+
+  const response = await fetch('../../backend/ajax/upload_productImg.php', {
+    method: "POST",
+    body: new FormData(myForm)
+  });
+  const result = await response.json();
+
+  if (result.status === 'ok') {
+    previewImg.setAttribute('src', result.image);
+    fileUpdate.setAttribute('value', result.image);
+  } else {
+    toastr.error(result.message);
+  }
 }
 
 
