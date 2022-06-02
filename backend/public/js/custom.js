@@ -146,7 +146,7 @@ async function uploadThumb() {
   const myForm = document.getElementById('myForm');
   const fileUpload = document.getElementById('thumbPath');
 
-  const response = await fetch('../../backend/ajax/upload_productImg.php', {
+  const response = await fetch('../../backend/ajax/upload_images.php', {
     method: "POST",
     body: new FormData(myForm)
   });
@@ -167,9 +167,8 @@ async function updateThumb() {
   // get product current image path
   const currentFilePath = fileUpdate.value;
   document.querySelector('#oldThumb').value = currentFilePath;
-  console.log(document.querySelector('#oldThumb').value);
 
-  const response = await fetch('../../backend/ajax/upload_productImg.php', {
+  const response = await fetch('../../backend/ajax/upload_images.php', {
     method: "POST",
     body: new FormData(myForm)
   });

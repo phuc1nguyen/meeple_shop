@@ -79,10 +79,10 @@
                   <?php foreach ($products as $key => $item) { ?>
                   <tr>
                     <td><?= $key + 1; ?></td>
-                    <td><?= $item['name'] ? $item['name'] : "--"; ?></td>
+                    <td><?= $item['name']; ?></td>
                     <td><?= $item['description'] ? $item['description'] : "--"; ?></td>
                     <td>
-                      <?php if (isset($item['thumb']) && $item['thumb'] !== '') { ?>
+                      <?php if (!empty($item['thumb'])) { ?>
                         <a href="<?= $item['thumb'] ?>" target="_blank">
                           <img src="<?= $item['thumb'] ?>" alt="Thumbnail" width="80px" height="80px">
                         </a>

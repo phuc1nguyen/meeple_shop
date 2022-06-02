@@ -76,7 +76,15 @@
                       <td><?= $key + 1; ?></td>
                       <td><?= $item['name']; ?></td>
                       <td><?= $item['email']; ?></td>
-                      <td><a href="<?= $item['avatar']; ?>"><img src="<?= $user['avatar']; ?>" alt="User"></a></td>
+                      <td>
+                        <?php if (!empty($item['avatar'])) { ?>
+                          <a href="<?= $item['avatar'] ?>" target="_blank">
+                            <img src="<?= $item['avatar'] ?>" alt="Avatar" width="80px" height="80px">
+                          </a>
+                        <?php } else { ?>
+                          <img src="public/img/no_avatar.jpg" alt="No Avatar" width="80px" height="80px">
+                        <?php } ?>
+                      </td>
                       <td><?= $item['registration_date']; ?></td>
                       <td>
                         <div class="bootstrap-switch" style="width: 86px;">

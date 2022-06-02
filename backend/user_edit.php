@@ -1,66 +1,66 @@
 <?php
-require_once("../database/dbconnection.php");
-require_once("../inc/functions.inc.php");
+	require_once("../database/dbconnection.php");
+	require_once("../inc/functions.inc.php");
 
-// query thong tin nguoi dung
-if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
-  $userId = $_GET['id']; 
-} else {
-  redirect('backend/user_index.php');
-}
-
-$query = "SELECT * FROM users WHERE id = :userId LIMIT 1";
-$sth = $dbh->prepare($query);
-$sth->bindParam(':userId', $userId);
-if ($sth->execute()) {
-  $user = $sth->fetch(PDO::FETCH_ASSOC);
-}
-
-// sua nguoi dung
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-	$errors = array();
-
-	if (isset($_POST['name']) ) {
-		$name = filteredInput($_POST['name']);
+	// query thong tin nguoi dung
+	if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
+		$userId = $_GET['id']; 
 	} else {
-		$errors[] = 'name';
+		redirect('backend/user_index.php');
 	}
 
-	if (isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL, array(['min_range' => 1]))) {
-		$description = filteredInput($_POST['email']);
-	} else {
-		$errors[] = 'email';
+	$query = "SELECT * FROM users WHERE id = :userId LIMIT 1";
+	$sth = $dbh->prepare($query);
+	$sth->bindParam(':userId', $userId);
+	if ($sth->execute()) {
+		$user = $sth->fetch(PDO::FETCH_ASSOC);
 	}
 
-	if (isset($_POST['password'])) {
-		if ($_POST['password'] === $_POST['passwordcf']) {
-			$password = filteredInput($_POST['password']);
+	// sua nguoi dung
+	if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+		$errors = array();
+
+		if (isset($_POST['name']) ) {
+			$name = filteredInput($_POST['name']);
 		} else {
-			$msg = "<script type='text/javascript'>toastr.error('Passwords do not matches');</script>";
+			$errors[] = 'name';
 		}
-	} else {
-		$errors[] = 'password';
-	}
 
-	// if (isset($_POST['thumbnail'])) {
-	//   $thumb = '';
-	// } else {
-	//   $errors[] = 'thumbnail';
-	// }
-
-	if (empty($errors)) {
-		// neu ko co input trong thi query csdl
-
-		if ($sth->execute($data)) {
-			redirect('backend/user_index.php');
+		if (isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL, array(['min_range' => 1]))) {
+			$description = filteredInput($_POST['email']);
 		} else {
-			$msg = "<p class='noti noti-warning'>Failed to update due to server error</p>";
+			$errors[] = 'email';
 		}
-	} else {
-		// neu co input trong thi thong bao loi
-		$msg = "<p class='noti noti-warning'>Please fill in all fields</p>";
+
+		if (isset($_POST['password'])) {
+			if ($_POST['password'] === $_POST['passwordcf']) {
+				$password = filteredInput($_POST['password']);
+			} else {
+				$msg = "<script type='text/javascript'>toastr.error('Passwords do not matches');</script>";
+			}
+		} else {
+			$errors[] = 'password';
+		}
+
+		// if (isset($_POST['thumbnail'])) {
+		//   $thumb = '';
+		// } else {
+		//   $errors[] = 'thumbnail';
+		// }
+
+		if (empty($errors)) {
+			// neu ko co input trong thi query csdl
+
+			if ($sth->execute($data)) {
+				redirect('backend/user_index.php');
+			} else {
+				$msg = "<p class='noti noti-warning'>Failed to update due to server error</p>";
+			}
+		} else {
+			// neu co input trong thi thong bao loi
+			$msg = "<p class='noti noti-warning'>Please fill in all fields</p>";
+		}
 	}
-}
 ?>
 
 <?php

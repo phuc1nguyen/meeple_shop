@@ -3,7 +3,7 @@
   require_once("../inc/functions.inc.php");
 
   // create product
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // product description and sale price are not required
     $errors = array();
 
@@ -26,7 +26,11 @@
     }
 
     if (isset($_POST['sale']) && filter_var($_POST['sale'], FILTER_VALIDATE_FLOAT, array('min_range' => 1))) {
-      $sale = filteredInput($_POST['sale']);
+      if ($_POST['sale'] > $price) {
+        $errors[] = 'sale over price'; 
+      } else {
+        $sale = filteredInput($_POST['sale']);
+      }
     } else {
       // should be 0 instead of null because these prices might need to be computed
       $sale = 0;
@@ -52,7 +56,7 @@
 
     if (empty($errors)) {
       // if all inputs are filled in
-      $slug = "";
+      $slug = slugify($name);
       $data = array(
         "name" => $name, 
         "description" => $description, 
@@ -75,7 +79,7 @@
         $msg = "<script type='text/javascript'> toastr.error('Failed to update due to server error'); </script>";
       }
     } else {
-      // neu co input trong thi thong bao loi
+      // missing inputs alert
       $msg = "<script type='text/javascript'> toastr.error('Please fill in all fields'); </script>";
     }
   }
@@ -126,6 +130,7 @@
                   <div class="form-group">
                     <label for="sale">Price Sale</label>
                     <input type="number" class="form-control" id="sale" name="sale" placeholder="Enter product sale price" step="0.01" value="<?= $_POST['sale'] ?? ''; ?>">
+                    <?php if (isset($errors) && in_array('sale over price', $errors)) echo "<p class='red-alert'>Sale price must be smaller than actual price</p>"; ?>
                   </div>
                   <div class="form-group">
                     <label for="stock">In Stock<sup>*</sup></label>

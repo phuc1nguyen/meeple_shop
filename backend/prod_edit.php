@@ -42,7 +42,11 @@
     }
 
     if (isset($_POST['sale']) && filter_var($_POST['sale'], FILTER_VALIDATE_FLOAT, array('min_range' => 1))) {
-      $sale = filteredInput($_POST['sale']);
+      if ($_POST['sale'] > $price) {
+        $errors[] = 'sale over price'; 
+      } else {
+        $sale = filteredInput($_POST['sale']);
+      }
     } else {
       // should be 0 instead of null because these prices might need to be computed
       $sale = 0;
@@ -130,6 +134,7 @@
                   <div class="form-group">
                     <label for="name">Product Name<sup>*</sup></label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name" value="<?= $product['name'] ?? ''; ?>">
+                    <?php if (isset($errors) && in_array('name', $errors)) echo "<p class='red-alert'>Please fill in product name</p>"; ?>
                   </div>
                   <div class="form-group">
                     <label for="description">Description</label>
@@ -138,14 +143,17 @@
                   <div class="form-group">
                     <label for="price">Price<sup>*</sup></label>
                     <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price" value="<?= $product['price'] ?? '' ?>" step="0.01">
+                    <?php if (isset($errors) && in_array('price', $errors)) echo "<p class='red-alert'>Please fill in product price</p>"; ?>
                   </div>
                   <div class="form-group">
                     <label for="sale">Price Sale</label>
                     <input type="number" class="form-control" id="sale" name="sale" placeholder="Enter product sale price" value="<?= $product['price_sale'] ?? '' ?>" step="0.01">
+                    <?php if (isset($errors) && in_array('sale over price', $errors)) echo "<p class='red-alert'>Sale price must be smaller than actual price</p>"; ?>
                   </div>
                   <div class="form-group">
                     <label for="stock">In Stock<sup>*</sup></label>
                     <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter number of products in stock" value="<?= $product['stock'] ?? '' ?>">
+                    <?php if (isset($errors) && in_array('stock', $errors)) echo "<p class='red-alert'>Please fill in product stock</p>"; ?>
                   </div>
                   <div class="form-group">
                     <label for="">Thumbnail<sup>*</sup></label>

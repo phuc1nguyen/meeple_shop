@@ -42,4 +42,12 @@
 
     }
   }
+
+  if (!function_exists('slugify')) {
+    // https://stackoverflow.com/questions/2955251/php-function-to-make-slug-url-string
+    function slugify($text, string $divider = '-') {
+      // create url slug
+      return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', $divider, $text)));
+    }
+  }
 ?>
