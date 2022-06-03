@@ -15,11 +15,15 @@
   if ($sth1->execute()) {
     $product = $sth1->fetch(PDO::FETCH_ASSOC);
     // get thumbnail path from this php file
-    $productThumb = '../' . $product['thumb'];
+    if (!empty($product['thumb'])) {
+      $productThumb = '../' . $product['thumb'];
+    } else {
+      $productThumb = "";
+    }
   }
 
   // delete product
-  $query2 = "DELETE FROM products WHERE id = :productId LIMIT 1";
+  $query2 = "DELETE FROM products WHERE id = :productId LIMIT 1;";
   $sth2 = $dbh->prepare($query2);
   $sth2->bindParam(':productId', $productId);
 

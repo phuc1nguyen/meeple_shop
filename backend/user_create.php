@@ -1,82 +1,83 @@
 <?php
-require_once("../database/dbconnection.php");
-require_once("../inc/functions.inc.php");
+	require_once("../database/dbconnection.php");
+	require_once("../inc/functions.inc.php");
 
-// create user
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-	// user profile picture (avatar) is not required
-	$errors = array();
+	// create user
+	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+		// user profile picture (avatar) is not required
+		$errors = array();
 
-	if (!empty($_POST['name'])) {
-		$name = filteredInput($_POST['name']);
-	} else {
-		$errors[] = 'name';
-	}
-
-	if (!empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL, array(['min_range' => 1]))) {
-		$email = filteredInput($_POST['email']);
-	} else {
-		$errors[] = 'email';
-	}
-
-	if (!empty($_POST['password'])) {
-		if (isset($_POST['password_cf']) && ($_POST['password'] === $_POST['password_cf'])) {
-			$password = filteredInput($_POST['password']);
+		if (!empty($_POST['name'])) {
+			$name = filteredInput($_POST['name']);
 		} else {
-			$errors[] = 'password not match';
+			$errors[] = 'name';
 		}
-	} else {
-		$errors[] = 'password';
-	}
 
-	if (!empty($_POST['thumbPath'])) {
-		$path = filteredInput($_POST['thumbPath']);
-	} else {
-		$path = null;
-	}
-
-	if (isset($_POST['active'])) {
-		$active = $_POST['active'];
-	} else {
-		$active = 1;
-	}
-
-	if (empty($errors)) {
-		// if there are no errors, first check if there is existing user with the same email
-		$query = "SELECT id FROM users WHERE email = ? LIMIT 1";
-		$sth = $dbh->prepare($query);
-		$sth->bindParam(1, $email);
-		$sth->execute();
-		$user = $sth->fetch(PDO::FETCH_ASSOC);
-
-		if ($user) {
-			$msg = "<script type='text/javascript'>Email already exists</script>";
+		if (!empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL, array(['min_range' => 1]))) {
+			$email = filteredInput($_POST['email']);
 		} else {
-			$password = password_hash($password, PASSWORD_BCRYPT);
-			$data = array(
-				':name' => $name,
-				':email' => $email,
-				':password' => $password,
-				':type' => 1,
-				':avatar' => $path,
-				':active' => $active,
-				':now' => (new DateTime())->format('Y-m-d H:i:s')
-			);
-			$query = "INSERT INTO users (name, email, password, type, avatar, active, registration_date)";
-			$query .= " VALUES (:name, :email, :password, :type, :avatar, :active, :now)";
-			$sth = $dbh->prepare($query);
+			$errors[] = 'email';
+		}
 
-			if ($sth->execute($data)) {
-				redirect('backend/user_index.php');
+		if (!empty($_POST['password']) && preg_match('/^[\w]{6,20}$/', $_POST['password'])) {
+			if (isset($_POST['password_cf']) && ($_POST['password'] === $_POST['password_cf'])) {
+				$password = filteredInput($_POST['password']);
 			} else {
-        $msg = "<script type='text/javascript'> toastr.error('Failed to update due to server error'); </script>";
+				$errors[] = 'passwords not match';
 			}
+		} else {
+			$errors[] = 'password';
 		}
-	} else {
-		// missing inputs alert
-		$msg = "<script type='text/javascript'> toastr.error('Please fill in all fields'); </script>";
+
+		if (!empty($_POST['thumbPath'])) {
+			$path = filteredInput($_POST['thumbPath']);
+		} else {
+			$path = null;
+		}
+
+		if (isset($_POST['active'])) {
+			$active = $_POST['active'];
+		} else {
+			$active = 1;
+		}
+
+		if (empty($errors)) {
+			// if there are no errors, first check if there is existing user with the same email
+			$query = "SELECT id FROM users WHERE email = ? LIMIT 1";
+			$sth = $dbh->prepare($query);
+			$sth->bindParam(1, $email);
+			$sth->execute();
+			$user = $sth->fetch(PDO::FETCH_ASSOC);
+
+			if ($user) {
+				$msg = "<script type='text/javascript'>Email already exists</script>";
+			} else {
+				$password = password_hash($password, PASSWORD_BCRYPT);
+				$data = array(
+					':name' => $name,
+					':email' => $email,
+					':password' => $password,
+					':type' => 1,
+					':avatar' => $path,
+					':active' => $active,
+					':now' => (new DateTime())->format('Y-m-d H:i:s'),
+					':updated' => (new DateTime())->format('Y-m-d H:i:s')
+				);
+				$query = "INSERT INTO users (name, email, password, type, avatar, active, registration_date, updated_date)";
+				$query .= " VALUES (:name, :email, :password, :type, :avatar, :active, :now, :updated);";
+				$sth = $dbh->prepare($query);
+
+				if ($sth->execute($data)) {
+					redirect('backend/user_index.php');
+				} else {
+					$msg = "<script type='text/javascript'> toastr.error('Failed to update due to server error'); </script>";
+				}
+			}
+		} else {
+			// missing inputs alert
+			$msg = "<script type='text/javascript'> toastr.error('Please fill in all fields'); </script>";
+		}
 	}
-}
 ?>
 
 <?php
@@ -109,7 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 									<div class="form-group">
 										<label for="name">Name<sup>*</sup></label>
 										<input type="text" class="form-control" id="name" name="name" placeholder="Enter username" value="<?= $_POST['name'] ?? '' ?>">
-                    <?php if (isset($errors) && in_array('name', $errors)) echo "<p class='red-alert'>Please fill in user name</p>"; ?>
+                    <?php if (isset($errors) && in_array('name', $errors)) echo "<p class='red-alert'>Please fill in username</p>"; ?>
 									</div>
 									<div class="form-group">
 										<label for="email">Email<sup>*</sup></label>
@@ -119,15 +120,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 									<div class="form-group">
 										<label for="password">Password<sup>*</sup></label>
 										<input type="password" class="form-control" id="password" name="password" placeholder="Enter user password">
-										<?php if (isset($errors) && in_array('password', $errors)) echo "<p class='red-alert'>Please fill in user password</p>"; ?>
+										<?php if (isset($errors) && in_array('password', $errors)) echo "<p class='red-alert'>Please fill in user password (6 to 20 characters)</p>"; ?>
 									</div>
 									<div class="form-group">
 										<label for="password_cf">Re-type password<sup>*</sup></label>
 										<input type="password" class="form-control" id="password_cf" name="password_cf" placeholder="Confirm password">
-										<?php if (isset($errors) && in_array('password not match', $errors)) echo "<p class='red-alert'>Passwords must match</p>"; ?>
+										<?php if (isset($errors) && in_array('passwords not match', $errors)) echo "<p class='red-alert'>Passwords must match</p>"; ?>
 									</div>
                   <div class="form-group">
-                    <label for="">Profile Picture<sup>*</sup></label>
+                    <label for="">Profile Picture</label>
                     <div class="input-group" style="display: flex;">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" onchange="uploadThumb()" id="thumb" name="thumb">
@@ -164,8 +165,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		</section>
 	</div>
 
-<?php
-	if (isset($msg)) echo $msg;
-
-	include_once('templates/footer.php'); 
-?>
+<?php include_once('templates/footer.php'); ?>

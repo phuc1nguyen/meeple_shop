@@ -71,39 +71,39 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($users as $key => $item) { ?>
+                  <?php foreach ($users as $key => $user) { ?>
                     <tr>
                       <td><?= $key + 1; ?></td>
-                      <td><?= $item['name']; ?></td>
-                      <td><?= $item['email']; ?></td>
+                      <td><?= $user['name']; ?></td>
+                      <td><?= $user['email']; ?></td>
                       <td>
-                        <?php if (!empty($item['avatar'])) { ?>
-                          <a href="<?= $item['avatar'] ?>" target="_blank">
-                            <img src="<?= $item['avatar'] ?>" alt="Avatar" width="80px" height="80px">
+                        <?php if (!empty($user['avatar'])) { ?>
+                          <a href="<?= $user['avatar'] ?>" target="_blank">
+                            <img src="<?= $user['avatar'] ?>" alt="Avatar" width="80px" height="80px">
                           </a>
                         <?php } else { ?>
                           <img src="public/img/no_avatar.jpg" alt="No Avatar" width="80px" height="80px">
                         <?php } ?>
                       </td>
-                      <td><?= $item['registration_date']; ?></td>
+                      <td><?= $user['registration_date']; ?></td>
                       <td>
                         <div class="bootstrap-switch" style="width: 86px;">
                           <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
-                            <input type="checkbox" class="active" name="active" onchange="updateUserStatus(this)" value="<?= $item['id'] ?>" <?php if ($item['active'] === '1') echo "checked"; ?> data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
+                            <input type="checkbox" class="active" name="active" onchange="updateUserStatus(this)" value="<?= $user['id'] ?>" <?php if ($user['active'] === '1') echo "checked"; ?> data-bootstrap-switch="" data-off-color="danger" data-on-color="success">
                           </div>
                         </div>
                       </td>
                       <td class="text-right">
-                        <?php if (strlen($item['active']) === 32) { ?>
-                          <a class="btn btn-success btn-sm" onclick="verify_user(<?= $item['id'] ?>)" title="Verify">
+                        <?php if (strlen($user['active']) === 32) { ?>
+                          <a class="btn btn-success btn-sm" onclick="verify_user(<?= $user['id'] ?>)" title="Verify">
                             <i class='bx bx-check-square'></i>
                           </a>
                         <?php } else { ?>
-                          <a class="btn btn-primary btn-sm" href="user_edit.php?id=<?= $item['id']; ?>" title="Edit">
+                          <a class="btn btn-primary btn-sm" href="user_edit.php?id=<?= $user['id']; ?>" title="Edit">
                             <i class="bx bxs-edit"></i>
                           </a>
                         <?php } ?>
-                        <a class="btn btn-danger btn-sm" onclick="deleteUser(<?= $item['id'] ?>)" title="Delete">
+                        <a class="btn btn-danger btn-sm" onclick="deleteUser(<?= $user['id'] ?>)" title="Delete">
                           <i class="bx bxs-trash"></i>
                         </a>
                       </td>

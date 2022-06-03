@@ -20,7 +20,8 @@
   }
 
   // update this product
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // product description and sale price are not required for updating
     $errors = array();
     
     if (!empty($_POST['name'])) {
@@ -48,7 +49,7 @@
         $sale = filteredInput($_POST['sale']);
       }
     } else {
-      // should be 0 instead of null because these prices might need to be computed
+      // should be 0 instead of null because these sale prices might need to be computed
       $sale = 0;
     }
 
@@ -95,6 +96,7 @@
       if ($sth->execute($data)) {
         redirect('backend/prod_index.php');
       } else {
+        // failed to update
         $msg = "<script type='text/javascript'> toastr.error('Failed to update due to server error'); </script>";
       }
     } else {
