@@ -3,22 +3,24 @@
   require_once('../database/dbconnection.php');
   require_once('../inc/functions.inc.php');
 
+
+
   if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $errors = array();
 
-    if (isset($_POST['name'])) {
+    if (!empty($_POST['name'])) {
       $name = filteredInput($_POST['name']);
     } else {
       $errors[] = 'name';
     }
 
-    if (isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
+    if (!empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
       $email = filteredInput($_POST['email']);
     } else {
       $errors[] = 'email';
     }
 
-    if (isset($_POST['password'])){
+    if (!empty($_POST['password']) && preg_match('/^[\w]{6,20}$/', $_POST['password'])) {
       if ($_POST['password'] === $_POST['password_2']) {
         $password = filteredInput($_POST['password']);
       } else {
@@ -29,48 +31,46 @@
     }
 
     if (empty($errors)) {
-      // neu khong co loi kiem tra xem da ton tai user voi email chua
-      $query = "SELECT id FROM users WHERE email = :email LIMIT 1";
+      // check if there is existing user with the registed email first
+      $query = "SELECT id FROM users WHERE email = :email LIMIT 1;";
       $sth = $dbh->prepare($query);
       $sth->bindParam(':email', $email);
       $sth->execute();
       $user = $sth->fetch(PDO::FETCH_ASSOC);
 
       if ($user) {
-        // user voi email vua nhap da ton tai trong csdl
-        $msg = "<script type='text/javascript'>toastr.warning('Email already existed!');</script>";
+        // email has already been registered
+        $msg = "<script type='text/javascript'> toastr.warning('Email already existed!'); </script>";
       } else {
         // khong tim thay user trong csdl thi cho dang ky tai khoan
         $password = password_hash($password, PASSWORD_BCRYPT);
         $activation = md5(uniqid(rand(), true));
-        $now = new DateTime();
-        $now = $now->format('Y-m-d H:i:s');
+        $now = (new DateTime())->format('Y-m-d H:i:s');
         $data = array(
           ':name' => $name,
           ':email' => $email, 
           ':password' => $password, 
-          ':activation' => $activation, 
-          ':now' => $now
+          ':activation' => $activation,
+          ':now' => $now,
+          ':updated' => $now
         );
-        $query = "INSERT INTO users (name, email, password, active, registration_date)";
-        $query .= " VALUES (:name, :email, :password, :activation, :now)";
+        $query = "INSERT INTO users (name, email, password, active, registration_date, updated_date)";
+        $query .= " VALUES (:name, :email, :password, :activation, :now, :updated);";
         $sth = $dbh->prepare($query);
 
         if ($sth->execute($data)) {
-          // dang ky thanh cong thi gui mail cho kich hoat tai khoan
-          $body = "Thank you for registering on Meeple Shop.\n";
-          $body .= "Click <a href='auth/activation.php?text=" . urlencode($email) . "&key={$activation}' target='_blank'>here</a> to activate then log in to your account.";
-          if (mail($email, 'Meeple Shop Registration', $body)) {
+          // send email to users to activate their accounts
+          $body = "Hi <b>{$name}</b>,<br>";
+          $body .= "<p>Thank you for being a part of MeepleShop.</p>";
+          $body .= "<p>Click <a href='meeple_shop.test/auth/activation.php?text=" . urlencode($email) . "&key={$activation}' target='_blank'>here</a> to activate your account then sign in.</p>";
+          
+          if (mailAfterRegisting($email, 'MeepleShop Account Activation', $body)) {
             $msg = "<script type='text/javascript'>toastr.success('An email has been sent to your email address.\nPlease activate your account before logging in');</script>";
-            redirect('auth/login.php');
           } else {
-            $msg = "<script type='text/javascript'>toastr.error('Can not send email due to server error');</script>";
+            $msg = "<script type='text/javascript'>toastr.error('Something went wrong')</script>";
           }
         }
       }
-    } else {
-      // neu co loi thi hien thi len browser
-      $msg = "<script type='text/javascript'>Please check your credentials</script>";
     }
   }
 ?>
@@ -96,8 +96,8 @@
               <span class="fas fa-user"></span>
             </div>
           </div>
-          <?php if (!empty($errors) && in_array('name', $errors)) echo "<p class='noti noti-warning'>Fill in your name</p>"; ?>
         </div>
+        <?php if (!empty($errors) && in_array('name', $errors)) echo "<p class='red-alert'>Fill in your name</p>"; ?>
         <div class="input-group mb-3">
           <input type="email" class="form-control" id="emailRegis" name="email" value="<?php if (isset($_POST['email'])) echo htmlspecialchars($_POST['email']); ?>" placeholder="Email" required>
           <div class="input-group-append">
@@ -105,8 +105,8 @@
               <span class="fas fa-envelope"></span>
             </div>
           </div>
-          <?php if (!empty($errors) && in_array('email', $errors)) echo "<p class='noti noti-warning'>Fill in your email</p>"; ?>
         </div>
+        <?php if (!empty($errors) && in_array('email', $errors)) echo "<p class='red-alert'>Please fill in your email</p>"; ?>
         <div class="input-group mb-3">
           <input type="password" class="form-control" id="passRegis" name="password" placeholder="Password" required>
           <div class="input-group-append">
@@ -114,8 +114,8 @@
               <span class="fas fa-lock"></span>
             </div>
           </div>
-          <?php if (!empty($errors) && in_array('password', $errors)) echo "<p class='noti noti-warning'>Fill in your password</p>"; ?>
         </div>
+        <?php if (!empty($errors) && in_array('password', $errors)) echo "<p class='red-alert'>Please fill in your password (6 to 20 characters)</p>"; ?>
         <div class="input-group mb-3">
           <input type="password" class="form-control" id="passRegis2" name="password_2" placeholder="Retype password" required>
           <div class="input-group-append">
@@ -123,8 +123,8 @@
               <span class="fas fa-lock"></span>
             </div>
           </div>
-          <?php if (!empty($errors) && in_array('passwords do not match', $errors)) echo "<p class='noti noti-warning'>Passwords do not match</p>"; ?>
         </div>
+        <?php if (!empty($errors) && in_array('passwords do not match', $errors)) echo "<p class='red-alert'>Passwords do not match</p>"; ?>
         <div class="row">
           <!-- <div class="col-8">
             <div class="icheck-primary">
@@ -149,11 +149,7 @@
 </div>
 <!-- /.register-box -->
 
-<?php 
-  include('templates/script.php'); 
-  
-  if (isset($msg)) echo $msg;
-?>
+<?php include('templates/script.php'); ?>
 
 </body>
 </html>

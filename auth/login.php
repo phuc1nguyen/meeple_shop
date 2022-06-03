@@ -50,7 +50,7 @@
           redirect();
         }
       } else {
-        $msg = "<script type='text/javascript'>toastr.error('Please check your credentials again');</script>";
+        $msg = "<script type='text/javascript'>toastr.error('Please check your credentials again or contact admin');</script>";
       }
     }
   }

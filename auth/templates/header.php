@@ -41,5 +41,11 @@
     .noti-info {
       background-color: #57a9c1;
     }
+
+    .red-alert {
+      color: red;
+      margin-left: .5rem;
+      margin-bottom: 0.5rem;
+    }
   </style>
 </head>
