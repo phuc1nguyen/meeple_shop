@@ -22,4 +22,48 @@
       ));
     }
   }
+
+  if ($_FILES['image']['error'] > 0) {
+    $errors[] = "<p class='red-alert'>The file could not be uploaded because: <b>";
+
+    switch ($_FILES['upload']['error']) {
+      case 1:
+        $errors[] .= "The file exceeds the upload_max_filesize setting in php.ini";
+        break;
+
+      case 2:
+        $errors[] .= "The file exceeds the MAX_FILE_SIZE in HTML form";
+        break;
+
+      case 3:
+        $errors[] .= "The file was partially uploaded";
+        break;
+      
+      case 4:
+        $errors[] .= "NO file was uploaded";
+        break;
+
+      case 6:
+        $errors[] .= "No temporary folder was available";        
+        break;
+
+      case 7:
+        $errors[] .= "Unable to write to the disk";
+        break;
+
+      case 8:
+        $errors[] .= "File upload stopped";
+        break;
+
+      default:
+        $errors[] .= "A system error has occured";
+        break;
+    }
+
+    $errors .= "</b></p>";
+  }
+
+  if (isset($_FILES['image']['tmp_name']) && is_file($_FILES['image']['tmp_name'] && file_exists($_FILES['image']['tmp_name']))) {
+    unlink($_FILES['image']['tmp_name']);
+  }
 ?>

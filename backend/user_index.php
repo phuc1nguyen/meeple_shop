@@ -30,7 +30,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1 class="ml-3">Người dùng</h1> 
+          <h1 class="ml-3">Users</h1> 
         </div>
       </div>
     </div>
@@ -42,7 +42,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Danh sách người dùng</h3>
+              <h3 class="card-title">Users List</h3>
 
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 200px;">
@@ -62,12 +62,12 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th data-breakpoints="lg">Tên</th>
+                    <th data-breakpoints="lg">Name</th>
                     <th data-breakpoints="lg">Email</th>
-                    <th data-breakpoints="lg">Ảnh đại diện</th>
-                    <th data-breakpoints="lg">Thời gian đăng ký</th>
-                    <th data-breakpoints="lg">Trạng thái</th>
-                    <th data-breakpoints="lg" class="text-right">Thao tác</th>
+                    <th data-breakpoints="lg">Profile Picture</th>
+                    <th data-breakpoints="lg">Created Time</th>
+                    <th data-breakpoints="lg">Status</th>
+                    <th data-breakpoints="lg" class="text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody>

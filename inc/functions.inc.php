@@ -8,13 +8,13 @@
   use PHPMailer\PHPMailer\Exception;
 
   // Load Composer's Autoloader
-  require('../vendor/autoload.php');
+  require(__DIR__ . '/../vendor/autoload.php');
 
   define('BASE_URL', 'http://meeple_shop.test/');
 
   if (!function_exists('redirect')) {
     function redirect($page = "index.php"){
-      // redirect to certain url
+      // redirect to wanted urls
       $url = BASE_URL . $page;
       header("Location: " . $url);
       exit();
@@ -54,31 +54,31 @@
   if (!function_exists('slugify')) {
     // https://stackoverflow.com/questions/2955251/php-function-to-make-slug-url-string
     function slugify($text, string $divider = '-') {
-      // create url slug
+      // create url slugs
       return strtolower(trim(preg_replace('/[^A-Za-z0-9-]+/', $divider, $text)));
     }
   }
 
   if (!function_exists('mailAfterRegisting')) {
     function mailAfterRegisting($recipientAddr, $subject, $body) {
-      // send email to user after successfully registered to activate user account
+      // send email to user address after successfully registered to activate user account
       // https://github.com/PHPMailer/PHPMailer
-      $mail = new PHPMailer(true);    // set to 'true' to enable exceptions
+      $mail = new PHPMailer(true);    // set 'true' to enable exceptions
 
       try {
         // Server settings
-        $mail->SMTPDebug = SMTP::DEBUG_SERVER;                      //Enable verbose debug output
-        $mail->isSMTP();                                            //Send using SMTP
-        $mail->Host       = MAILER_HOST;                            //Set the SMTP server to send through
-        $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-        $mail->Username   = MAILER_ADDRESS;                         //SMTP username
-        $mail->Password   = MAILER_PASSWORD;                        //SMTP password
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
-        $mail->Port       = 465;
+        $mail->SMTPDebug = SMTP::DEBUG_OFF;                         // Enable verbose debug output (SMTP::DEBUG_SERVER)
+        $mail->isSMTP();                                            // Send using SMTP
+        $mail->Host       = MAILER_HOST;                            // Set the SMTP server to send through
+        $mail->SMTPAuth   = true;                                   // Enable SMTP authentication
+        $mail->Username   = MAILER_ADDRESS;                         // SMTP username
+        $mail->Password   = MAILER_PASSWORD;                        // SMTP password
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            // Enable implicit TLS encryption
+        $mail->Port       = 465;                                    // TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
         
         // Recipients
         $mail->setFrom(MAILER_ADDRESS, 'MeepleShop');
-        $mail->addAddress($recipientAddr);     //Add a recipient
+        $mail->addAddress($recipientAddr);
 
         // Content
         $mail->isHTML(true);

@@ -21,12 +21,13 @@ function deleteProduct(id) {
 
   if (confirm('Are you sure want to delete this product?')) {
     $.post('../../backend/ajax/delete_product.php', data, json => {
-      const response = JSON.parse(json); 
-      if (response.status === 'ok') {
-        window.location.reload();
-      } else {
-        toastr.error(response.message);
-      }
+      console.log(json);
+      // const response = JSON.parse(json); 
+      // if (response.status === 'ok') {
+      //   window.location.reload();
+      // } else {
+      //   toastr.error(response.message);
+      // }
     });
   }
 }

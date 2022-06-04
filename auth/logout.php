@@ -6,14 +6,14 @@
 
 <?php 
   if (!isset($_SESSION['user_type'])){
-    // neu chua dang nhap thi khong cho dang xuat
+    // can not access this if user haven't been authenticated
     redirect();
   } else {
-    // xoa het array cua session
+    // empty session 
     $_SESSION = array();
-    // destroy session da tao
+    // destroy created session
     session_destroy();
-    // xoa cookie cua trinh duyet 
+    // delete browser's cookies
     setcookie(session_name(), '', time() - 3600);
     redirect('auth/login.php');
   }

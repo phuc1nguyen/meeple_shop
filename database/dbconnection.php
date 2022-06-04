@@ -1,5 +1,5 @@
 <?php 
-  // requires __DIR__ otherwise cause error when calling ajax to other php files
+  // requires __DIR__ otherwise causes error calling ajax to other php files
   require_once(__DIR__ . '/../inc/config.inc.php');
 
   try {
@@ -8,7 +8,7 @@
     $dbh = new PDO("mysql:host=" . DATABASE_HOSTNAME . ";dbname=" . DATABASE_NAME . ";charset=utf8", DATABASE_USERNAME, DATABASE_PASSWORD);
     $dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
   } catch (PDOException $err) {
-    // if connection failed, show PDO error
+    // if connection is failed, show PDO error
     throw new PDOException($err->getMessage(), (int) $err->getCode());
     // echo "Connected failed: " . $err->getMessage() . "<br/>";
     die();

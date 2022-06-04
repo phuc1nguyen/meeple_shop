@@ -11,6 +11,7 @@ namespace Stripe;
  * @property \Stripe\Service\AccountService $accounts
  * @property \Stripe\Service\ApplePayDomainService $applePayDomains
  * @property \Stripe\Service\ApplicationFeeService $applicationFees
+ * @property \Stripe\Service\Apps\AppsServiceFactory $apps
  * @property \Stripe\Service\BalanceService $balance
  * @property \Stripe\Service\BalanceTransactionService $balanceTransactions
  * @property \Stripe\Service\BillingPortal\BillingPortalServiceFactory $billingPortal
@@ -63,6 +64,7 @@ namespace Stripe;
  * @property \Stripe\Service\TokenService $tokens
  * @property \Stripe\Service\TopupService $topups
  * @property \Stripe\Service\TransferService $transfers
+ * @property \Stripe\Service\Treasury\TreasuryServiceFactory $treasury
  * @property \Stripe\Service\WebhookEndpointService $webhookEndpoints
  */
 class StripeClient extends BaseStripeClient

@@ -34,7 +34,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-12">
-          <h1 class="ml-3">Sản phẩm</h1>
+          <h1 class="ml-3">Products</h1>
         </div>
       </div>
     </div>
@@ -46,7 +46,7 @@
         <div class="col-12">
           <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Danh sách sản phẩm</h3>
+              <h3 class="card-title">Products List</h3>
 
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 200px;">
@@ -66,13 +66,13 @@
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th data-breakpoints="lg">Tên</th>
-                    <th data-breakpoints="lg">Mô tả</th>
-                    <th data-breakpoints="lg">Ảnh đại diện</th>
-                    <th data-breakpoints="lg">Giá</th>
-                    <th data-breakpoints="lg">Giá giảm</th>
-                    <th data-breakpoints="lg">Trạng thái</th>
-                    <th data-breakpoints="lg">Thao tác</th>
+                    <th data-breakpoints="lg">Name</th>
+                    <th data-breakpoints="lg">Description</th>
+                    <th data-breakpoints="lg">Thumbnail</th>
+                    <th data-breakpoints="lg">Price</th>
+                    <th data-breakpoints="lg">Sale Price</th>
+                    <th data-breakpoints="lg">Status</th>
+                    <th data-breakpoints="lg">Actions</th>
                   </tr>
                 </thead>
                 <tbody>

@@ -29,7 +29,7 @@
     }
 
     if (empty($errors)) {
-      // neu khong xay ra loi (dien day du cac truong) thi query csdl
+      // query the database if there are no errors
       // $data = array($email, $password);
       $query = "SELECT id, name, type, password FROM users WHERE (email = :email AND active = 1) LIMIT 1;";
       // $sth stands for statement handle
@@ -46,7 +46,7 @@
           // redirect to admin dashboard if it's admin
           redirect('backend');
         } else {
-          // redirect to home page
+          // otherwise redirect to home page
           redirect();
         }
       } else {
@@ -82,19 +82,9 @@
           </div>
         </div>
         <div class="row">
-          <!-- <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-                Remember Me
-              </label>
-            </div>
-          </div> -->
-          <!-- /.col -->
           <div class="col-12 mb-2">
             <button type="submit" id="btn-signin" class="btn btn-primary btn-block">Sign In</button>
           </div>
-          <!-- /.col -->
         </div>
       </form>
 
@@ -105,16 +95,9 @@
         <a href="register.php" class="text-center">Register a new membership</a>
       </p>
     </div>
-    <!-- /.card-body -->
   </div>
-  <!-- /.card -->
 </div>
-<!-- /.login-box -->
 
-<?php 
-  include_once('templates/script.php');
-  
-  if (isset($msg)) echo $msg;  
-?>
+<?php include_once('templates/script.php'); ?>
 </body>
 </html>

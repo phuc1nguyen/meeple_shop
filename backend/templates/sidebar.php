@@ -40,7 +40,7 @@
             <a href="#" class="nav-link <?php isRoute(['/backend/prod_index.php', '/backend/prod_create.php', '/backend/prod_edit.php'], 'active') ?>">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
-                Sản phẩm
+                Products
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -48,13 +48,13 @@
               <li class="nav-item">
                 <a href="/backend/prod_index.php" class="nav-link <?php isRoute(['/backend/prod_index.php'], 'active') ?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Danh sách Sản phẩm</p>
+                  <p>Products List</p>
                 </a>
               </li>
               <li class="nav-item">
                 <a href="/backend/prod_create.php" class="nav-link <?php isRoute(['/backend/prod_create.php'], 'active') ?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Thêm Sản phẩm</p>
+                  <p>Create Product</p>
                 </a>
               </li>
             </ul>
@@ -88,7 +88,7 @@
           <li class="nav-item <?php isRoute(['/backend/user_index.php', '/backend/user_create.php'], 'menu-open') ?>">
             <a href="#" class="nav-link <?php isRoute(['/backend/user_index.php', '/backend/user_create.php', '/backend/user_edit.php'], 'active') ?>">
               <i class="nav-icon bx bxs-user"></i> 
-              <p>Người dùng
+              <p>Users
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -96,13 +96,13 @@
               <li class="nav-item">
                 <a href="/backend/user_index.php" class="nav-link <?php isRoute(['/backend/user_index.php'], 'active') ?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Danh sách Người dùng</p>
+                  <p>Users List</p>
                 </a>
               </li>
 							<li class="nav-item">
 								<a href="/backend/user_create.php" class="nav-link <?php isRoute(['/backend/user_create.php'], 'active') ?>">
 									<i class="far fa-circle nav-icon"></i>
-									<p>Thêm Người dùng</p>
+									<p>Create User</p>
 								</a>
 							</li>
             </ul>
@@ -110,7 +110,7 @@
 
           <!-- Logout -->
           <li class="nav-item p-3 text-center border-top">
-            <a href="../../auth/logout.php">Đăng xuất</a>
+            <a href="../../auth/logout.php">Log Out</a>
           </li>
         </ul>
       </nav>

@@ -114,7 +114,7 @@
               <form class="form-horizontal" id="myForm" action="<?= htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="POST" enctype="multipart/form-data">
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="name">Product Name<sup>*</sup></label>
+                    <label for="name">Name<sup>*</sup></label>
                     <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name" value="<?= $_POST['name'] ?? ''; ?>">
                     <?php if (isset($errors) && in_array('name', $errors)) echo "<p class='red-alert'>Please fill in product name</p>"; ?>
                   </div>
