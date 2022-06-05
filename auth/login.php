@@ -16,13 +16,13 @@
   $errors = array();
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL, array('min_range' => 1))) {
+    if (isset($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
       $email = filteredInput($_POST['email']);
     } else {
       $errors[] = 'email';
     }
 
-    if (isset($_POST['password'])) {
+    if (isset($_POST['password']) && preg_match('/^[\w]{6,20}$/', filteredInput($_POST['password']))) {
       $password = filteredInput($_POST['password']);
     } else {
       $errors[] = 'password';
@@ -98,6 +98,9 @@
   </div>
 </div>
 
-<?php include_once('templates/script.php'); ?>
+<?php 
+  include_once('templates/script.php'); 
+  if (isset($msg)) echo $msg;
+?>
 </body>
 </html>

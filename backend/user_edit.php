@@ -38,7 +38,7 @@
 
 		if (empty($_POST['password'])) {
 			$password = $user['password'];
-		} elseif (isset($_POST['password']) && !preg_match('/^[\w]{6,20}$/', $_POST['password'])) {
+		} elseif (isset($_POST['password']) && !preg_match('/^[\w]{6,20}$/', filteredInput($_POST['password']))) {
 			$errors[] = 'password';
 		} else {
 			if (isset($_POST['password_cf']) && ($_POST['password'] === $_POST['password_cf'])) {
@@ -67,6 +67,7 @@
 
 		if (empty($errors)) {
 			// if all inputs are filled in
+			$password = password_hash($password, PASSWORD_BCRYPT);
 			$data = array(
 				":name" => $name,
 				":email" => $email,
@@ -123,12 +124,12 @@
 								<div class="card-body">
 									<div class="form-group">
 										<label for="name">Name<sup>*</sup></label>
-										<input type="text" class="form-control" id="name" name="name" placeholder="Enter username" value="<?php if (isset($user['name'])) echo $user['name']; ?>">
+										<input type="text" class="form-control" id="name" name="name" placeholder="Enter username" value="<?= $user['name'] ?? '' ?>">
 										<?php if (isset($errors) && in_array('name', $errors)) echo "<p class='red-alert'>Please fill in username</p>"; ?>
 									</div>
 									<div class="form-group">
 										<label for="email">Email<sup>*</sup></label>
-										<input type="email" class="form-control" id="email" name="email" placeholder="Enter user email" value="<?php if (isset($user['email'])) echo $user['email']; ?>">
+										<input type="email" class="form-control" id="email" name="email" placeholder="Enter user email" value="<?= $user['email'] ?? '' ?>">
 										<?php if (isset($errors) && in_array('email', $errors)) echo "<p class='red-alert'>Please fill in user email</p>"; ?>
 									</div>
 									<div class="form-group">
@@ -146,7 +147,7 @@
                     <div class="input-group" style="display: flex;">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" onchange="updateThumb()" id="thumb" name="thumb">
-                        <input type="hidden" class="" id="thumbPath" name="thumbPath" value="<?= (!empty($_POST['thumbPath'])) ? $_POST['thumbPath'] : $user['avatar'] ?>">
+                        <input type="hidden" class="" id="thumbPath" name="thumbPath" value="<?= (!empty($_POST['thumbPath'])) ? htmlspecialchars($_POST['thumbPath']) : $user['avatar']; ?>">
                         <input type="hidden" class="" id="oldThumb" name="oldThumb">
                         <label class="custom-file-label" for="thumb">Choose File</label>
                       </div>
@@ -155,7 +156,7 @@
                       </div>
                     </div>
                     <div id="thumbPreview" class="mt-3">
-                      <img src="<?= (!empty($_POST['thumbPath'])) ? $_POST['thumbPath'] : $user['avatar'] ?>" alt="No Thumbnail" width="100px" height="100px">
+                      <img src="<?= (!empty($_POST['thumbPath'])) ? htmlspecialchars($_POST['thumbPath']) : $user['avatar'] ?>" alt="No Thumbnail" width="100px" height="100px">
                     </div>
                   </div>
 									<div class="form-group">

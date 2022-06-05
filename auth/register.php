@@ -3,7 +3,7 @@
   require_once('../database/dbconnection.php');
   require_once('../inc/functions.inc.php');
 
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = array();
 
     if (!empty($_POST['name'])) {
@@ -12,13 +12,13 @@
       $errors[] = 'name';
     }
 
-    if (!empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL, array('min_range' => 1))) {
+    if (!empty($_POST['email']) && filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
       $email = filteredInput($_POST['email']);
     } else {
       $errors[] = 'email';
     }
 
-    if (!empty($_POST['password']) && preg_match('/^[\w]{6,20}$/', $_POST['password'])) {
+    if (!empty($_POST['password']) && preg_match('/^[\w]{6,20}$/', filteredInput($_POST['password']))) {
       if ($_POST['password'] === $_POST['password_2']) {
         $password = filteredInput($_POST['password']);
       } else {

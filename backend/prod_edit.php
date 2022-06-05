@@ -162,7 +162,7 @@
                     <div class="input-group" style="display: flex;">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" onchange="updateThumb()" id="thumb" name="thumb">
-                        <input type="hidden" class="" id="thumbPath" name="thumbPath" value="<?= (!empty($_POST['thumbPath'])) ? $_POST['thumbPath'] : $product['thumb'] ?>">
+                        <input type="hidden" class="" id="thumbPath" name="thumbPath" value="<?= (!empty($_POST['thumbPath'])) ? htmlspecialchars($_POST['thumbPath']) : $product['thumb'] ?>">
                         <input type="hidden" class="" id="oldThumb" name="oldThumb">
                         <label class="custom-file-label" for="thumb">Choose File</label>
                       </div>
@@ -172,7 +172,7 @@
                     </div>
                     <?php if (isset($errors) && in_array('thumb', $errors)) echo "<p class='red-alert'>Please upload a thumbnail for this product</p>"; ?>
                     <div id="thumbPreview" class="mt-3">
-                      <img src="<?= (!empty($_POST['thumbPath'])) ? $_POST['thumbPath'] : $product['thumb'] ?>" alt="No Thumbnail" width="100px" height="100px">
+                      <img src="<?= (!empty($_POST['thumbPath'])) ? htmlspecialchars($_POST['thumbPath']) : $product['thumb'] ?>" alt="No Thumbnail" width="100px" height="100px">
                     </div>
                   </div>
 									<div class="form-group"> 

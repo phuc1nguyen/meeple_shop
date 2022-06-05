@@ -36,8 +36,8 @@
                with font-awesome or any other icon font library -->
           
           <!-- Products -->
-          <li class="nav-item <?php isRoute(['/backend/prod_index.php', '/backend/prod_create.php'], 'menu-open') ?>">
-            <a href="#" class="nav-link <?php isRoute(['/backend/prod_index.php', '/backend/prod_create.php', '/backend/prod_edit.php'], 'active') ?>">
+          <li class="nav-item <?php isRoute(['prod_index.php', 'prod_create.php'], 'menu-open') ?>">
+            <a href="#" class="nav-link <?php isRoute(['prod_index.php', 'prod_create.php', 'prod_edit.php'], 'active') ?>">
               <i class="nav-icon fas fa-chart-pie"></i>
               <p>
                 Products
@@ -46,13 +46,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/backend/prod_index.php" class="nav-link <?php isRoute(['/backend/prod_index.php'], 'active') ?>">
+                <a href="/backend/prod_index.php" class="nav-link <?php isRoute(['prod_index.php'], 'active') ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Products List</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/backend/prod_create.php" class="nav-link <?php isRoute(['/backend/prod_create.php'], 'active') ?>">
+                <a href="/backend/prod_create.php" class="nav-link <?php isRoute(['prod_create.php'], 'active') ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Create Product</p>
                 </a>
@@ -85,8 +85,8 @@
           </li> -->
 
           <!-- Users -->
-          <li class="nav-item <?php isRoute(['/backend/user_index.php', '/backend/user_create.php'], 'menu-open') ?>">
-            <a href="#" class="nav-link <?php isRoute(['/backend/user_index.php', '/backend/user_create.php', '/backend/user_edit.php'], 'active') ?>">
+          <li class="nav-item <?php isRoute(['user_index.php', 'user_create.php'], 'menu-open') ?>">
+            <a href="#" class="nav-link <?php isRoute(['user_index.php', 'user_create.php', 'user_edit.php'], 'active') ?>">
               <i class="nav-icon bx bxs-user"></i> 
               <p>Users
                 <i class="right fas fa-angle-left"></i>
@@ -94,13 +94,13 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/backend/user_index.php" class="nav-link <?php isRoute(['/backend/user_index.php'], 'active') ?>">
+                <a href="/backend/user_index.php" class="nav-link <?php isRoute(['user_index.php'], 'active') ?>">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Users List</p>
                 </a>
               </li>
 							<li class="nav-item">
-								<a href="/backend/user_create.php" class="nav-link <?php isRoute(['/backend/user_create.php'], 'active') ?>">
+								<a href="/backend/user_create.php" class="nav-link <?php isRoute(['user_create.php'], 'active') ?>">
 									<i class="far fa-circle nav-icon"></i>
 									<p>Create User</p>
 								</a>
