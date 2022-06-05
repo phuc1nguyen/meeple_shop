@@ -1,6 +1,6 @@
 <?php
   $title = "Meeple Shop | Product Details";
-  include('templates/header.php');
+  include_once('templates/header.php');
 ?>
 
 <div class="section__main">

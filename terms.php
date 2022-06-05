@@ -1,6 +1,6 @@
 <?php
   $title = 'Terms of Service | Meeple Shop';
-  include('templates/header.php');
+  include_once('templates/header.php');
 ?>
   <div class="section__main">
     <div class="policy">
@@ -144,6 +144,6 @@ You agree that your comments will not violate any right of any third-party, incl
     </div>
   </div>
 <?php
-  include('templates/footer.php');
-  include('templates/script.php');
+  include_once('templates/footer.php');
+  include_once('templates/script.php');
 ?>
