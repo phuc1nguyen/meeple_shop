@@ -3,7 +3,7 @@
   include_once('templates/header.php');
   include_once('../inc/functions.inc.php');
 
-  // neu dang dang nhap thi ko cho vao trang dang nhap
+  // redirect if already authenticated
   if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 0) {
     redirect('admin');
   } elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 1) {
