@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php 
+  ini_set('session.use_only_cookies', true);
+  session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

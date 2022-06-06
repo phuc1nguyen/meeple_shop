@@ -1,6 +1,5 @@
 <?php
   $title = "Forgot Password | Meeple Shop";
-  require_once('../database/dbconnection.php');
   require_once('../inc/functions.inc.php');
   include_once('templates/header.php');
 

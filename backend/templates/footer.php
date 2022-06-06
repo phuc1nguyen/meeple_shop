@@ -47,6 +47,8 @@
 <script src="public/toastr/build/toastr.min.js"></script>
 <!-- Custom JS -->
 <script src="public/js/custom.js"></script>
-	<?php if (isset($msg)) echo $msg; ?>
+
+<?php if (isset($msg)) echo $msg; ?>
+
 </body>
 </html>

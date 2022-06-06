@@ -12,4 +12,6 @@
   define('MAILER_ADDRESS', 'phuc.ng13988@gmail.com');
   define('MAILER_PASSWORD', 'epkqlwpazvvdtbsn');
   
+  // Toggle Custom Error
+  define('APP_DEBUG', TRUE);          // TRUE: in development | FALSE: in production
 ?>

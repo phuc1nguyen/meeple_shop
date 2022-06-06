@@ -17,6 +17,7 @@
       // redirect to wanted urls
       $url = BASE_URL . $page;
       header("Location: " . $url);
+
       exit();
     }
   }
@@ -28,6 +29,7 @@
       $userInput = stripslashes($userInput);
       $userInput = strip_tags($userInput);
       $userInput = htmlspecialchars($userInput);
+
       return $userInput;
     }
   }
@@ -37,9 +39,7 @@
     // strtok() ignores the query string, then in_array check if the REQUEST_URI is in array of routes
     // https://stackoverflow.com/questions/1283327/how-to-get-url-of-current-page-in-php#1283330
     function isRoute($arrRoutes, $className) {
-      if (in_array(strtok(basename($_SERVER['REQUEST_URI']), '?'), $arrRoutes)) {
-        echo $className;
-      }
+      if (in_array(strtok(basename($_SERVER['REQUEST_URI']), '?'), $arrRoutes)) echo $className;
 
       echo "";
     }

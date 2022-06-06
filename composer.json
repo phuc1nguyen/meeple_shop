@@ -1,7 +1,5 @@
 {
     "require": {
-        "phpmailer/phpmailer": "^6.6",
-        "stripe/stripe-php": "^8.1",
-        "phpoffice/phpspreadsheet": "^1.23"
+        "phpmailer/phpmailer": "^6.6"
     }
 }

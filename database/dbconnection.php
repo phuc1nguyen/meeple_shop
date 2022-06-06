@@ -1,6 +1,6 @@
 <?php 
   // requires __DIR__ otherwise causes error calling ajax to other php files
-  require_once(__DIR__ . '/../inc/config.inc.php');
+  require(__DIR__ . '/../inc/config.inc.php');
 
   try {
     // connect to database with the PDO object, $dbh stands for database handle

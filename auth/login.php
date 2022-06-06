@@ -1,7 +1,6 @@
 <?php 
   $title = "Log In | Meeple Shop";
   include_once('templates/header.php');
-  require_once('../database/dbconnection.php');
   include_once('../inc/functions.inc.php');
 
   // neu dang dang nhap thi ko cho vao trang dang nhap
@@ -39,6 +38,7 @@
       $user = $sth->fetch(PDO::FETCH_ASSOC);
 
       if ($user && password_verify($password, $user['password'])) {
+        session_regenerate_id(true);
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['name'];
         $_SESSION['user_type'] = $user['type'];

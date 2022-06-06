@@ -1,5 +1,4 @@
 <?php
-	require_once("../database/dbconnection.php");
 	require_once("../inc/functions.inc.php");
 
 	// get user by id from database

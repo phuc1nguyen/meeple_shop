@@ -1,6 +1,5 @@
 <?php 
   session_start();
-  require_once('../database/dbconnection.php');
   require_once('../inc/functions.inc.php');
 ?>
 

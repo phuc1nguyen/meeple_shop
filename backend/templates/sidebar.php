@@ -2,7 +2,7 @@
     <!-- Brand Logo -->
     <a href="/" class="brand-link" target="_blank">
       <img src="../public/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">Admin Meeple Shop</span>
+      <span class="brand-text font-weight-light">Meeple Shop</span>
     </a>
 
     <!-- Sidebar -->
@@ -13,7 +13,7 @@
           <img src="../public/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Phuc Nguyen</a>
+          <a href="#" class="d-block">Admin</a>
         </div>
       </div>
 
