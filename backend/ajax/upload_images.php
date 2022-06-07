@@ -62,8 +62,4 @@
 
     $errors .= "</b></p>";
   }
-
-  if (isset($_FILES['image']['tmp_name']) && is_file($_FILES['image']['tmp_name'] && file_exists($_FILES['image']['tmp_name']))) {
-    unlink($_FILES['image']['tmp_name']);
-  }
 ?>
