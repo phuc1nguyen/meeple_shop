@@ -5,6 +5,7 @@
     $prodId = $_GET['id'];
   } else {
     redirect('backend/prod_index.php');
+    exit();
   }
   
   // get product by id from database
@@ -16,6 +17,7 @@
     $product = $sth->fetch(PDO::FETCH_ASSOC);
   } else {
     redirect('backend/prod_index.php');
+    exit();
   }
 
   // update this product
@@ -85,7 +87,7 @@
         "stock" => $stock,
         "thumb" => $path,
         "active" => $active,
-        "id" => $prodId
+        "id" => $prodId,
       );
       $query = "UPDATE products";
       $query .= " SET name = :name, description = :description, price = :price, price_sale = :sale, stock = :stock, thumb = :thumb, active = :active";
@@ -94,6 +96,7 @@
       
       if ($sth->execute($data)) {
         redirect('backend/prod_index.php');
+        exit();
       } else {
         // failed to update
         $msg = "<script type='text/javascript'> toastr.error('Failed to update due to server error'); </script>";

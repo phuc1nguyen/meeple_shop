@@ -7,7 +7,7 @@
 
   $data = array(
     ':status' => $status,
-    ':prodId' => $productId
+    ':prodId' => $productId,
   );
   $query = "UPDATE products SET active = :status WHERE id = :prodId LIMIT 1";
   $sth = $dbh->prepare($query);

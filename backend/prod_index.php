@@ -7,9 +7,9 @@
 
 <?php
   if (isset($_GET['query'])) {
-    $search = $_GET['query'];
+    $search = filteredInput($_GET['query']);
     $data = array(
-      ':name' => '%' . $search . '%'
+      ':name' => '%' . $search . '%',
     );
 
     $query = "SELECT id, name,description, thumb, price, price_sale, active";

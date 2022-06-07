@@ -6,6 +6,7 @@
 		$userId = $_GET['id']; 
 	} else {
 		redirect('backend/user_index.php');
+		exit();
 	}
 
 	$query = "SELECT * FROM users WHERE id = :userId LIMIT 1";
@@ -16,6 +17,7 @@
 		$user = $sth->fetch(PDO::FETCH_ASSOC);
 	} else {
 		redirect('backend/user_index.php');
+		exit();
 	}
 
 	// update this user
@@ -74,7 +76,7 @@
 				":thumb" => $path,
 				":active" => $active,
 				":updated" => (new DateTime())->format('Y-m-d H:i:s'),
-				":id" => $userId
+				":id" => $userId,
 			);
 			$query = "UPDATE users";
 			$query .= " SET name = :name, email = :email, password = :password, avatar = :thumb, active = :active, updated_date = :updated";
@@ -83,6 +85,7 @@
 
 			if ($sth->execute($data)) {
 				redirect('backend/user_index.php');
+				exit();
 			} else {
 				// failed to update
 				$msg = "<script type='text/javascript'> toastr.error('Something went wrong'); </script>";

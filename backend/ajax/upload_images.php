@@ -13,12 +13,12 @@
 
       echo json_encode(array(
         'status' => 'ok',
-        'image' => 'public/img/' . $renamed
+        'image' => 'public/img/' . $renamed,
       ));
     } else {
       // uploaded file is invalid
       echo json_encode(array(
-        'message' => 'Invalid file type, please choose another file'
+        'message' => 'Invalid file type, please choose another file',
       ));
     }
   }

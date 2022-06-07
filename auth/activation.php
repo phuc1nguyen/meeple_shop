@@ -9,7 +9,7 @@
     $key = filteredInput($_GET['key']); 
     $data = array(
       ':email' => $text,
-      ':active' => $key
+      ':active' => $key,
     );
 
     $query = "UPDATE users SET active = 1";
@@ -18,10 +18,12 @@
 
     if ($sth->execute($data)) {
       redirect('auth/login.php');
+      exit();
     } else {
       echo "<script type='text/javascript'>toastr.error('Something went wrong');</script>";
     }
   } else {
     redirect();
+    exit();
   }
 ?>

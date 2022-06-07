@@ -49,7 +49,7 @@
           ':password' => $password, 
           ':activation' => $activation,
           ':now' => $now,
-          ':updated' => $now
+          ':updated' => $now,
         );
         $query = "INSERT INTO users (name, email, password, active, registration_date, updated_date)";
         $query .= " VALUES (:name, :email, :password, :activation, :now, :updated);";
@@ -63,6 +63,7 @@
           
           if (mailAfterRegisting($email, 'MeepleShop Account Activation', $body)) {
             redirect();
+            exit();
           } else {
             $msg = "<script type='text/javascript'>toastr.error('Something went wrong')</script>";
           }

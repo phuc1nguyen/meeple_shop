@@ -60,7 +60,7 @@
 					':avatar' => $path,
 					':active' => $active,
 					':now' => (new DateTime())->format('Y-m-d H:i:s'),
-					':updated' => (new DateTime())->format('Y-m-d H:i:s')
+					':updated' => (new DateTime())->format('Y-m-d H:i:s'),
 				);
 				$query = "INSERT INTO users (name, email, password, type, avatar, active, registration_date, updated_date)";
 				$query .= " VALUES (:name, :email, :password, :type, :avatar, :active, :now, :updated);";
@@ -68,6 +68,7 @@
 
 				if ($sth->execute($data)) {
 					redirect('backend/user_index.php');
+					exit();
 				} else {
 					$msg = "<script type='text/javascript'> toastr.error('Failed to update due to server error'); </script>";
 				}
@@ -150,12 +151,10 @@
 										</select>
 									</div>
 								</div>
-								<!-- /.card-body -->
 								<div class="card-footer">
 									<button type="submit" class="btn btn-info">Create</button>
 									<button type="button" class="btn btn-default float-right">Cancel</button>
 								</div>
-								<!-- /.card-footer -->
 							</form>
 						</div>
 					</div>

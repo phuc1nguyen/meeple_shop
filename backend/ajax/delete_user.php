@@ -6,6 +6,7 @@
     $userId = $_POST['id'];
   } else {
     redirect('backend/user_index.php');
+    exit();
   }
 
   // get user to delete profile picture in hard disk
@@ -31,11 +32,11 @@
   if ($sth2->execute()) {
     echo json_encode([
       'status' => 'ok',
-      'message' => 'User deleted successfully'
+      'message' => 'User deleted successfully',
     ]);
   } else {
     echo json_encode([
-      'message' => 'Something went wrong'
+      'message' => 'Something went wrong',
     ]);
   }
 ?>

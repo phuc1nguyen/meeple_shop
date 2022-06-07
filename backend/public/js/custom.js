@@ -112,7 +112,6 @@ function getProductSearch() {
   // maybe the 2nd best way yet
   const url = new URL(window.location.href);
   url.searchParams.set('query', queryStr);
-  console.log(url);
   window.location.assign(url.href);
   // https://javascript.info/url
   // https://stackoverflow.com/questions/10302905/location-href-property-vs-location-assign-method#14673342

@@ -7,10 +7,10 @@
 
 <?php
   if (isset($_GET['query'])) {
-    $search = $_GET['query'];
+    $search = filteredInput($_GET['query']);
     $data = array(
       ':name' => "%{$search}%",
-      ':email' => "%{$search}%"
+      ':email' => "%{$search}%",
     );
 
     $query = "SELECT id, name, email, avatar, registration_date, active FROM users WHERE type <> 0 AND (name LIKE :name OR email LIKE :email) ORDER BY id DESC LIMIT 10";

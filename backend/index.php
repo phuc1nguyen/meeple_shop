@@ -6,8 +6,10 @@
   $_SESSION['current_url'] = $_SERVER['PHP_SELF'];
   if (!isset($_SESSION['user_type'])){
     redirect('auth/login.php');
+    exit();
   } elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] != 0) {
     redirect();
+    exit();
   }
 ?>
   <!-- Preloader -->

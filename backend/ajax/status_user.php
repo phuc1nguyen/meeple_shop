@@ -7,7 +7,7 @@
 
   $data = array(
     ':status' => $status,
-    ':userId' => $userId
+    ':userId' => $userId,
   );
 
   // check if existing user is verified yet
@@ -21,7 +21,7 @@
     // if user is not verified
     echo json_encode(array(
       'status' => 'error',
-      'message' => 'Please verify user first'
+      'message' => 'Please verify user first',
     ));
   } else {
     // if user is created by admin or is verified
@@ -30,12 +30,12 @@
     $sth = $dbh->prepare($query);
     if ($sth->execute($data)) {
       echo json_encode(array(
-        'status' => 'ok'
+        'status' => 'ok',
       ));
     } else {
       echo json_encode(array(
         'status' => 'error',
-        'message' => 'Something went wrong'
+        'message' => 'Something went wrong',
       ));
     }
   }

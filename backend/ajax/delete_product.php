@@ -6,6 +6,7 @@
     $productId = $_POST['id'];
   } else {
     redirect('backend/prod_index.php');
+    exit();
   }
 
   // get product to delete thumbnail file
@@ -30,11 +31,11 @@
   if ($sth2->execute() && unlink($productThumb)) {
     echo json_encode(array(
       'status' => 'ok',
-      'message' => 'Product deleted successfully'
+      'message' => 'Product deleted successfully',
     ));
   } else {
     echo json_encode(array(
-      'message' => 'Something went wrong'
+      'message' => 'Something went wrong',
     ));
   }
 ?>
