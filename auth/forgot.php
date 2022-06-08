@@ -1,7 +1,7 @@
 <?php
   $title = "Forgot Password | Meeple Shop";
-  require_once('../inc/functions.inc.php');
-  include_once('templates/header.php');
+  require_once '../inc/functions.inc.php';
+  include_once 'templates/header.php';
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = array();
@@ -19,6 +19,7 @@
       $sth->bindParam(':email', $email);
       $sth->execute();
       $user = $sth->fetch(PDO::FETCH_ASSOC);
+
       if ($user) {
         // user with matching email exists, change current password to temporary password
         $tempPass = substr(md5(uniqid(rand(), true)), 3, 10);
@@ -78,7 +79,7 @@
 </div>
 
 <?php 
-  include_once('templates/script.php'); 
+  include_once 'templates/script.php'; 
   if (isset($msg)) echo $msg;  
 ?>
 </body>

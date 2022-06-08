@@ -1,5 +1,5 @@
 <?php
-	require_once("../inc/functions.inc.php");
+	require_once '../inc/functions.inc.php';
 
 	// create user
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -68,7 +68,6 @@
 
 				if ($sth->execute($data)) {
 					redirect('backend/user_index.php');
-					exit();
 				} else {
 					$msg = "<script type='text/javascript'> toastr.error('Failed to update due to server error'); </script>";
 				}
@@ -81,9 +80,9 @@
 ?>
 
 <?php
-	include_once("templates/header.php");
-	include_once("templates/navbar.php");
-	include_once("templates/sidebar.php");
+	include_once 'templates/header.php';
+	include_once 'templates/navbar.php';
+	include_once 'templates/sidebar.php';
 ?>
 
 	<div class="content-wrapper">
@@ -163,4 +162,4 @@
 		</section>
 	</div>
 
-<?php include_once('templates/footer.php'); ?>
+<?php include_once 'templates/footer.php'; ?>

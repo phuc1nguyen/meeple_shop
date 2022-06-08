@@ -1,11 +1,10 @@
 <?php 
-  require_once("../inc/functions.inc.php");
+  require_once '../inc/functions.inc.php';
 
   if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
     $prodId = $_GET['id'];
   } else {
     redirect('backend/prod_index.php');
-    exit();
   }
   
   // get product by id from database
@@ -17,7 +16,6 @@
     $product = $sth->fetch(PDO::FETCH_ASSOC);
   } else {
     redirect('backend/prod_index.php');
-    exit();
   }
 
   // update this product
@@ -80,14 +78,14 @@
     if (empty($errors)) {
       // if all inputs are filled in
       $data = array(
-        "name" => $name,
-        "description" => $description,
-        "price" => $price,
-        "sale" => $sale,
-        "stock" => $stock,
-        "thumb" => $path,
-        "active" => $active,
-        "id" => $prodId,
+        'name' => $name,
+        'description' => $description,
+        'price' => $price,
+        'sale' => $sale,
+        'stock' => $stock,
+        'thumb' => $path,
+        'active' => $active,
+        'id' => $prodId,
       );
       $query = "UPDATE products";
       $query .= " SET name = :name, description = :description, price = :price, price_sale = :sale, stock = :stock, thumb = :thumb, active = :active";
@@ -96,7 +94,6 @@
       
       if ($sth->execute($data)) {
         redirect('backend/prod_index.php');
-        exit();
       } else {
         // failed to update
         $msg = "<script type='text/javascript'> toastr.error('Failed to update due to server error'); </script>";
@@ -109,9 +106,9 @@
 ?>
 
 <?php
-  include_once("templates/header.php");
-  include_once("templates/navbar.php");
-  include_once("templates/sidebar.php");
+  include_once 'templates/header.php';
+  include_once 'templates/navbar.php';
+  include_once 'templates/sidebar.php';
 ?>
 
 <div class="content-wrapper">
@@ -197,4 +194,4 @@
   </section>
 </div>
 
-<?php include_once('templates/footer.php'); ?>
+<?php include_once 'templates/footer.php'; ?>

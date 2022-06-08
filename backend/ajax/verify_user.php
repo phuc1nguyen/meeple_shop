@@ -1,6 +1,6 @@
 <?php
-  require_once('../../database/dbconnection.php');
-  require_once('../../inc/functions.inc.php');
+  require_once '../../database/dbconnection.php';
+  require_once '../../inc/functions.inc.php';
 
   if (isset($_POST['id']) && filter_var($_POST['id'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
     $userId = $_POST['id'];

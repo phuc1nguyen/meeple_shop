@@ -1,15 +1,13 @@
 <?php 
   $title = "Log In | Meeple Shop";
-  include_once('templates/header.php');
-  include_once('../inc/functions.inc.php');
+  include_once 'templates/header.php';
+  include_once '../inc/functions.inc.php';
 
   // redirect if already authenticated
   if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 0) {
     redirect('admin');
-    exit();
   } elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 1) {
     redirect();
-    exit();
   }
  ?>
 
@@ -47,11 +45,9 @@
         if ($user['type'] == 0) {
           // redirect to admin dashboard if it's admin
           redirect('backend');
-          exit();
         } else {
           // otherwise redirect to home page
           redirect();
-          exit();
         }
       } else {
         $msg = "<script type='text/javascript'>toastr.error('Please check your credentials again or contact admin');</script>";
@@ -103,7 +99,7 @@
 </div>
 
 <?php 
-  include_once('templates/script.php'); 
+  include_once 'templates/script.php'; 
   if (isset($msg)) echo $msg;
 ?>
 </body>

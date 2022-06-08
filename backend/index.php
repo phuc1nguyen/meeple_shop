@@ -1,15 +1,13 @@
 <?php 
-  include_once("templates/header.php"); 
-  require_once("../inc/functions.inc.php");  
+  include_once 'templates/header.php';
+  require_once '../inc/functions.inc.php';
 ?>
 <?php 
   $_SESSION['current_url'] = $_SERVER['PHP_SELF'];
   if (!isset($_SESSION['user_type'])){
     redirect('auth/login.php');
-    exit();
   } elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] != 0) {
     redirect();
-    exit();
   }
 ?>
   <!-- Preloader -->
@@ -18,11 +16,11 @@
   </div>
 
   <!-- Navbar -->
-  <?php include_once("templates/navbar.php"); ?>
+  <?php include_once 'templates/navbar.php'; ?>
   <!-- /.navbar -->
 
   <!-- Main Sidebar Container -->
-  <?php include_once("templates/sidebar.php"); ?>
+  <?php include_once 'templates/sidebar.php'; ?>
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -54,4 +52,4 @@
   </div>
   <!-- /.content-wrapper -->
 
-<?php include_once("templates/footer.php"); ?>
+<?php include_once 'templates/footer.php'; ?>

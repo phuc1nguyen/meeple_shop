@@ -1,7 +1,7 @@
 <?php
   $title = "Home | Meeple Shop";
-  include('templates/header.php');
-  include('templates/nav_mobile.php');
+  include 'templates/header.php';
+  include 'templates/nav_mobile.php';
 ?>
   <div class="section__main">
     <!-- Home slider -->
@@ -268,6 +268,6 @@
     <!-- End main section -->
   </div>
 <?php
-  include('templates/footer.php');
-  include_once('templates/script.php');
+  include 'templates/footer.php';
+  include_once 'templates/script.php';
 ?>

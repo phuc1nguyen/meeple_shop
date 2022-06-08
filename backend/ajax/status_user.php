@@ -1,6 +1,6 @@
 <?php
-  require_once('../../database/dbconnection.php');
-  require_once('../../inc/functions.inc.php');
+  require_once '../../database/dbconnection.php';
+  require_once '../../inc/functions.inc.php';
 
   $userId = $_POST['id'];
   $status = $_POST['status'];

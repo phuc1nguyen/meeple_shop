@@ -1,6 +1,6 @@
 <?php
-  require_once('../inc/functions.inc.php');
-  include_once('../templates/script.php');
+  require_once '../inc/functions.inc.php';
+  include_once '../templates/script.php';
 ?>
 
 <?php
@@ -18,12 +18,10 @@
 
     if ($sth->execute($data)) {
       redirect('auth/login.php');
-      exit();
     } else {
       echo "<script type='text/javascript'>toastr.error('Something went wrong');</script>";
     }
   } else {
     redirect();
-    exit();
   }
 ?>

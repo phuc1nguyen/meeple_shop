@@ -1,8 +1,8 @@
 <?php 
-  require_once("../inc/functions.inc.php");
-  include_once("templates/header.php");
-  include_once("templates/navbar.php");
-  include_once("templates/sidebar.php");
+  require_once '../inc/functions.inc.php';
+  include_once 'templates/header.php';
+  include_once 'templates/navbar.php';
+  include_once 'templates/sidebar.php';
 ?>
 
 <?php
@@ -121,4 +121,4 @@
   </section>
 </div>
 
-<?php include_once("templates/footer.php"); ?>
+<?php include_once 'templates/footer.php'; ?>

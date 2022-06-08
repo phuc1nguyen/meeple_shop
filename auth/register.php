@@ -1,6 +1,6 @@
 <?php
   $title = "Registration | Meeple Shop";
-  require_once('../inc/functions.inc.php');
+  require_once '../inc/functions.inc.php';
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = array();
@@ -63,7 +63,6 @@
           
           if (mailAfterRegisting($email, 'MeepleShop Account Activation', $body)) {
             redirect();
-            exit();
           } else {
             $msg = "<script type='text/javascript'>toastr.error('Something went wrong')</script>";
           }
@@ -73,7 +72,7 @@
   }
 ?>
 
-<?php include_once('templates/header.php'); ?>
+<?php include_once 'templates/header.php'; ?>
 
 <body class="hold-transition register-page">
 <div class="register-box">
@@ -134,7 +133,7 @@
 </div>
 
 <?php
-  include_once('templates/script.php'); 
+  include_once 'templates/script.php';
   if (isset($msg)) echo $msg;
 ?>
 

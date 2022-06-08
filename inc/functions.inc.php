@@ -1,6 +1,6 @@
 <?php 
   // requires __DIR__ otherwise cause error when calling ajax to other php files
-  require_once(__DIR__ . '/../database/dbconnection.php');
+  require_once __DIR__ . '/../database/dbconnection.php';
 
   // Import PHPMailer classes
   use PHPMailer\PHPMailer\PHPMailer;
@@ -8,7 +8,7 @@
   use PHPMailer\PHPMailer\Exception;
 
   // Load Composer's Autoloader
-  require(__DIR__ . '/../vendor/autoload.php');
+  require __DIR__ . '/../vendor/autoload.php';
 
   define('BASE_URL', 'http://meeple_shop.test/');
 
@@ -17,7 +17,6 @@
       // redirect to wanted urls
       $url = BASE_URL . $page;
       header("Location: " . $url);
-
       exit();
     }
   }

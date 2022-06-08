@@ -1,12 +1,11 @@
 <?php
-	require_once("../inc/functions.inc.php");
+	require_once '../inc/functions.inc.php';
 
 	// get user by id from database
 	if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
 		$userId = $_GET['id']; 
 	} else {
 		redirect('backend/user_index.php');
-		exit();
 	}
 
 	$query = "SELECT * FROM users WHERE id = :userId LIMIT 1";
@@ -17,7 +16,6 @@
 		$user = $sth->fetch(PDO::FETCH_ASSOC);
 	} else {
 		redirect('backend/user_index.php');
-		exit();
 	}
 
 	// update this user
@@ -70,13 +68,13 @@
 			// if all inputs are filled in
 			$password = password_hash($password, PASSWORD_BCRYPT);
 			$data = array(
-				":name" => $name,
-				":email" => $email,
-				":password" => $password,
-				":thumb" => $path,
-				":active" => $active,
-				":updated" => (new DateTime())->format('Y-m-d H:i:s'),
-				":id" => $userId,
+				':name' => $name,
+				':email' => $email,
+				':password' => $password,
+				':thumb' => $path,
+				':active' => $active,
+				':updated' => (new DateTime())->format('Y-m-d H:i:s'),
+				':id' => $userId,
 			);
 			$query = "UPDATE users";
 			$query .= " SET name = :name, email = :email, password = :password, avatar = :thumb, active = :active, updated_date = :updated";
@@ -85,7 +83,6 @@
 
 			if ($sth->execute($data)) {
 				redirect('backend/user_index.php');
-				exit();
 			} else {
 				// failed to update
 				$msg = "<script type='text/javascript'> toastr.error('Something went wrong'); </script>";
@@ -98,9 +95,9 @@
 ?>
 
 <?php
-  include_once("templates/header.php");
-  include_once("templates/navbar.php");
-  include_once("templates/sidebar.php");
+  include_once 'templates/header.php';
+  include_once 'templates/navbar.php';
+  include_once 'templates/sidebar.php';
 ?>
 
 	<div class="content-wrapper">
@@ -181,4 +178,4 @@
 		</section>
 	</div>
 
-<?php include_once('templates/footer.php'); ?>
+<?php include_once 'templates/footer.php'; ?>

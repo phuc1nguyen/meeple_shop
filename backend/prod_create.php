@@ -1,5 +1,5 @@
 <?php 
-  require_once("../inc/functions.inc.php");
+  require_once '../inc/functions.inc.php';
 
   // create product
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -57,15 +57,15 @@
       // if all inputs are filled in
       $slug = slugify($name);
       $data = array(
-        "name" => $name, 
-        "description" => $description, 
-        "price" => $price, 
-        "sale" => $sale, 
-        "slug" => $slug, 
-        "stock" => $stock, 
-        "thumb" => $path,
-        "active" => $active,
-        "date" => (new DateTime())->format("Y-m-d H:i:s"),
+        'name' => $name, 
+        'description' => $description, 
+        'price' => $price, 
+        'sale' => $sale, 
+        'slug' => $slug, 
+        'stock' => $stock, 
+        'thumb' => $path,
+        'active' => $active,
+        'date' => (new DateTime())->format("Y-m-d H:i:s"),
       );
       $query = "INSERT INTO products";
       $query .= " (name, cate_id, description, thumb, price, price_sale, slug, stock, active, add_date)";
@@ -74,7 +74,6 @@
       
       if ($sth->execute($data)) {
         redirect('backend/prod_index.php');
-        exit();
       } else {
         $msg = "<script type='text/javascript'> toastr.error('Failed to update due to server error'); </script>";
       }
@@ -87,9 +86,9 @@
 ?>
   
 <?php
-  include_once("templates/header.php");
-  include_once("templates/navbar.php");
-  include_once("templates/sidebar.php");
+  include_once 'templates/header.php';
+  include_once 'templates/navbar.php';
+  include_once 'templates/sidebar.php';
 ?>
 
 <div class="content-wrapper">
@@ -174,4 +173,4 @@
   </section>
 </div>
 
-<?php include_once('templates/footer.php'); ?>
+<?php include_once 'templates/footer.php'; ?>
