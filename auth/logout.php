@@ -1,9 +1,7 @@
 <?php 
   session_start();
   require_once '../inc/functions.inc.php';
-?>
 
-<?php 
   if (!isset($_SESSION['user_type'])) {
     // can not access this if user haven't been authenticated
     redirect();

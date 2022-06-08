@@ -17,7 +17,7 @@
       // redirect to wanted urls
       $url = BASE_URL . $page;
       header("Location: " . $url);
-      exit();
+      exit;
     }
   }
 

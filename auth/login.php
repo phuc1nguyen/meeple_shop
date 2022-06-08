@@ -39,6 +39,7 @@
 
       if ($user && password_verify($password, $user['password'])) {
         session_regenerate_id(true);
+        // $_SESSION['ip'] = $_SERVER['REMOTE_ADDR'];
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['name'];
         $_SESSION['user_type'] = $user['type'];
