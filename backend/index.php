@@ -1,14 +1,8 @@
 <?php 
   include_once 'templates/header.php';
   require_once '../inc/functions.inc.php';
-?>
-<?php 
-  $_SESSION['current_url'] = $_SERVER['PHP_SELF'];
-  if (!isset($_SESSION['user_type'])){
-    redirect('auth/login.php');
-  } elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] != 0) {
-    redirect();
-  }
+
+  adminAccess();
 ?>
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">

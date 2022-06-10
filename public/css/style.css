@@ -472,6 +472,8 @@ p {
 
 .iframe_item_inner .video_title{
   margin-bottom: .5rem;
+  font-weight: 600;
+  cursor: pointer;
 }
 
 .iframe_item_inner .video_thumb{

@@ -3,27 +3,29 @@
   include_once 'templates/header.php';
   include_once 'templates/navbar.php';
   include_once 'templates/sidebar.php';
+
+  adminAccess();
 ?>
 
 <?php
   if (isset($_GET['query'])) {
     $search = filteredInput($_GET['query']);
     $data = array(
-      ':name' => '%' . $search . '%',
+      ':title' => '%' . $search . '%',
     );
 
     $query = "SELECT id, title, link, thumb, active";
-    $query .= " FROM tutorials WHERE name LIKE :name";
+    $query .= " FROM tutorials WHERE title LIKE :title";
     $query .= " ORDER BY id DESC LIMIT 10";
     $sth = $dbh->prepare($query);
     $sth->execute($data);
-    $products = $sth->fetchAll(PDO::FETCH_ASSOC);
+    $tutorials = $sth->fetchAll(PDO::FETCH_ASSOC);
   } else {
     $query = "SELECT id, title, link, thumb, active";
     $query .= " FROM tutorials";
     $query .= " ORDER BY id DESC";
     $query .= " LIMIT 10"; 
-    $products = $dbh->query($query, PDO::FETCH_ASSOC);
+    $tutorials = $dbh->query($query, PDO::FETCH_ASSOC);
   }
   
 ?>
@@ -49,7 +51,7 @@
 
               <div class="card-tools">
                 <div class="input-group input-group-sm" style="width: 200px;">
-                  <input type="text" name="table_search" class="form-control float-right" id="table_search" onkeypress="enterSearch(event)" placeholder="Search by name" value="<?= $_GET['query'] ?? '' ?>">
+                  <input type="text" name="table_search" class="form-control float-right" id="table_search" onkeypress="enterSearch(event)" placeholder="Search by title" value="<?= $_GET['query'] ?? '' ?>">
 
                   <div class="input-group-append">
                     <a onclick="getSearch()" class="btn btn-default text-dark">
@@ -59,25 +61,29 @@
                 </div>
               </div>
             </div>
-            <!-- /.card-header -->
             <div class="card-body table-responsive p-0">
               <table class="table table-hover text-nowrap">
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th data-breakpoints="lg">Name</th>
                     <th data-breakpoints="lg">Title</th>
-                    <th data-breakpoints="lg">Link</th>
+                    <th data-breakpoints="lg">Preview</th>
+                    <th data-breakpoints="lg">Thumbnail</th>
                     <th data-breakpoints="lg">Status</th>
                     <th data-breakpoints="lg" class="text-right">Actions</th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php foreach ($products as $key => $item) { ?>
+                  <?php foreach ($tutorials as $key => $item) { ?>
                   <tr>
                     <td><?= $key + 1; ?></td>
                     <td><?= $item['title']; ?></td>
-                    <td><?= $item['link']; ?></td>
+                    <td>
+                      <iframe src="<?= $item['link']; ?>" frameborder="0" allowfullscreen></iframe>
+                    </td>
+                    <td>
+                      <img src="<?= $item['thumb']; ?>" alt="" width="142.6px" height="80px">
+                    </td>
                     <td>
                       <div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-animate bootstrap-switch-on bootstrap-switch-focused" style="width: 86px;">
                         <div class="bootstrap-switch-container" style="width: 126px; margin-left: 0px;">
@@ -85,8 +91,8 @@
                         </div>
                       </div>
                     </td>
-                    <td>
-                      <a class="btn btn-primary btn-sm" href="prod_edit.php?id=<?= $item['id']; ?>" title="Edit">
+                    <td class="text-right">
+                      <a class="btn btn-primary btn-sm" href="tutorial_edit.php?id=<?= $item['id']; ?>" title="Edit">
                         <i class="bx bxs-edit"></i>
                       </a>
                       <a class="btn btn-danger btn-sm btn-this" onclick="deleteTutorial(<?= $item['id']?>)" title="Delete">
@@ -99,9 +105,7 @@
                 </tbody>
               </table>
             </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
         </div>
       </div> 
     </div>

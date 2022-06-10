@@ -1,6 +1,8 @@
 <?php 
   require_once '../inc/functions.inc.php';
 
+  adminAccess();
+
   // create product
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // product description and sale price are not required
@@ -114,30 +116,30 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="name">Name<sup>*</sup></label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name" value="<?= isset($_POST['name']) ? htmlspecialchars($_POST['name']) : ''; ?>">
+                    <input type="text" class="form-control" id="name" name="name" placeholder="Enter product name" value="<?php if (isset($_POST['name'])) echo htmlspecialchars($_POST['name']); ?>">
                     <?php if (isset($errors) && in_array('name', $errors)) echo "<p class='red-alert'>Please fill in product name</p>"; ?>
                   </div>
                   <div class="form-group">
                     <label for="description">Description</label>
-                    <textarea class="form-control" name="description" id="description" cols="30" rows="5" placeholder="Enter product description"><?= isset($_POST['description']) ? htmlspecialchars($_POST['description']) : ''; ?></textarea>
+                    <textarea class="form-control" name="description" id="description" cols="30" rows="5" placeholder="Enter product description"><?php  if (isset($_POST['description'])) echo htmlspecialchars($_POST['description']); ?></textarea>
                   </div>
                   <div class="form-group">
                     <label for="price">Price<sup>*</sup></label>
-                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price" step="0.01" value="<?= htmlspecialchars($_POST['price']) ?? ''; ?>">
+                    <input type="number" class="form-control" id="price" name="price" placeholder="Enter product price" step="0.01" value="<?php if (isset($_POST['price'])) echo htmlspecialchars($_POST['price']); ?>">
                     <?php if (isset($errors) && in_array('price', $errors)) echo "<p class='red-alert'>Please fill in product price</p>"; ?>
                   </div>
                   <div class="form-group">
                     <label for="sale">Price Sale</label>
-                    <input type="number" class="form-control" id="sale" name="sale" placeholder="Enter product sale price" step="0.01" value="<?= htmlspecialchars($_POST['sale']) ?? ''; ?>">
+                    <input type="number" class="form-control" id="sale" name="sale" placeholder="Enter product sale price" step="0.01" value="<?php if (isset($_POST['sale'])) echo htmlspecialchars($_POST['sale']); ?>">
                     <?php if (isset($errors) && in_array('sale over price', $errors)) echo "<p class='red-alert'>Sale price must be smaller than actual price</p>"; ?>
                   </div>
                   <div class="form-group">
                     <label for="stock">In Stock<sup>*</sup></label>
-                    <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter number of products in stock" value="<?= htmlspecialchars($_POST['stock']) ?? ''; ?>">
+                    <input type="number" class="form-control" id="stock" name="stock" placeholder="Enter number of products in stock" value="<?php if (isset($_POST['stock'])) echo htmlspecialchars($_POST['stock']); ?>">
                     <?php if (isset($errors) && in_array('stock', $errors)) echo "<p class='red-alert'>Please fill in product stock</p>"; ?>
                   </div>
                   <div class="form-group">
-                    <label for="">Thumbnail<sup>*</sup></label>
+                    <label for="thumb">Thumbnail<sup>*</sup></label>
                     <div class="input-group" style="display: flex;">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" onchange="uploadThumb()" id="thumb" name="thumb">

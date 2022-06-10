@@ -1,17 +1,50 @@
-<?php
+ <?php
   $title = "Home | Meeple Shop";
   include 'templates/header.php';
   include 'templates/nav_mobile.php';
+  require_once 'database/dbconnection.php';
+  require_once 'inc/functions.inc.php';
+
+  // get sliders
+  $sliderQuery = "SELECT name, thumb FROM sliders WHERE active = 1 ORDER BY id DESC LIMIT 5;";
+  $sth = $dbh->prepare($sliderQuery);
+  $sth->execute();
+  $sliders = $sth->fetchAll(PDO::FETCH_ASSOC);
+
+  // get new releases
+  $newQuery = "SELECT name, thumb, price, price_sale FROM products WHERE cate_id = 2 AND active = 1 ORDER BY id DESC LIMIT 4;";
+  $sth = $dbh->prepare($newQuery);
+  $sth->execute();
+  $newReleases = $sth->fetchAll(PDO::FETCH_ASSOC);
+  $newReleasesCount = $sth->rowCount();
+
+  // get pre-orders
+  $preOrdersQuery = "SELECT name, thumb, price, price_sale FROM products WHERE cate_id = 1 AND active = 1 ORDER BY id DESC LIMIT 4;";
+  $sth = $dbh->prepare($preOrdersQuery);
+  $sth->execute();
+  $preOrders = $sth->fetchAll(PDO::FETCH_ASSOC);
+  $preOrdersCount = $sth->rowCount();
+
+  // get tutorials
+  $firstTutQuery = "SELECT link, thumb FROM tutorials WHERE active = 1 LIMIT 1;";
+  $sth = $dbh->prepare($firstTutQuery);
+  $sth->execute();
+  $firstTut = $sth->fetch(PDO::FETCH_ASSOC);
+
+  $tutQuery = "SELECT title, link, thumb FROM tutorials WHERE active = 1 ORDER BY id DESC;";
+  $sth = $dbh->prepare($tutQuery);
+  $sth->execute();
+  $tuts = $sth->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
+
   <div class="section__main">
     <!-- Home slider -->
     <div class="home__slider" id="mySwiper">
       <div class="swiper-wrapper wide">
-        <div class="swiper-slide"><img src="public/img/sliders/home-slider-1.jpg" alt=""></div>
-        <div class="swiper-slide"><img src="public/img/sliders/home-slider-2.jpg" alt=""></div>
-        <div class="swiper-slide"><img src="public/img/sliders/home-slider-3.jpg" alt=""></div>
-        <div class="swiper-slide"><img src="public/img/sliders/home-slider-4.jpg" alt=""></div>
-        <div class="swiper-slide"><img src="public/img/sliders/home-slider-5.jpg" alt=""></div>
+        <?php foreach ($sliders as $key => $item) { ?>
+          <div class="swiper-slide"><img src="<?php if (isset($item['thumb'])) echo 'backend/' . $item['thumb']; ?>" alt=""></div>
+        <?php } ?>
       </div>
       <div class="swiper-pagination"></div>
     </div>
@@ -67,65 +100,34 @@
     <div class="home__content">
       <section class="home__new-release wide">
         <div class="section_heading">
-          <h1 class="section_name">New Release</h1>
+          <h1 class="section_name">New Releases</h1>
         </div>
 
         <div class="section_prod">
           <div class="section_prod_inner">
-            <article class="prod_item">
-              <div class="prod_thumb">
-                <a href="#" class="prod_thumb-inner">
-                  <img src="public/img/products/home/last-friday.jpg" alt="Product Thumbnail">
-                </a>
-              </div>
-              <div class="prod_info">
-                <div class="prod_name"><a href="#">Last Friday Revised Edition</a></div>
-                <div class="prod_price"><span class="prod_price-red">$ 37.99</span></div>
-              </div>
-              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
-            </article>
-            <article class="prod_item">
-              <div class="prod_thumb">
-                <a href="#" class="prod_thumb-inner">
-                  <img src="public/img/products/home/diabolik.jpg" alt="Product Thumbnail">
-                </a>
-              </div>
-              <div class="prod_info">
-                <div class="prod_name"><a href="#">Diabolik - Heists & Investigation</a></div>
-                <div class="prod_price"><span class="prod_price-red">$ 32.68</span></div>
-              </div>
-              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
-            </article>
-            <article class="prod_item">
-              <div class="prod_thumb">
-                <a href="#" class="prod_thumb-inner">
-                  <img src="public/img/products/home/crime-zoom-2.jpg" alt="Product Thumbnail">
-                </a>
-              </div>
-              <div class="prod_info">
-                <div class="prod_name"><a href="#">Crime Zoom: Bird of Omen</a></div>
-                <div class="prod_price"><span class="prod_price-red">$ 9.24</span></div>
-              </div>
-              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
-            </article>
-            <article class="prod_item">
-              <div class="prod_thumb">
-                <a href="#" class="prod_thumb-inner">
-                  <img src="public/img/products/home/crime-zoom.jpg" alt="Product Thumbnail">
-                </a>
-              </div>
-              <div class="prod_info">
-                <div class="prod_name"><a href="#">Crime Zoom: His Last Card</a></div>
-                <div class="prod_price"><span class="prod_price-red">$ 9.24</span></div>
-              </div>
-              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
-            </article>
-            <a href="#" class="prod_more">
-              <div class="prod_more_inner">
-                <h4>View All</h4>
-                <h2>New Games</h2>
-              </div>
-            </a>
+            <?php foreach ($newReleases as $key => $item) { ?>
+              <article class="prod_item">
+                <div class="prod_thumb">
+                  <a href="#" class="prod_thumb-inner">
+                    <img src="<?= 'backend/' . $item['thumb']; ?>" alt="Product Thumbnail">
+                  </a>
+                </div>
+                <div class="prod_info">
+                  <div class="prod_name"><a href="#"><?= $item['name'] ?></a></div>
+                  <div class="prod_price"><span class="prod_price-red"><?= productPrice($item); ?></span></div>
+                </div>
+                <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
+              </article>
+            <?php } ?>
+
+            <?php if ($newReleasesCount >= 4) { ?>
+              <a href="#" class="prod_more">
+                <div class="prod_more_inner">
+                  <h4>View All</h4>
+                  <h2>New Games</h2>
+                </div>
+              </a>
+            <?php } ?>
           </div>
         </div>
       </section>
@@ -139,60 +141,29 @@
 
         <div class="section_prod">
           <div class="section_prod_inner">
-            <article class="prod_item">
-              <div class="prod_thumb">
-                <a href="#" class="prod_thumb-inner">
-                  <img src="public/img/products/home/phantom-ink.jpg" alt="Product Thumbnail">
-                </a>
-              </div>
-              <div class="prod_info">
-                <div class="prod_name"><a href="#">Phantom Ink (Pre-Order)</a></div>
-                <div class="prod_price"><span class="prod_price-red">$ 21.96</span></div>
-              </div>
-              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
-            </article>
-            <article class="prod_item">
-              <div class="prod_thumb">
-                <a href="#" class="prod_thumb-inner">
-                  <img src="public/img/products/home/echoes.jpg" alt="Product Thumbnail">
-                </a>
-              </div>
-              <div class="prod_info">
-                <div class="prod_name"><a href="#">Echoes - The Microchip (Pre-Order)</a></div>
-                <div class="prod_price"><span class="prod_price-red">$ 8.49</span></div>
-              </div>
-              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
-            </article>
-            <article class="prod_item">
-              <div class="prod_thumb">
-                <a href="#" class="prod_thumb-inner">
-                  <img src="public/img/products/home/star-trek.jpg" alt="Product Thumbnail">
-                </a>
-              </div>
-              <div class="prod_info">
-                <div class="prod_name"><a href="#">Star Trek - Mission - Fantasy Realms Game (Pre-Order)</a></div>
-                <div class="prod_price"><span class="prod_price-red">$ 16.99</span></div>
-              </div>
-              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
-            </article>
-            <article class="prod_item">
-              <div class="prod_thumb">
-                <a href="#" class="prod_thumb-inner">
-                  <img src="public/img/products/home/star-trek.jpg" alt="Product Thumbnail">
-                </a>
-              </div>
-              <div class="prod_info">
-                <div class="prod_name"><a href="#">Star Trek: Super-Skill Pinball (Pre-Order)</a></div>
-                <div class="prod_price"><span class="prod_price-red">$ 16.99</span></div>
-              </div>
-              <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
-            </article>
-            <a href="#" class="prod_more">
-              <div class="prod_more_inner">
-                <h4>View All</h4>
-                <h2>Pre-Orders</h2>
-              </div>
-            </a>
+            <?php foreach ($preOrders as $key => $item) { ?>
+              <article class="prod_item">
+                <div class="prod_thumb">
+                  <a href="#" class="prod_thumb-inner">
+                    <img src="<?= 'backend/' . $item['thumb']; ?>" alt="Product Thumbnail">
+                  </a>
+                </div>
+                <div class="prod_info">
+                  <div class="prod_name"><a href="#"><?= $item['name']; ?></a></div>
+                  <div class="prod_price"><span class="prod_price-red"><?= productPrice($item); ?></span></div>
+                </div>
+                <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
+              </article>
+            <?php } ?>
+
+            <?php if ($preOrdersCount >= 4) { ?>
+              <a href="#" class="prod_more">
+                <div class="prod_more_inner">
+                  <h4>View All</h4>
+                  <h2>Pre-Orders</h2>
+                </div>
+              </a>
+            <?php } ?>
           </div>
         </div>
       </section>
@@ -207,41 +178,20 @@
         <div class="section_tut">
           <div class="section_tut_inner">
             <div id="mainIframe">
-              <iframe src="https://www.youtube.com/embed/gn2qIOdPcd8" style="width: 100%; height: 100%;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe src="<?= $firstTut['link']; ?>" style="width: 100%; height: 100%;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
+
             <div class="homeIframe">
-              <article class="iframe_item">
-                <div class="iframe_item_inner">
-                  <div class="video_title">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit, officiis!</div> 
-                  <div class="video_thumb" data-source="">
-                    <img class="video_thumb_img" src="public/img/thumbs/home/video_thumb.png" alt="Video Thumbnail">
+              <?php foreach ($tuts as $key => $item) { ?>
+                <article class="iframe_item">
+                  <div class="iframe_item_inner">
+                    <div class="video_title"><?= $item['title']; ?></div> 
+                    <div class="video_thumb" data-source="">
+                      <img class="video_thumb_img" src="<?= 'backend/' . $item['thumb']; ?>" alt="Video Thumbnail">
+                    </div>
                   </div>
-                </div>
-              </article>
-              <article class="iframe_item">
-                <div class="iframe_item_inner">
-                  <div class="video_title">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit, officiis!</div> 
-                  <div class="video_thumb" data-source="">
-                    <img class="video_thumb_img" src="public/img/thumbs/home/video_thumb.png" alt="Video Thumbnail">
-                  </div>
-                </div>
-              </article>
-              <article class="iframe_item">
-                <div class="iframe_item_inner">
-                  <div class="video_title">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit, officiis!</div> 
-                  <div class="video_thumb" data-source="">
-                    <img class="video_thumb_img" src="public/img/thumbs/home/video_thumb.png" alt="Video Thumbnail">
-                  </div>
-                </div>
-              </article>
-              <article class="iframe_item">
-                <div class="iframe_item_inner">
-                  <div class="video_title">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Odit, officiis!</div> 
-                  <div class="video_thumb" data-source="">
-                    <img class="video_thumb_img" src="public/img/thumbs/home/video_thumb.png" alt="Video Thumbnail">
-                  </div>
-                </div>
-              </article>
+                </article>
+              <?php } ?>
             </div>
           </div>
         </div>

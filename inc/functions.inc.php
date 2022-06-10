@@ -12,6 +12,20 @@
 
   define('BASE_URL', 'http://meeple_shop.test/');
 
+  if (!function_exists('isAdmin')) {
+    function isAdmin() {
+      // check if authenticated user is admin
+      return (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 0);
+    }
+  }
+
+  if (!function_exists('adminAccess')) {
+    function adminAccess() {
+      // redirect to home page if not admin
+      // if (!isAdmin()) redirect();
+    }
+  }
+
   if (!function_exists('redirect')) {
     function redirect($page = "index.php"){
       // redirect to wanted urls
@@ -95,4 +109,11 @@
       return false;
     }
   }
+
+  if (!function_exists('productPrice')) {
+    function productPrice($product) {
+      return ($product['price_sale'] !== '0') ? '$' . $product['price_sale'] : '$' . $product['price'];
+    }
+  }
+
 ?>

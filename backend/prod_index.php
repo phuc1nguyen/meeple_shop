@@ -3,6 +3,8 @@
   include_once 'templates/header.php';
   include_once 'templates/navbar.php';
   include_once 'templates/sidebar.php';
+
+  adminAccess();
 ?>
 
 <?php
@@ -12,14 +14,14 @@
       ':name' => '%' . $search . '%',
     );
 
-    $query = "SELECT id, name,description, thumb, price, price_sale, active";
+    $query = "SELECT id, name, cate_id, description, thumb, price, price_sale, active";
     $query .= " FROM products WHERE name LIKE :name";
     $query .= " ORDER BY id DESC LIMIT 10";
     $sth = $dbh->prepare($query);
     $sth->execute($data);
     $products = $sth->fetchAll(PDO::FETCH_ASSOC);
   } else {
-    $query = "SELECT id, name, description, thumb, price, price_sale, active";
+    $query = "SELECT id, name, cate_id, description, thumb, price, price_sale, active";
     $query .= " FROM products";
     $query .= " ORDER BY id DESC";
     $query .= " LIMIT 10"; 
@@ -66,6 +68,7 @@
                   <tr>
                     <th>#</th>
                     <th data-breakpoints="lg">Name</th>
+                    <th data-breakpoints="lg">Category (demo)</th>
                     <th data-breakpoints="lg">Description</th>
                     <th data-breakpoints="lg">Thumbnail</th>
                     <th data-breakpoints="lg">Price</th>
@@ -79,6 +82,7 @@
                   <tr>
                     <td><?= $key + 1; ?></td>
                     <td><?= $item['name']; ?></td>
+                    <td><?= ($item['cate_id'] === '1') ? "Pre-Orders" : "New Releases"; ?></td>
                     <td><?= $item['description'] ? $item['description'] : "--"; ?></td>
                     <td>
                       <?php if (!empty($item['thumb'])) { ?>
