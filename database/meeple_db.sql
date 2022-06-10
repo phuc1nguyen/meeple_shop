@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 06, 2022 at 03:36 PM
+-- Generation Time: Jun 10, 2022 at 12:36 PM
 -- Server version: 5.7.33
 -- PHP Version: 7.4.19
 
@@ -39,7 +39,7 @@ CREATE TABLE `products` (
   `slug` varchar(100) NOT NULL,
   `stock` int(11) NOT NULL,
   `active` tinyint(1) NOT NULL,
-  `add_date` datetime NOT NULL,
+  `created_at` datetime NOT NULL,
   `backup` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -47,10 +47,38 @@ CREATE TABLE `products` (
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `cate_id`, `description`, `thumb`, `images`, `price`, `price_sale`, `slug`, `stock`, `active`, `add_date`, `backup`) VALUES
-(1, 'Echoes - The Microchip (Pre-Order)', 1, 'In the far future, civilization is lying in ruins, and the echoes of the past hide the tragic story of its downfall. See whether you can uncover the truth.', 'public/img/1654142967_584625875629837f709d93.jpg', NULL, 9.99, 8.49, '', 20, 1, '2022-01-16 00:00:00', NULL),
-(11, 'tourzy media', 1, 'asdfasdf', 'public/img/1654142967_584625875629837f709d93.jpg', NULL, 9.99, 8.88, '', 10, 1, '2022-06-01 18:33:33', NULL),
-(12, 'triển lãm', 1, '', 'Notice:  Undefined index: thumbPath in C:laragonwwwmeeple_shopbackendprod_create.php on line 145', NULL, 9.99, 8.88, 'tri-n-l-m', 15, 0, '2022-06-06 08:16:55', NULL);
+INSERT INTO `products` (`id`, `name`, `cate_id`, `description`, `thumb`, `images`, `price`, `price_sale`, `slug`, `stock`, `active`, `created_at`, `backup`) VALUES
+(1, 'Echoes - The Microchip (Pre-Order)', 1, 'In the far future, civilization is lying in ruins, and the echoes of the past hide the tragic story of its downfall. See whether you can uncover the truth.', 'public/img/1654142967_584625875629837f709d93.jpg', NULL, 9.99, 8.49, '', 20, 1, '2022-01-16 00:00:00', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sliders`
+--
+
+CREATE TABLE `sliders` (
+  `id` int(11) NOT NULL,
+  `name` varchar(155) NOT NULL,
+  `description` varchar(155) NOT NULL,
+  `thumb` varchar(155) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `tutorials`
+--
+
+CREATE TABLE `tutorials` (
+  `id` int(11) NOT NULL,
+  `title` text NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `thumb` varchar(155) NOT NULL,
+  `active` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` timestamp NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -91,6 +119,18 @@ ALTER TABLE `products`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sliders`
+--
+ALTER TABLE `sliders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `tutorials`
+--
+ALTER TABLE `tutorials`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -105,7 +145,19 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `sliders`
+--
+ALTER TABLE `sliders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tutorials`
+--
+ALTER TABLE `tutorials`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
