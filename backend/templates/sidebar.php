@@ -61,28 +61,52 @@
           </li>
 
           <!-- Slider -->
-          <!-- <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-tree"></i>
+          <li class="nav-item <?php isRoute(['slider_index.php', 'slider_create.php'], 'menu-open') ?>">
+            <a href="#" class="nav-link <?php isRoute(['slider_index.php', 'slider_create.php', 'slider_edit.php'], 'active') ?>">
+                <i class='nav-icon bx bx-slider'></i>
               <p>Slider
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="/admin/slider_index.php" class="nav-link">
+                <a href="/backend/slider_index.php" class="nav-link <?php isRoute(['slider_index.php'], 'active') ?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Danh sách Slider</p>
+                  <p>Sliders List</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="/admin/slider_create.php" class="nav-link">
+                <a href="/backend/slider_create.php" class="nav-link <?php isRoute(['slider_create.php'], 'active') ?>">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Thêm Slider</p>
+                  <p>Create Slider</p>
                 </a>
               </li>
             </ul>
-          </li> -->
+          </li>
+
+          <!-- Tutorial  -->
+          <li class="nav-item <?php isRoute(['tutorial_index.php', 'tutorial_create.php', 'tutorial_edit.php'], 'menu-open') ?>">
+            <a href="#" class="nav-link <?php isRoute(['tutorial_index.php', 'tutorial_create.php', 'tutorial_edit.php'], 'active') ?>">
+              <i class='nav-icon bx bxs-chalkboard'></i>
+              <p>Tutorial
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="/backend/tutorial_index.php" class="nav-link <?php isRoute(['tutorial_index.php'], 'active') ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Tutorials List</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="/backend/tutorial_create.php" class="nav-link <?php isRoute(['tutorial_create.php'], 'active') ?>">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Create Tutorial</p>
+                </a>
+              </li>
+            </ul>
+          </li>
 
           <!-- Users -->
           <li class="nav-item <?php isRoute(['user_index.php', 'user_create.php'], 'menu-open') ?>">

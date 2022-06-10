@@ -68,7 +68,7 @@
         'date' => (new DateTime())->format("Y-m-d H:i:s"),
       );
       $query = "INSERT INTO products";
-      $query .= " (name, cate_id, description, thumb, price, price_sale, slug, stock, active, add_date)";
+      $query .= " (name, cate_id, description, thumb, price, price_sale, slug, stock, active, created_at)";
       $query .= " VALUES (:name, 1, :description, :thumb, :price, :sale, :slug, :stock, :active, :date);";
       $sth = $dbh->prepare($query);
       
@@ -106,7 +106,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <div class="card card-info">
+          <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Product Information</h3>
               </div>
@@ -141,7 +141,7 @@
                     <div class="input-group" style="display: flex;">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" onchange="uploadThumb()" id="thumb" name="thumb">
-                        <input type="hidden" class="" id="thumbPath" name="thumbPath" value="<?= htmlspecialchars($_POST['thumbPath']) ?? ''; ?>">
+                        <input type="hidden" class="" id="thumbPath" name="thumbPath" value="<?php if (isset($_POST['thumbPath'])) echo htmlspecialchars($_POST['thumbPath']); ?>">
                         <label class="custom-file-label" for="thumb">Choose File</label>
                       </div>
                       <div class="input-group-append">
@@ -162,7 +162,7 @@
 									</div>
                 </div>
                 <div class="card-footer">
-                  <button type="submit" class="btn btn-info">Create</button>
+                  <button type="submit" class="btn btn-primary">Create</button>
                   <button type="button" class="btn btn-default float-right">Cancel</button>
                 </div>
               </form>

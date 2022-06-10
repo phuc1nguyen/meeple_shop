@@ -8,7 +8,7 @@ $(document).ready(function(){
 toastr.options = {
   "positionClass": "toast-bottom-left",
   "timeOut": 2500,
-  "progressBar": true,
+  // "progressBar": true,
   "preventDuplicates": true
 };
 
@@ -21,13 +21,46 @@ function deleteProduct(id) {
 
   if (confirm('Are you sure want to delete this product?')) {
     $.post('../../backend/ajax/delete_product.php', data, json => {
-      console.log(json);
-      // const response = JSON.parse(json); 
-      // if (response.status === 'ok') {
-      //   window.location.reload();
-      // } else {
-      //   toastr.error(response.message);
-      // }
+      const response = JSON.parse(json); 
+      if (response.status === 'ok') {
+        window.location.reload();
+      } else {
+        toastr.error(response.message);
+      }
+    });
+  }
+}
+
+function deleteSlider(id) {
+  const data = {
+    id: id
+  };
+
+  if (confirm('Are you sure want to delete this slider?')) {
+    $.post('../../backend/ajax/delete_slider.php', data, json => {
+      const response = JSON.parse(json); 
+      if (response.status === 'ok') {
+        window.location.reload();
+      } else {
+        toastr.error(response.message);
+      }
+    });
+  }
+}
+
+function deleteTutorial(id) {
+  const data = {
+    id: id
+  };
+
+  if (confirm('Are you sure want to delete this tutorial?')) {
+    $.post('../../backend/ajax/delete_tutorial.php', data, json => {
+      const response = JSON.parse(json); 
+      if (response.status === 'ok') {
+        window.location.reload();
+      } else {
+        toastr.error(response.message);
+      }
     });
   }
 }
@@ -66,6 +99,36 @@ function updateProductStatus(element) {
   }, 'json');
 }
 
+function updateSliderStatus(element) {
+  const data = {
+    id: parseInt(element.value),
+    status: element.checked ? 1 : 0
+  };
+
+  $.post('../../backend/ajax/status_slider.php', data, function(response) {
+    if (response === 1) {
+      toastr.success('Slider updated successfully');
+    } else {
+      toastr.error('Something went wrong');
+    }
+  }, 'json');
+}
+
+function updateTutorialStatus(element) {
+  const data = {
+    id: parseInt(element.value),
+    status: element.checked ? 1 : 0
+  };
+
+  $.post('../../backend/ajax/status_tutorial.php', data, function(response) {
+    if (response === 1) {
+      toastr.success('Tutorial updated successfully');
+    } else {
+      toastr.error('Something went wrong');
+    }
+  }, 'json');
+}
+
 function updateUserStatus(element) {
   const data = {
     id: parseInt(element.value),
@@ -88,9 +151,10 @@ function enterSearch(event) {
   // must use 'event' as function parameter
   if (event.keyCode === 13) {
     if (window.location.pathname === '/backend/prod_index.php') {
+      // keep this function because it's failed attempts from the beginning
       getProductSearch();
-    } else if (window.location.pathname === '/backend/user_index.php') {
-      getUserSearch();
+    } else {
+      getSearch();
     }
   }
 }
@@ -117,8 +181,7 @@ function getProductSearch() {
   // https://stackoverflow.com/questions/10302905/location-href-property-vs-location-assign-method#14673342
 }
 
-function getUserSearch() {
-  // get users searched by name and email using ajax
+function getSearch() {
   const queryStr = document.querySelector('#table_search').value;
   window.location.search = `?query=${queryStr}`;  
 }
@@ -146,9 +209,9 @@ async function uploadThumb() {
   const myForm = document.getElementById('myForm');
   const fileUpload = document.getElementById('thumbPath');
 
-  const response = await fetch('../../backend/ajax/upload_images.php', {
+  const response = await fetch('ajax/upload_images.php', {
     method: "POST",
-    body: new FormData(myForm)
+    body: new FormData(myForm),
   });
   const result = await response.json();
 
@@ -168,10 +231,11 @@ async function updateThumb() {
   const currentFilePath = fileUpdate.value;
   document.querySelector('#oldThumb').value = currentFilePath;
 
-  const response = await fetch('../../backend/ajax/upload_images.php', {
+  const response = await fetch('ajax/upload_images.php', {
     method: "POST",
-    body: new FormData(myForm)
+    body: new FormData(myForm),
   });
+  console.log(response);
   const result = await response.json();
 
   if (result.status === 'ok') {

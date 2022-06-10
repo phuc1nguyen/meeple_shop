@@ -39,7 +39,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-12">
-          <div class="card">
+          <div class="card card-primary">
             <div class="card-header">
               <h3 class="card-title">Users List</h3>
 
@@ -48,7 +48,7 @@
                   <input type="text" name="table_search" class="form-control float-right" id="table_search" onkeypress="enterSearch(event)" placeholder="Search by name and email" value="<?= $_GET['query'] ?? '' ?>">
 
                   <div class="input-group-append">
-                    <a onclick="getUserSearch()" class="btn btn-default">
+                    <a onclick="getSearch()" class="btn btn-default text-dark">
                       <i class="fas fa-search"></i>
                     </a>
                   </div>

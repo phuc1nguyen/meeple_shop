@@ -51,7 +51,7 @@
           </ul>
         </nav>
         <div class="footer_copyright">
-          <p>Copyright &copy; 2021 Meeple Shop</p>          
+          <p>Copyright &copy; 2022 Meeple Shop</p>          
         </div>
       </div>
     </div>

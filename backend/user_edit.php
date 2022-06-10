@@ -115,7 +115,7 @@
 			<div class="container-fluid">
 				<div class="row">
 					<div class="col-12">
-						<div class="card card-info">
+						<div class="card card-primary">
 							<div class="card-header">
 								<h3 class="card-title">User Information</h3>
 							</div>
@@ -167,7 +167,7 @@
 									</div>
 								</div>
 								<div class="card-footer">
-									<button type="submit" class="btn btn-info">Update</button>
+									<button type="submit" class="btn btn-primary">Update</button>
 									<button type="button" class="btn btn-default float-right">Cancel</button>
 								</div>
 							</form>
