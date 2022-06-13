@@ -331,6 +331,11 @@ p {
   margin-bottom: 5rem;
 }
 
+.home__content fieldset {
+  width: 40%;
+  padding: 1rem;
+}
+
 .section_heading{
   display: flex;
   justify-content: center;
@@ -676,4 +681,49 @@ p {
 .policy-title{
   margin: 1rem 0;
   text-transform: uppercase
+}
+
+.active-tut {
+  color: var(--color-primary);
+}
+
+.edit__profile-picture {
+  display: flex;
+  align-items: center;
+}
+
+.input-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.input-items input {
+  width: 50%;
+  padding: .5rem;
+  font-size: 15px;
+  outline: none;
+}
+
+.input-items label,
+.thumb-items label {
+  margin-bottom: .5rem;
+}
+
+sup {
+  color: red;
+  font-weight: 600;
+  font-size: 16px;
+  margin-bottom: 0;
+}
+
+.thumb-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.thumbPreview img {
+  width: 150px;
+  height: 150px;
 }

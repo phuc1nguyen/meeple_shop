@@ -12,14 +12,14 @@
   $sliders = $sth->fetchAll(PDO::FETCH_ASSOC);
 
   // get new releases
-  $newQuery = "SELECT name, thumb, price, price_sale FROM products WHERE cate_id = 2 AND active = 1 ORDER BY id DESC LIMIT 4;";
+  $newQuery = "SELECT name, thumb, price, price_sale FROM products WHERE cate_id = 2 AND active = 1 ORDER BY id DESC;";
   $sth = $dbh->prepare($newQuery);
   $sth->execute();
   $newReleases = $sth->fetchAll(PDO::FETCH_ASSOC);
   $newReleasesCount = $sth->rowCount();
 
   // get pre-orders
-  $preOrdersQuery = "SELECT name, thumb, price, price_sale FROM products WHERE cate_id = 1 AND active = 1 ORDER BY id DESC LIMIT 4;";
+  $preOrdersQuery = "SELECT name, thumb, price, price_sale FROM products WHERE cate_id = 1 AND active = 1 ORDER BY id DESC;";
   $sth = $dbh->prepare($preOrdersQuery);
   $sth->execute();
   $preOrders = $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -105,16 +105,16 @@
 
         <div class="section_prod">
           <div class="section_prod_inner">
-            <?php foreach ($newReleases as $key => $item) { ?>
+            <?php for ($i = 0; $i < 4; $i++) { ?>
               <article class="prod_item">
                 <div class="prod_thumb">
                   <a href="#" class="prod_thumb-inner">
-                    <img src="<?= 'backend/' . $item['thumb']; ?>" alt="Product Thumbnail">
+                    <img src="<?= 'backend/' . $newReleases[$i]['thumb']; ?>" alt="Product Thumbnail">
                   </a>
                 </div>
                 <div class="prod_info">
-                  <div class="prod_name"><a href="#"><?= $item['name'] ?></a></div>
-                  <div class="prod_price"><span class="prod_price-red"><?= productPrice($item); ?></span></div>
+                  <div class="prod_name"><a href="#"><?= $newReleases[$i]['name'] ?></a></div>
+                  <div class="prod_price"><span class="prod_price-red"><?= productPrice($newReleases[$i]); ?></span></div>
                 </div>
                 <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
               </article>
@@ -141,22 +141,22 @@
 
         <div class="section_prod">
           <div class="section_prod_inner">
-            <?php foreach ($preOrders as $key => $item) { ?>
+            <?php for ($i = 0; $i < 4; $i++) { ?>
               <article class="prod_item">
                 <div class="prod_thumb">
                   <a href="#" class="prod_thumb-inner">
-                    <img src="<?= 'backend/' . $item['thumb']; ?>" alt="Product Thumbnail">
+                    <img src="<?= 'backend/' . $preOrders[$i]['thumb']; ?>" alt="Product Thumbnail">
                   </a>
                 </div>
                 <div class="prod_info">
-                  <div class="prod_name"><a href="#"><?= $item['name']; ?></a></div>
-                  <div class="prod_price"><span class="prod_price-red"><?= productPrice($item); ?></span></div>
+                  <div class="prod_name"><a href="#"><?= $preOrders[$i]['name']; ?></a></div>
+                  <div class="prod_price"><span class="prod_price-red"><?= productPrice($preOrders[$i]); ?></span></div>
                 </div>
                 <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
               </article>
             <?php } ?>
 
-            <?php if ($preOrdersCount >= 4) { ?>
+            <?php if ($preOrdersCount > 4) { ?>
               <a href="#" class="prod_more">
                 <div class="prod_more_inner">
                   <h4>View All</h4>
@@ -178,7 +178,7 @@
         <div class="section_tut">
           <div class="section_tut_inner">
             <div id="mainIframe">
-              <iframe src="<?= $firstTut['link']; ?>" style="width: 100%; height: 100%;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              <iframe src="" style="width: 100%; height: 100%;" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
 
             <div class="homeIframe">
@@ -186,7 +186,7 @@
                 <article class="iframe_item">
                   <div class="iframe_item_inner">
                     <div class="video_title"><?= $item['title']; ?></div> 
-                    <div class="video_thumb" data-source="">
+                    <div class="video_thumb" data-source="<?= $item['link']; ?>">
                       <img class="video_thumb_img" src="<?= 'backend/' . $item['thumb']; ?>" alt="Video Thumbnail">
                     </div>
                   </div>
@@ -217,6 +217,7 @@
     </div>
     <!-- End main section -->
   </div>
+
 <?php
   include 'templates/footer.php';
   include_once 'templates/script.php';

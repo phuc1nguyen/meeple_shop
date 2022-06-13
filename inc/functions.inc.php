@@ -103,6 +103,7 @@
         }
       } catch (Exception $err) {
         echo "Mailer Error: {$mail->ErrorInfo}";
+        echo $err->getMessage();
         return false;
       }
 

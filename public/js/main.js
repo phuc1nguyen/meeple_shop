@@ -1,14 +1,25 @@
-// $(document).ready(function(){
-//   $('.header__menu-mobile').click(function(){
-//     // open mobile menu
-//     $('.section__menu').slideDown(); 
-//   })
-// })
+// UI Elements
+const tutorials = document.querySelector('.homeIframe');
+const tutItem = document.getElementsByClassName('iframe_item_inner');
+const firstTutItem = document.querySelector('.iframe_item_inner');
+const watchingTutUrl = firstTutItem.querySelector('.video_thumb').dataset.source;
+const watchingTutTitle = firstTutItem.querySelector('.video_title');
+const tutIframe = document.querySelector('#mainIframe iframe');
 
-document.querySelector('.section_tut').addEventListener('click', test);
+// set tutorial to watch when page load
+watchingTutTitle.classList.add('active-tut');
+tutIframe.setAttribute('src', watchingTutUrl);
 
-function test(e) {
-  if (e.target.classList.contains('video_thumb_img') || e.target.classList.contains('video_title')) {
-    console.log(12345);
-  }
+for (let i = 0; i < tutItem.length; i++) {
+  tutItem[i].addEventListener('click', function(e) {
+    // set tutorials to watch upon click on them
+    let tutThumb = e.target.closest('.iframe_item_inner').querySelector('.video_thumb');
+    let tutTitle = e.target.closest('.iframe_item_inner').querySelector('.video_title');
+    let tutUrl = tutThumb.dataset.source;
+
+    tutorials.querySelector('.active-tut').classList.remove('active-tut');
+    tutTitle.classList.add('active-tut');
+    tutIframe.setAttribute('src', tutUrl);
+  });
 }
+
