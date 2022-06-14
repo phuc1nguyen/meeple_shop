@@ -27,4 +27,4 @@
   - Cart for buying boardgames
   - Online payments with Stripe using stripe/stripe-php
   - Store images on separate locations for frontend and backend (for now they're all in backend/public/img)
-  - Not showing errors to frontend when something went wrong
+  - Not showing errors to frontend when something goes wrong
