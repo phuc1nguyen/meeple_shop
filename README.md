@@ -1,6 +1,6 @@
 # Meeple Shop
 
-  Meeple Shop is an online boardgame store inspired by other boardgame stores like Boardlandia and TabletopMerchant.
+  Meeple Shop is an online board game store inspired by other board game stores like Boardlandia and TabletopMerchant.
 
 
 ## Features
