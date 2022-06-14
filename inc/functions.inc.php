@@ -2,12 +2,12 @@
   // requires __DIR__ otherwise cause error when calling ajax to other php files
   require_once __DIR__ . '/../database/dbconnection.php';
 
-  // Import PHPMailer classes
+  // import PHPMailer classes
   use PHPMailer\PHPMailer\PHPMailer;
   use PHPMailer\PHPMailer\SMTP;
   use PHPMailer\PHPMailer\Exception;
 
-  // Load Composer's Autoloader
+  // load Composer's Autoloader
   require __DIR__ . '/../vendor/autoload.php';
 
   define('BASE_URL', 'http://meeple_shop.test/');
@@ -60,9 +60,10 @@
 
   if (!function_exists('pagination')) {
     function pagination($table) {
+      // page pagination for admin
       global $dbh;
       global $start;
-      global $display;
+      global $display;  // $display = 5 written in each php file that needs pagination
 
       if (isset($_GET['p']) && filter_var($_GET['p'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
         $page = $_GET['p'];
@@ -73,25 +74,28 @@
         $records = $sth->rowCount();
 
         if ($records > $display) {
+          // if database records > number of records we want to display => calculate pages needed
           $page = ceil($records / $display);
         } else {
+          // otherwise only one page needed
           $page = 1;
         }
       }
 
       $output = "";
       if ($page > 1) {
+        // display pages pagination if we need more than one page to display records
         $output .= "<div class='card-footer'><ul class='pagination justify-content-center m-0'>";
         $currentPage = ($start / $display) + 1;
       
-        // display previous page if not on the first page
         if ($currentPage !== 1) {
+          // display previous page link if not on the first page
           $previousPage = $start - $display;
           $output .= "<li class='page-item'><a class='page-link' href='" . ltrim($_SERVER['PHP_SELF'], '/backend/') . "?s={$previousPage}&p={$page}'>Previous</a></li>";
         }
 
-        // display remaining pages
         for ($i = 1; $i <= $page; $i++) {
+          // display remaining page links
           if ($i !== $currentPage) {
             $listPages = $display * ($i - 1);
             $output .= "<li class='page-item'><a class='page-link' href='" . ltrim($_SERVER['PHP_SELF'], '/backend/') . "?s={$listPages}&p={$page}'>{$i}</a></li>";
@@ -100,8 +104,8 @@
           }
         }
 
-        // display next page if not on the last page
         if ($currentPage !== $page) {
+          // display next page link if not on the last page
           $nextPage = $start + $display;
           $output .= "<li class='page-item'><a class='page-link' href='" . ltrim($_SERVER['PHP_SELF'], '/backend/') . "?s={$nextPage}&p={$page}'>Next</a></li>";
         }
