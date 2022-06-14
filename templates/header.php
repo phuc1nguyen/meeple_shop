@@ -34,7 +34,7 @@
           <h2><a href="index.php">Meeple Shop</a></h2>
         </div>
         <div class="header__search">
-          <input type="text" value="" placeholder="Tìm kiếm...">
+          <input type="text" value="" placeholder="Tìm kiếm..." disabled>
           <button class="btn btn-search"><i class="fas fa-search"></i></button>
         </div>
         <div class="header__info">
@@ -66,7 +66,7 @@
           </div>
         </div>
         <div class="header__search-mobile">
-          <input type="text" value="" placeholder="Tìm kiếm...">
+          <input type="text" value="" placeholder="Tìm kiếm..." disabled>
           <button class="btn btn-search"><i class="fas fa-search"></i></button>
         </div>
       </div>
