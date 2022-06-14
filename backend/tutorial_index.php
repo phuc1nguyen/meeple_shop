@@ -21,7 +21,7 @@
 
     $query = "SELECT id, title, link, thumb, active";
     $query .= " FROM tutorials WHERE title LIKE :title";
-    $query .= " ORDER BY id DESC LIMIT 0, 10";
+    $query .= " ORDER BY id DESC LIMIT {$start}, {$display}";
     $sth = $dbh->prepare($query);
     $sth->execute($data);
     $tutorials = $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -29,7 +29,7 @@
     $query = "SELECT id, title, link, thumb, active";
     $query .= " FROM tutorials";
     $query .= " ORDER BY id DESC";
-    $query .= " LIMIT 0, 10"; 
+    $query .= " LIMIT {$start}, {$display}"; 
     $tutorials = $dbh->query($query, PDO::FETCH_ASSOC);
   }
   

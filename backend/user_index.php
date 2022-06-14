@@ -20,12 +20,16 @@
       ':email' => "%{$search}%",
     );
 
-    $query = "SELECT id, name, email, avatar, registration_date, active FROM users WHERE type <> 0 AND (name LIKE :name OR email LIKE :email) ORDER BY id DESC LIMIT 0, 10";
+    $query = "SELECT id, name, email, avatar, registration_date, active FROM users";
+    $query .= " WHERE type <> 0 AND (name LIKE :name OR email LIKE :email)";
+    $query .= " ORDER BY id DESC LIMIT {$start}, {$display}";
     $sth = $dbh->prepare($query);
     $sth->execute($data);
     $users = $sth->fetchAll(PDO::FETCH_ASSOC);
   } else {
-    $query = "SELECT id, name, email, avatar, registration_date, active FROM users WHERE type <> 0 ORDER BY id DESC LIMIT 0, 10";
+    $query = "SELECT id, name, email, avatar, registration_date, active FROM users";
+    $query .= " WHERE type <> 0";
+    $query .= " ORDER BY id DESC LIMIT {$start}, {$display}";
     $users = $dbh->query($query);
   }
 
