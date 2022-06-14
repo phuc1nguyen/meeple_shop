@@ -1,8 +1,6 @@
 <?php
 	require_once '../inc/functions.inc.php';
 
-	adminAccess();
-
 	// create user
 	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// user profile picture (avatar) is not required

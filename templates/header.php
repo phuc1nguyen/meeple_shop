@@ -44,8 +44,8 @@
                 if (isAdmin()) {
                   // if authenticated user is admin
                   echo "<p><a href='backend/index.php'>" . ucwords($_SESSION['user_name']) . "</a> | <a href='auth/logout.php'>Log Out</a></p>";
-                } elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] != 0) {
-                  // authenticated user is not adim
+                } elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] !== '0') {
+                  // authenticated user is not admin
                   echo "<p><a href='user_profile.php'>" . ucwords($_SESSION['user_name']) . "</a> | <a href='auth/logout.php'>Log Out</a></p>";
                 } else {
                   // if user haven't been authenticated

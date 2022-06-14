@@ -3,11 +3,16 @@
   include_once 'templates/header.php';
   include_once 'templates/navbar.php';
   include_once 'templates/sidebar.php';
-
-  adminAccess();
 ?>
 
 <?php
+  $display = 5;
+  if (isset($_GET['s']) && filter_var($_GET['s'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
+    $start = $_GET['s'];
+  } else {
+    $start = 0;
+  }
+
   if (isset($_GET['query'])) {
     $search = filteredInput($_GET['query']);
     $data = array(
@@ -16,7 +21,7 @@
 
     $query = "SELECT id, name, cate_id, description, thumb, price, price_sale, active";
     $query .= " FROM products WHERE name LIKE :name";
-    $query .= " ORDER BY id DESC LIMIT 10";
+    $query .= " ORDER BY id DESC LIMIT 0, 10";
     $sth = $dbh->prepare($query);
     $sth->execute($data);
     $products = $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -24,7 +29,7 @@
     $query = "SELECT id, name, cate_id, description, thumb, price, price_sale, active";
     $query .= " FROM products";
     $query .= " ORDER BY id DESC";
-    $query .= " LIMIT 10"; 
+    $query .= " LIMIT 0, 10"; 
     $products = $dbh->query($query, PDO::FETCH_ASSOC);
   }
   
@@ -112,9 +117,10 @@
                     </td>
                   </tr>
                   <?php } ?>
-                  <div class="pagination"><?php pagination(); ?></div> 
+                  <div class="pagination"><?php pagination('products'); ?></div> 
                 </tbody>
               </table>
+              <?= pagination('products'); ?>
             </div>
             <!-- /.card-body -->
           </div>

@@ -3,11 +3,16 @@
   include_once 'templates/header.php';
   include_once 'templates/navbar.php';
   include_once 'templates/sidebar.php';
-
-  adminAccess();
 ?>
 
 <?php
+  $display = 5;
+  if (isset($_GET['s']) && filter_var($_GET['s'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
+    $start = $_GET['s'];
+  } else {
+    $start = 0;
+  }
+
   if (isset($_GET['query'])) {
     $search = filteredInput($_GET['query']);
     $data = array(
@@ -15,12 +20,12 @@
       ':email' => "%{$search}%",
     );
 
-    $query = "SELECT id, name, email, avatar, registration_date, active FROM users WHERE type <> 0 AND (name LIKE :name OR email LIKE :email) ORDER BY id DESC LIMIT 10";
+    $query = "SELECT id, name, email, avatar, registration_date, active FROM users WHERE type <> 0 AND (name LIKE :name OR email LIKE :email) ORDER BY id DESC LIMIT 0, 10";
     $sth = $dbh->prepare($query);
     $sth->execute($data);
     $users = $sth->fetchAll(PDO::FETCH_ASSOC);
   } else {
-    $query = "SELECT id, name, email, avatar, registration_date, active FROM users WHERE type <> 0 ORDER BY id DESC LIMIT 10";
+    $query = "SELECT id, name, email, avatar, registration_date, active FROM users WHERE type <> 0 ORDER BY id DESC LIMIT 0, 10";
     $users = $dbh->query($query);
   }
 
@@ -110,10 +115,9 @@
                       </td>
                     </tr>
                   <?php } ?>
-                  
-                  <div class="pagination"><?php pagination(); ?></div> 
                 </tbody>
               </table>
+              <?= pagination('users'); ?>
             </div>
             <!-- /.card-body -->
           </div>

@@ -1,8 +1,6 @@
 <?php 
   require_once '../inc/functions.inc.php';
 
-  adminAccess();
-
   // create slider
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // slider description is not required

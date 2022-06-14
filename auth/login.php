@@ -4,9 +4,15 @@
   include_once '../inc/functions.inc.php';
 
   // redirect if already authenticated
-  if (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 0) {
-    redirect('admin');
-  } elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 1) {
+  // if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 0) {
+  //   redirect('backend');
+  // } elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 1) {
+  //   redirect();
+  // }
+
+  if (isAdmin()) {
+    redirect('backend');
+  } elseif (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 1) {
     redirect();
   }
  ?>

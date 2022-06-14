@@ -1,8 +1,6 @@
 <?php 
   include_once 'templates/header.php';
   require_once '../inc/functions.inc.php';
-
-  adminAccess();
 ?>
   <!-- Preloader -->
   <div class="preloader flex-column justify-content-center align-items-center">

@@ -15,14 +15,14 @@
   if (!function_exists('isAdmin')) {
     function isAdmin() {
       // check if authenticated user is admin
-      return (isset($_SESSION['user_type']) && $_SESSION['user_type'] == 0);
+      return (isset($_SESSION['user_type']) && $_SESSION['user_type'] === '0');
     }
   }
 
   if (!function_exists('adminAccess')) {
     function adminAccess() {
       // redirect to home page if not admin
-      // if (!isAdmin()) redirect();
+      if (!isAdmin()) redirect();
     }
   }
 
@@ -59,8 +59,56 @@
   }
 
   if (!function_exists('pagination')) {
-    function pagination() {
+    function pagination($table) {
+      global $dbh;
+      global $start;
+      global $display;
 
+      if (isset($_GET['p']) && filter_var($_GET['p'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
+        $page = $_GET['p'];
+      } else {
+        $query = "SELECT * FROM {$table};";
+        $sth = $dbh->prepare($query);
+        $sth->execute();
+        $records = $sth->rowCount();
+
+        if ($records > $display) {
+          $page = ceil($records / $display);
+        } else {
+          $page = 1;
+        }
+      }
+
+      $output = "";
+      if ($page > 1) {
+        $output .= "<div class='card-footer'><ul class='pagination justify-content-center m-0'>";
+        $currentPage = ($start / $display) + 1;
+      
+        // display previous page if not on the first page
+        if ($currentPage !== 1) {
+          $previousPage = $start - $display;
+          $output .= "<li class='page-item'><a class='page-link' href='" . ltrim($_SERVER['PHP_SELF'], '/backend/') . "?s={$previousPage}&p={$page}'>Previous</a></li>";
+        }
+
+        // display remaining pages
+        for ($i = 1; $i <= $page; $i++) {
+          if ($i !== $currentPage) {
+            $listPages = $display * ($i - 1);
+            $output .= "<li class='page-item'><a class='page-link' href='" . ltrim($_SERVER['PHP_SELF'], '/backend/') . "?s={$listPages}&p={$page}'>{$i}</a></li>";
+          } else {
+            $output .= "<li class='page-item active'><a class='page-link'>{$i}</a></li>";
+          }
+        }
+
+        // display next page if not on the last page
+        if ($currentPage !== $page) {
+          $nextPage = $start + $display;
+          $output .= "<li class='page-item'><a class='page-link' href='" . ltrim($_SERVER['PHP_SELF'], '/backend/') . "?s={$nextPage}&p={$page}'>Next</a></li>";
+        }
+        $output .= "</ul></div>";
+      }
+    
+      return $output;
     }
   }
 

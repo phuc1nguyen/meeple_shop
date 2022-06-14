@@ -4,8 +4,6 @@
   require_once 'database/dbconnection.php';
   require_once 'inc/functions.inc.php';
 
-  adminAccess();
-
   if (!isset($_SESSION['user_id'])) {
     redirect('/auth/login.php');
   } else {

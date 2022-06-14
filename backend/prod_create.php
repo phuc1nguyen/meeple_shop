@@ -1,8 +1,6 @@
 <?php 
   require_once '../inc/functions.inc.php';
 
-  adminAccess();
-
   // create product
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // product description and sale price are not required

@@ -1,8 +1,6 @@
 <?php 
   require_once '../inc/functions.inc.php';
 
-  adminAccess();
-
   // create tutorial
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $errors = array();

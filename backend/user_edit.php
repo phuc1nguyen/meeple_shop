@@ -1,8 +1,6 @@
 <?php
 	require_once '../inc/functions.inc.php';
 
-	adminAccess();
-
 	// get user by id from database
 	if (isset($_GET['id']) && filter_var($_GET['id'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
 		$userId = $_GET['id']; 

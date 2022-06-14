@@ -1,4 +1,11 @@
-<?php session_start(); ?>
+<?php 
+  session_start(); 
+
+  include_once(__DIR__ . '/../../inc/functions.inc.php');
+
+  adminAccess();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -3,11 +3,16 @@
   include_once 'templates/header.php';
   include_once 'templates/navbar.php';
   include_once 'templates/sidebar.php';
-
-  adminAccess();
 ?>
 
 <?php
+  $display = 5;
+  if (isset($_GET['s']) && filter_var($_GET['s'], FILTER_VALIDATE_INT, array('min_range' => 1))) {
+    $start = $_GET['s'];
+  } else {
+    $start = 0;
+  }
+
   if (isset($_GET['query'])) {
     $search = filteredInput($_GET['query']);
     $data = array(
@@ -16,7 +21,7 @@
 
     $query = "SELECT id, title, link, thumb, active";
     $query .= " FROM tutorials WHERE title LIKE :title";
-    $query .= " ORDER BY id DESC LIMIT 10";
+    $query .= " ORDER BY id DESC LIMIT 0, 10";
     $sth = $dbh->prepare($query);
     $sth->execute($data);
     $tutorials = $sth->fetchAll(PDO::FETCH_ASSOC);
@@ -24,7 +29,7 @@
     $query = "SELECT id, title, link, thumb, active";
     $query .= " FROM tutorials";
     $query .= " ORDER BY id DESC";
-    $query .= " LIMIT 10"; 
+    $query .= " LIMIT 0, 10"; 
     $tutorials = $dbh->query($query, PDO::FETCH_ASSOC);
   }
   
@@ -101,9 +106,9 @@
                     </td>
                   </tr>
                   <?php } ?>
-                  <div class="pagination"><?php pagination(); ?></div> 
                 </tbody>
               </table>
+              <?= pagination('tutorials'); ?>
             </div>
           </div>
         </div>
