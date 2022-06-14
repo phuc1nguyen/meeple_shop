@@ -133,7 +133,7 @@
                     <div class="input-group" style="display: flex;">
                       <div class="custom-file">
                         <input type="file" class="custom-file-input" onchange="uploadThumb()" id="thumb" name="thumb">
-                        <input type="hidden" class="" id="thumbPath" name="thumbPath" value="<?= htmlspecialchars($_POST['thumbPath']) ?? ''; ?>">
+                        <input type="hidden" class="form-control" id="thumbPath" name="thumbPath" value="<?php if (isset($_POST['thumbPath'])) echo htmlspecialchars($_POST['thumbPath']); ?>">
                         <label class="custom-file-label" for="thumb">Choose File</label>
                       </div>
                       <div class="input-group-append">

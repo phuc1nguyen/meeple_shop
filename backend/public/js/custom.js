@@ -235,7 +235,6 @@ async function updateThumb() {
     method: "POST",
     body: new FormData(myForm),
   });
-  console.log(response);
   const result = await response.json();
 
   if (result.status === 'ok') {

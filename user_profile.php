@@ -22,9 +22,10 @@
   }
 
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // profile picture and password fields are not required
     $errors = array();
 
-    if (!empty($_POST['name']) && preg_match('/^[\w]{4,20}$/', filteredInput($_POST['name']))) {
+    if (!empty($_POST['name'])) {
       $name = filteredInput($_POST['name']);
     } else {
       $errors[] = 'name';
@@ -36,38 +37,58 @@
       $errors[] = 'email';
     }
 
-    if (!empty($_POST['password']) && preg_match('/^[\w]{6,20}$/', filteredInput($_POST['password']))) {
-      if ($_POST['password_cf'] !== $_POST['password']) {
-        $errors[] = 'passwords not match';
+    if (!empty($_POST['thumbPath'])) {
+      $thumb = filteredInput($_POST['thumbPath']); 
+      $thumb = explode('/', $thumb);
+      array_shift($thumb);
+      $thumb = implode('/', $thumb);
+    } else {
+      if (isset($user['avatar'])) {
+        $thumb = $user['avatar'];
       } else {
-        $password = filteredInput($_POST['password']);
-        $password = password_hash($password, PASSWORD_BCRYPT);
+        $thumb = null;
+      }
+    }
+
+    if (!empty($_POST['password'])) {
+      // if user enters password field
+      if (!preg_match('/^[\w]{6,20}$/', filteredInput($_POST['password']))) {
+        // password is invalid
+        $errors[] = 'password';
+      } else {
+        // password is valid
+        if ($_POST['password_cf'] !== $_POST['password']) {
+          $errors[] = 'passwords not match';
+        } else {
+          $password = filteredInput($_POST['password']);
+          $password = password_hash($password, PASSWORD_BCRYPT);
+        }
       }
     } else {
+      // if user leaves password field blank
       $password = $user['password'];
     }
 
     if (empty($errors)) {
-      
-
       $data = [
         ':name' => $name,
         ':email' => $email,
         ':password' => $password,
-        ':avatar' => 'test',
+        ':thumb' => $thumb,
         ':updated' => (new DateTime())->format('Y-m-d H:i:s'),
         ':id' => $userId,
       ];
-      $query = "UPDATE users SET name = :name, email = :email, password = :password, type = 1, avatar = :avatar, update_date = :updated WHERE id = :id LIMIT 1;";
+      $query = "UPDATE users SET name = :name, email = :email, password = :password, type = 1, avatar = :thumb, updated_date = :updated WHERE id = :id LIMIT 1;";
       $sth = $dbh->prepare($query);
       
       if ($sth->execute($data)) {
-
+        // $msg = "<script type='text/javascript'>alert('Your profile has been successfully updated')</script>";
+        redirect('/user_profile.php');
       } else {
-        $msg = "<p></p>";
+        $msg = "<script type='text/javascript'>alert('Something went wrong')</script>";
       }
     } else {
-      $msg = "<p class=''></p>";
+      $msg = "<script type='text/javascript'>alert('Please fill in all required inputs')</script>";
     }
   }
 ?>
@@ -83,7 +104,8 @@
           </div>
           <div class="thumb-items">
             <label for="avatar">Profile picture</label>
-            <input type="file" id="avatar" name="avatar" value="">
+            <input type="file" id="thumb" name="thumb" value="" onchange="updateThumb()">
+            <input type="hidden" id="thumbPath" name ="thumbPath" value="">
           </div>
         </div>
         <div class="edit__profile-inputs">
@@ -100,10 +122,15 @@
           <div class="input-items">
             <label for="password">Your new password</label>
             <input type="password" id="password" name="password" placeholder="Leave blank to keep old password"> 
+            <?php if (isset($errors) && in_array('password', $errors)) echo "<p class='red-alert'>New password must have 6 to 20 characters</p>"; ?>
           </div>
           <div class="input-items">
             <label for="password_cf">New password confirm</label>
-            <input type="password_cf" id="password_cf" name="password_cf" placeholder="New Password Confirm"> 
+            <input type="password" id="password_cf" name="password_cf" placeholder="New Password Confirm"> 
+            <?php if (isset($errors) && in_array('passwords not match', $errors)) echo "<p class='red-alert'>Passwords do not match</p>"; ?>
+          </div>
+          <div class="input-items">
+            <button type="submit">UPDATE</button>
           </div>
         </div>
       </form>
@@ -111,8 +138,10 @@
   </div>
 </div>
 
-
 <?php
   include 'templates/footer.php';
+
+  if (isset($msg)) echo $msg;
+
   include_once 'templates/script.php';
 ?>

@@ -23,3 +23,22 @@ for (let i = 0; i < tutItem.length; i++) {
   });
 }
 
+async function updateThumb() {
+  const myForm = document.querySelector('#userForm');
+  const previewImg = document.querySelector('.thumbPreview img');
+  const fileUpload = document.querySelector('#thumbPath');
+
+  const response = await fetch('../../backend/ajax/upload_userprofile.php', {
+    method: 'POST',
+    body: new FormData(myForm),
+  });
+  const result = await response.json();
+
+  if (result.status === 'ok') {
+    previewImg.setAttribute('src', result.image);
+    // fileUpload.setAttribute('value', result.image);
+    fileUpload.value = result.image;
+  } else {
+    alert(result.message);
+  }
+}

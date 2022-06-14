@@ -97,77 +97,83 @@
     <!-- End highlights banners -->
 
     <!-- Main section -->
-    <div class="home__content">
-      <section class="home__new-release wide">
-        <div class="section_heading">
-          <h1 class="section_name">New Releases</h1>
-        </div>
-
-        <div class="section_prod">
-          <div class="section_prod_inner">
-            <?php for ($i = 0; $i < 4; $i++) { ?>
-              <article class="prod_item">
-                <div class="prod_thumb">
-                  <a href="#" class="prod_thumb-inner">
-                    <img src="<?= 'backend/' . $newReleases[$i]['thumb']; ?>" alt="Product Thumbnail">
-                  </a>
-                </div>
-                <div class="prod_info">
-                  <div class="prod_name"><a href="#"><?= $newReleases[$i]['name'] ?></a></div>
-                  <div class="prod_price"><span class="prod_price-red"><?= productPrice($newReleases[$i]); ?></span></div>
-                </div>
-                <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
-              </article>
-            <?php } ?>
-
-            <?php if ($newReleasesCount >= 4) { ?>
-              <a href="#" class="prod_more">
-                <div class="prod_more_inner">
-                  <h4>View All</h4>
-                  <h2>New Games</h2>
-                </div>
-              </a>
-            <?php } ?>
+    <?php if ($newReleasesCount > 0) { ?>
+      <div class="home__content">
+        <section class="home__new-release wide">
+          <div class="section_heading">
+            <h1 class="section_name">New Releases</h1>
           </div>
-        </div>
-      </section>
-    </div>
 
-    <div class="home__content">
-      <section class="home__pre-order wide">
-        <div class="section_heading">
-          <h1 class="section_name">Pre-Orders</h1>
-        </div>
+          <div class="section_prod">
+            <div class="section_prod_inner">
+              <?php for ($i = 0; $i < $newReleasesCount; $i++) { ?>
+                <article class="prod_item">
+                  <div class="prod_thumb">
+                    <a href="#" class="prod_thumb-inner">
+                      <img src="<?= 'backend/' . $newReleases[$i]['thumb']; ?>" alt="Product Thumbnail">
+                    </a>
+                  </div>
+                  <div class="prod_info">
+                    <div class="prod_name"><a href="#"><?= $newReleases[$i]['name'] ?></a></div>
+                    <div class="prod_price"><span class="prod_price-red"><?= productPrice($newReleases[$i]); ?></span></div>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
+                </article>
+                <?php if ($i === 3) break; ?>
+              <?php } ?>
 
-        <div class="section_prod">
-          <div class="section_prod_inner">
-            <?php for ($i = 0; $i < 4; $i++) { ?>
-              <article class="prod_item">
-                <div class="prod_thumb">
-                  <a href="#" class="prod_thumb-inner">
-                    <img src="<?= 'backend/' . $preOrders[$i]['thumb']; ?>" alt="Product Thumbnail">
-                  </a>
-                </div>
-                <div class="prod_info">
-                  <div class="prod_name"><a href="#"><?= $preOrders[$i]['name']; ?></a></div>
-                  <div class="prod_price"><span class="prod_price-red"><?= productPrice($preOrders[$i]); ?></span></div>
-                </div>
-                <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
-              </article>
-            <?php } ?>
-
-            <?php if ($preOrdersCount > 4) { ?>
-              <a href="#" class="prod_more">
-                <div class="prod_more_inner">
-                  <h4>View All</h4>
-                  <h2>Pre-Orders</h2>
-                </div>
-              </a>
-            <?php } ?>
+              <?php if ($newReleasesCount > 4) { ?>
+                <a href="#" class="prod_more">
+                  <div class="prod_more_inner">
+                    <h4>View All</h4>
+                    <h2>New Games</h2>
+                  </div>
+                </a>
+              <?php } ?>
+            </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    <?php } ?>
+
+    <?php if ($preOrdersCount > 0) { ?>
+      <div class="home__content">
+        <section class="home__pre-order wide">
+          <div class="section_heading">
+            <h1 class="section_name">Pre-Orders</h1>
+          </div>
+
+          <div class="section_prod">
+            <div class="section_prod_inner">
+              <?php for ($i = 0; $i < $preOrdersCount; $i++) { ?>
+                <article class="prod_item">
+                  <div class="prod_thumb">
+                    <a href="#" class="prod_thumb-inner">
+                      <img src="<?= 'backend/' . $preOrders[$i]['thumb']; ?>" alt="Product Thumbnail">
+                    </a>
+                  </div>
+                  <div class="prod_info">
+                    <div class="prod_name"><a href="#"><?= $preOrders[$i]['name']; ?></a></div>
+                    <div class="prod_price"><span class="prod_price-red"><?= productPrice($preOrders[$i]); ?></span></div>
+                  </div>
+                  <button type="button" class="btn btn-primary btn-add-cart" data-url="">Add to cart</button>
+                </article>
+                <?php if ($i === 3) break; ?>
+              <?php } ?>
+
+              <?php if ($preOrdersCount > 4) { ?>
+                <a href="#" class="prod_more">
+                  <div class="prod_more_inner">
+                    <h4>View All</h4>
+                    <h2>Pre-Orders</h2>
+                  </div>
+                </a>
+              <?php } ?>
+            </div>
+          </div>
+        </section>
+      </div>
+    <?php } ?>
 
     <div class="home__content">
       <section class="home__tutorial wide">
