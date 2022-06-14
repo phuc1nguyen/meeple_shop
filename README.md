@@ -21,7 +21,7 @@
   Change the necessary configurations (database, email) in [config.inc.php](https://github.com/phuc1nguyen/meeple_shop/blob/master/database/meeple_db.sql) file.
 
 
-## Improvement
+## Improvements
 
   As one of my first projects to hone my skill in pure PHP, MySQL, there are few things I wish to further improve (leave for future projects):
   - Cart for buying boardgames
