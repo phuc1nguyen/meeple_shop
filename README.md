@@ -16,7 +16,7 @@
 
 ## Local Setup
 
-  MeepleShop is built with pure PHP, HTML and JS (backend uses AdminLTE) so set up as a normal project. For database, import [meeple_db.sql](https://github.com/phuc1nguyen/meeple_shop/blob/master/database/meeple_db.sql) file in database folder.
+  MeepleShop is built with pure PHP, HTML and JS (backend uses AdminLTE) so set up as a normal PHP project. For database, import [meeple_db.sql](https://github.com/phuc1nguyen/meeple_shop/blob/master/database/meeple_db.sql) file in database folder.
 
   Change the necessary configurations (database, email) in [config.inc.php](https://github.com/phuc1nguyen/meeple_shop/blob/master/database/meeple_db.sql) file.
 
